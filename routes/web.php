@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('Pages.dashboard');
+});
+
+Route::get('/main-page', function () {
+    return view('Pages.LandingPage.main-page');
 });
 
 Route::get('migrate',function(){

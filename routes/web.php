@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/main-page', function () {
-    return view('Pages.LandingPage.main-page');
+    return view('Pages.LandingPage.mainPage');
 });
 
 Route::get('migrate',function(){

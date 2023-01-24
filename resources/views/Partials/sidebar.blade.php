@@ -83,7 +83,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="../../pages/dashboards/analytics.html">
+                <a class="nav-link text-white" href="/contact">
                   <span class="sidenav-mini-icon"> Cs </span>
                   <span class="sidenav-normal  ms-2  ps-1"> Contact Us Page </span>
                 </a>

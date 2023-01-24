@@ -73,11 +73,14 @@
                     </div>
                 </div>
               </div>
+              <div class="card-footer">
+                <button class="btn bg-gradient-primary btn-sm float-lg-end">Save</button>
+              </div>
             </div>
             <!-- Steps Section -->
             <div class="card mt-4" id="steps">
                 <div class="card-header">
-                <h5>Steps Info</h5>
+                  <h5>Steps Info</h5>
                 </div>
                 <div class="card-body pt-0">
                     <div class="row">
@@ -139,6 +142,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn bg-gradient-primary btn-sm float-lg-end">Save</button>
                 </div>
             </div>
             <!-- Greeting Banner -->
@@ -166,11 +172,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="card-footer">
+                  <button class="btn bg-gradient-primary btn-sm float-lg-end">Save</button>
+                </div>
             </div>
             <!-- Highlight Section -->
             <div class="card mt-4" id="highlight">
                 <div class="card-header">
-                <h5>Highlight Section</h5>
+                  <h5>Highlight Section</h5>
                 </div>
                 <div class="card-body pt-0">
                     <div class="row">
@@ -218,11 +227,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="card-footer">
+                  <button class="btn bg-gradient-primary btn-sm float-lg-end">Save</button>
+                </div>
             </div>
             <!-- Footer Section -->
             <div class="card mt-4" id="footer">
                 <div class="card-header">
-                <h5>Footer Section</h5>
+                  <h5>Footer Section</h5>
                 </div>
                 <div class="card-body pt-0">
                     <div class="row">
@@ -251,6 +263,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn bg-gradient-primary btn-sm float-lg-end">Save</button>
                 </div>
             </div>
           </div>

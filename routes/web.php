@@ -16,11 +16,17 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return view('Pages.dashboard');
-});
+})->name('dashboard');
 
 Route::get('/main-page', function () {
     return view('Pages.LandingPage.mainPage');
-});
+})->name('landingpage.main');
+Route::get('/about', function () {
+    return view('Pages.LandingPage.about');
+})->name('landingpage.about');
+Route::get('/contact', function () {
+    return view('Pages.LandingPage.contact');
+})->name('landingpage.contact');
 
 Route::get('migrate',function(){
     Artisan::call('migrate', ['--force' => true]);

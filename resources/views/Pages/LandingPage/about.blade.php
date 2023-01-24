@@ -24,8 +24,35 @@
             </div>
           </div>
           <div class="col-lg-9 mt-lg-0 mt-4">
+            <!-- Page Header -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-sm-auto col-lg-5">
+                            <div class="input-group input-group-static mb-4">
+                                <label>Title</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-auto ms-sm-auto mt-sm-0 mt-3 d-flex">
+                            <div class="avatar avatar-xl position-relative">
+                            <img src="../../../assets/img/bruce-mars.jpg" alt="bruce" class="w-100 rounded-circle shadow-sm">
+                            </div>
+                        </div>
+                        <div class="col-sm-auto col-lg-5">
+                            <div class="input-group input-group-static">
+                                <label>Background Picture</label>
+                                  <input type="file" name="picture" id="picture" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn bg-gradient-primary btn-sm float-lg-end">Save</button>
+                </div>
+            </div>
             <!-- First -->
-            <div class="card" id="first">
+            <div class="card mt-4" id="first">
               <div class="card-header pb-0">
                 <div class="d-lg-flex">
                     <div>

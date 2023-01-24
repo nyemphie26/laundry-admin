@@ -9,15 +9,15 @@
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
       <ul class="navbar-nav">
-        <li class="nav-item mb-2 mt-0">
-          <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white" aria-controls="ProfileNav" role="button" aria-expanded="false">
+        <li class="nav-item mb-2 mt-0 {{ request()->route()->named('account*') ? 'active' : '' }}">
+          <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white {{ request()->route()->named('account*') ? 'active' : '' }}" aria-controls="ProfileNav" role="button" aria-expanded="false">
             <img src="../../assets/img/team-3.jpg" class="avatar">
             <span class="nav-link-text ms-2 ps-1">Brooklyn Alice</span>
           </a>
-          <div class="collapse" id="ProfileNav" style="">
+          <div class="collapse {{ request()->route()->named('account*') ? 'show' : '' }}" id="ProfileNav" style="">
             <ul class="nav ">
-              <li class="nav-item">
-                <a class="nav-link text-white " href="../../pages/pages/account/settings.html">
+              <li class="nav-item {{ request()->route()->named('account.settings*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('account.settings*') ? 'active' : '' }}" href="{{ route('account.settings') }}">
                   <span class="sidenav-mini-icon"> S </span>
                   <span class="sidenav-normal  ms-3  ps-1"> Account Settings </span>
                 </a>

@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('Pages.dashboard');
 })->name('dashboard');
 
+//Landing Page
 Route::get('/main-page', function () {
     return view('Pages.LandingPage.mainPage');
 })->name('landingpage.main');
@@ -27,6 +28,12 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('Pages.LandingPage.contact');
 })->name('landingpage.contact');
+
+//Account
+Route::get('/account', function () {
+    return view('Pages.Account.settings');
+})->name('account.settings');
+
 
 Route::get('migrate',function(){
     Artisan::call('migrate', ['--force' => true]);

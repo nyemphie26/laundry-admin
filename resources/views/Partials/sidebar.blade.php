@@ -77,7 +77,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="../../pages/dashboards/analytics.html">
+                <a class="nav-link text-white" href="/about">
                   <span class="sidenav-mini-icon"> As </span>
                   <span class="sidenav-normal  ms-2  ps-1"> About Us Page </span>
                 </a>

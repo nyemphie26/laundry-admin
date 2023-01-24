@@ -14,12 +14,17 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
+Route::domain('{dashboard}.codignore.com')->group(function () {
+});
 Route::get('/', function () {
     return view('Pages.dashboard');
 });
 
 Route::get('/main-page', function () {
     return view('Pages.LandingPage.mainPage');
+});
+Route::get('/about', function () {
+    return view('Pages.LandingPage.about');
 });
 
 Route::get('migrate',function(){

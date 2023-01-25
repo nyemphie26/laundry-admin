@@ -43,6 +43,20 @@ Route::get('/details', function (){
     return view('Pages.Orders.details');
 })->name('dashboard.orders.details');
 
+//Services
+Route::get('/services', function (){
+    return view('Pages.Services.products-list');
+})->name('services.products');
+
+Route::get('/services/create', function (){
+    return view('Pages.Services.products-new');
+})->name('services.products.create');
+
+Route::get('/services/edit', function (){
+    return view('Pages.Services.products-edit');
+})->name('services.products.edit');
+
+
 Route::get('migrate',function(){
     Artisan::call('migrate', ['--force' => true]);
 });

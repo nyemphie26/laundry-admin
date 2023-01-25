@@ -111,9 +111,9 @@
                 </a>
               </li>
               <li class="nav-item {{ request()->route()->named('services.products*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('services.products*') ? 'active' : '' }}" href="/about">
-                  <span class="sidenav-mini-icon"> Pr </span>
-                  <span class="sidenav-normal  ms-2  ps-1"> Products </span>
+                <a class="nav-link text-white {{ request()->route()->named('services.products*') ? 'active' : '' }}" href="{{ route('services.products') }}">
+                  <span class="sidenav-mini-icon"> Sr </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> Services </span>
                 </a>
               </li>
             </ul>

@@ -51,8 +51,8 @@
                   <span class="sidenav-normal  ms-2  ps-1"> Order List </span>
                 </a>
               </li>
-              <li class="nav-item {{ request()->route()->named('dashboard.Incoming*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('dashboard.Incoming*') ? 'active' : '' }}" href="{{ route('dashboard.orders') }}">
+              <li class="nav-item {{ request()->route()->named('dashboard.incoming*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('dashboard.incoming*') ? 'active' : '' }}" href="{{ route('dashboard.incoming') }}">
                   <span class="sidenav-mini-icon"> O </span>
                   <span class="sidenav-normal  ms-2  ps-1"> Incoming Orders </span>
                 </a>
@@ -105,7 +105,7 @@
           <div class="collapse {{ request()->route()->named('services*') ? 'show' : '' }}" id="services">
             <ul class="nav ">
               <li class="nav-item {{ request()->route()->named('services.categories*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('services.categories*') ? 'active' : '' }}" href="/main-page">
+                <a class="nav-link text-white {{ request()->route()->named('services.categories*') ? 'active' : '' }}" href="#">
                   <span class="sidenav-mini-icon"> Ct </span>
                   <span class="sidenav-normal  ms-2  ps-1"> Categories </span>
                 </a>

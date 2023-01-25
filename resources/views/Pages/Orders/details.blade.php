@@ -13,7 +13,28 @@
               Code: <b>KF332</b>
             </p>
           </div>
+          @if (request()->route()->named('dashboard.orders*'))
           <a href="javascript:;" class="btn bg-gradient-dark ms-auto mb-0">Invoice</a>
+          @elseif (request()->route()->named('dashboard.incoming*'))
+          <div class="w-25 me-4">
+            <label class="form-control m-0 p-0 text-bold">Assign Driver</label>
+            <select class="form-control" name="choices-driver" id="choices-driver">
+                <option value="Choice 1" selected="">Driver 1</option>
+                <option value="Choice 2">Driver 2</option>
+                <option value="Choice 3">Driver 3</option>
+            </select>
+          </div>
+          <div class="w-25">
+            <label class="form-control m-0 p-0 text-bold">Assign Employee</label>
+            <select class="form-control" name="choices-employee" id="choices-employee">
+                <option value="Choice 1" selected="">Employee 1</option>
+                <option value="Choice 2">Employee 2</option>
+                <option value="Choice 3">Employee 3</option>
+            </select>
+          </div>
+          @endif
+        </div>
+        <div class="d-flex">
         </div>
       </div>
       <div class="card-body p-3 pt-0">
@@ -53,42 +74,44 @@
                   <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">22 DEC 7:20 AM</p>
                 </div>
               </div>
-              <div class="timeline-block mb-3">
-                <span class="timeline-step">
-                  <i class="material-icons text-secondary text-lg">local_shipping</i>
-                </span>
-                <div class="timeline-content">
-                  <h6 class="text-dark text-sm font-weight-bold mb-0">Order picked up</h6>
-                  <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">22 DEC 7:21 AM</p>
+              @if (request()->route()->named('dashboard.orders*'))
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="material-icons text-secondary text-lg">local_shipping</i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Order picked up</h6>
+                    <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">22 DEC 7:21 AM</p>
+                  </div>
                 </div>
-              </div>
-              <div class="timeline-block mb-3">
-                <span class="timeline-step">
-                  <i class="material-icons text-secondary text-lg">local_laundry_service</i>
-                </span>
-                <div class="timeline-content">
-                  <h6 class="text-dark text-sm font-weight-bold mb-0">Washed</h6>
-                  <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">22 DEC 8:10 AM</p>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="material-icons text-secondary text-lg">local_laundry_service</i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Washed</h6>
+                    <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">22 DEC 8:10 AM</p>
+                  </div>
                 </div>
-              </div>
-              <div class="timeline-block mb-3">
-                <span class="timeline-step">
-                  <i class="material-icons text-secondary text-lg">local_shipping</i>
-                </span>
-                <div class="timeline-content">
-                  <h6 class="text-dark text-sm font-weight-bold mb-0">Order delivered</h6>
-                  <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">22 DEC 4:54 PM</p>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="material-icons text-secondary text-lg">local_shipping</i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Order delivered</h6>
+                    <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">22 DEC 4:54 PM</p>
+                  </div>
                 </div>
-              </div>
-              <div class="timeline-block mb-3">
-                <span class="timeline-step">
-                  <i class="material-icons text-success text-gradient text-lg">done</i>
-                </span>
-                <div class="timeline-content">
-                  <h6 class="text-dark text-sm font-weight-bold mb-0">Order recieved</h6>
-                  <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">22 DEC 4:54 PM</p>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="material-icons text-success text-gradient text-lg">done</i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Order recieved</h6>
+                    <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">22 DEC 4:54 PM</p>
+                  </div>
                 </div>
-              </div>
+              @endif
             </div>
           </div>
           <div class="col-lg-5 col-md-6 col-12">
@@ -127,6 +150,32 @@
           </div>
         </div>
       </div>
+      @if (request()->route()->named('dashboard.incoming*'))
+      <div class="card-footer">
+        <button class="btn btn-primary btn-sm w-100">
+          Save
+        </button>
+      </div>
+      @endif
     </div>
   </div>
+@endsection
+
+@section('page-script')
+    <script src="{{ asset('assets/js/plugins/choices.min.js') }}"></script>
+
+    <script>
+        if (document.getElementById('choices-driver')) {
+          var element = document.getElementById('choices-driver');
+          const example = new Choices(element, {
+            searchEnabled: false
+          });
+        };
+        if (document.getElementById('choices-employee')) {
+          var element = document.getElementById('choices-employee');
+          const example = new Choices(element, {
+            searchEnabled: false
+          });
+        };
+      </script>
 @endsection

@@ -39,9 +39,17 @@ Route::get('/orders', function (){
     return view('Pages.Orders.orders');
 })->name('dashboard.orders');
 
+Route::get('/incoming', function (){
+    return view('Pages.Orders.incoming');
+})->name('dashboard.incoming');
+
 Route::get('/details', function (){
     return view('Pages.Orders.details');
 })->name('dashboard.orders.details');
+
+Route::get('/incoming/details', function (){
+    return view('Pages.Orders.details');
+})->name('dashboard.incoming.details');
 
 //Services
 Route::get('/services', function (){
@@ -55,6 +63,8 @@ Route::get('/services/create', function (){
 Route::get('/services/edit', function (){
     return view('Pages.Services.products-edit');
 })->name('services.products.edit');
+
+//Customer
 
 
 Route::get('migrate',function(){

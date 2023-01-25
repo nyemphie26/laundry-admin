@@ -39,10 +39,22 @@
           </a>
           <div class="collapse {{ request()->route()->named('dashboard*') ? 'show' : '' }}" id="dashboardsExamples">
             <ul class="nav ">
-              <li class="nav-item {{ request()->route()->named('dashboard*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('dashboard*') ? 'active' : '' }}" href="/">
+              <li class="nav-item {{ request()->route()->named('dashboard.main*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('dashboard.main*') ? 'active' : '' }}" href="/">
                   <span class="sidenav-mini-icon"> A </span>
                   <span class="sidenav-normal  ms-2  ps-1"> Analytics </span>
+                </a>
+              </li>
+              <li class="nav-item {{ request()->route()->named('dashboard.orders*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('dashboard.orders*') ? 'active' : '' }}" href="{{ route('dashboard.orders') }}">
+                  <span class="sidenav-mini-icon"> O </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> Order List </span>
+                </a>
+              </li>
+              <li class="nav-item {{ request()->route()->named('dashboard.Incoming*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('dashboard.Incoming*') ? 'active' : '' }}" href="{{ route('dashboard.orders') }}">
+                  <span class="sidenav-mini-icon"> O </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> Incoming Orders </span>
                 </a>
               </li>
             </ul>
@@ -53,7 +65,7 @@
         </li>
         <li class="nav-item {{ request()->route()->named('landingpage*') ? 'active' : '' }}">
           <a data-bs-toggle="collapse" href="#landingPage" class="nav-link text-white {{ request()->route()->named('landingpage*') ? 'active' : '' }}" aria-controls="landingPage" role="button" aria-expanded="false">
-            <i class="material-icons-round opacity-10">dashboard</i>
+            <i class="material-icons-round opacity-10">language</i>
             <span class="nav-link-text ms-2 ps-1">Landing Page</span>
           </a>
           <div class="collapse {{ request()->route()->named('landingpage*') ? 'show' : '' }}" id="landingPage">
@@ -87,7 +99,7 @@
         </li>
         <li class="nav-item {{ request()->route()->named('services*') ? 'active' : '' }}">
           <a data-bs-toggle="collapse" href="#services" class="nav-link text-white {{ request()->route()->named('services*') ? 'active' : '' }}" aria-controls="services" role="button" aria-expanded="false">
-            <i class="material-icons-round opacity-10">people</i>
+            <i class="material-icons-round opacity-10">local_laundry_service</i>
             <span class="nav-link-text ms-2 ps-1">Services</span>
           </a>
           <div class="collapse {{ request()->route()->named('services*') ? 'show' : '' }}" id="services">

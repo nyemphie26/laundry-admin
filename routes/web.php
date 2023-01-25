@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return view('Pages.dashboard');
-})->name('dashboard');
+})->name('dashboard.main');
 
 //Landing Page
 Route::get('/main-page', function () {
@@ -34,6 +34,14 @@ Route::get('/account', function () {
     return view('Pages.Account.settings');
 })->name('account.settings');
 
+//Orders
+Route::get('/orders', function (){
+    return view('Pages.Orders.orders');
+})->name('dashboard.orders');
+
+Route::get('/details', function (){
+    return view('Pages.Orders.details');
+})->name('dashboard.orders.details');
 
 Route::get('migrate',function(){
     Artisan::call('migrate', ['--force' => true]);

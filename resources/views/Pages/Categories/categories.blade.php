@@ -8,11 +8,11 @@
           <div class="card-header pb-0">
             <div class="d-lg-flex">
               <div>
-                <h5 class="mb-0">All Services</h5>
+                <h5 class="mb-0">All Categories</h5>
               </div>
               <div class="ms-auto my-auto mt-lg-0 mt-4">
                 <div class="ms-auto my-auto">
-                  <a href="{{ route('services.products.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Product</a>
+                  <a href="#" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Category</a>
                 </div>
               </div>
             </div>
@@ -22,7 +22,7 @@
               <table class="table table-flush" id="products-list">
                 <thead class="thead-light">
                   <tr>
-                    <th>Product</th>
+                    <th>Category Name</th>
                     <th>Category</th>
                     <th>Variant</th>
                     <th>Action</th>

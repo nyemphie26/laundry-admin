@@ -25,7 +25,6 @@
                     <th>Product</th>
                     <th>Category</th>
                     <th>Variant</th>
-                    <
                     <th>Action</th>
                   </tr>
                 </thead>

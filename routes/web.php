@@ -37,11 +37,11 @@ Route::get('/account', function () {
 //Orders
 Route::get('/orders', function (){
     return view('Pages.Orders.orders');
-})->name('dashboard.orders');
+})->name('orders.list');
 
 Route::get('/incoming', function (){
     return view('Pages.Orders.incoming');
-})->name('dashboard.incoming');
+})->name('orders.incoming');
 
 Route::get('/details', function (){
     return view('Pages.Orders.details');
@@ -51,20 +51,43 @@ Route::get('/incoming/details', function (){
     return view('Pages.Orders.details');
 })->name('dashboard.incoming.details');
 
-//Services
-Route::get('/services', function (){
-    return view('Pages.Services.products-list');
-})->name('services.products');
+//Services & Categories
+Route::get('/products', function (){
+    return view('Pages.Products.index');
+})->name('products');
 
-Route::get('/services/create', function (){
-    return view('Pages.Services.products-new');
-})->name('services.products.create');
+Route::get('/products/category', function (){
+    return view('Pages.Products.category-new');
+})->name('products.category.new');
 
-Route::get('/services/edit', function (){
-    return view('Pages.Services.products-edit');
-})->name('services.products.edit');
+Route::get('/products/category/edit', function (){
+    return view('Pages.Products.category-edit');
+})->name('products.category.edit');
 
-//Customer
+Route::get('/products/service', function (){
+    return view('Pages.Products.service-new');
+})->name('products.service.new');
+
+Route::get('/products/service/edit', function (){
+    return view('Pages.Products.service-edit');
+})->name('products.service.edit');
+
+//Users
+Route::get('/customers', function (){
+    return view('Pages.Users.customers');
+})->name('users.customers');
+
+Route::get('/employees', function (){
+    return view('Pages.Users.employees');
+})->name('users.employees');
+
+Route::get('/employees/create', function (){
+    return view('Pages.Users.employees-new');
+})->name('users.employees.new');
+
+Route::get('/employees/edit', function (){
+    return view('Pages.Users.employees-edit');
+})->name('users.employees.edit');
 
 
 Route::get('migrate',function(){

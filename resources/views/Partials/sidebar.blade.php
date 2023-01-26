@@ -32,29 +32,29 @@
           </div>
         </li>
         <hr class="horizontal light mt-0">
-        <li class="nav-item {{ request()->route()->named('dashboard*') ? 'active' : '' }}">
-          <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white {{ request()->route()->named('dashboard*') ? 'active' : '' }}" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+        <li class="nav-item {{ request()->route()->named('dashboard.main*') ? 'active' : '' }}">
+          <a class="nav-link text-white {{ request()->route()->named('dashboard.main*') ? 'active bg-gradient-primary' : '' }}" href="/">
             <i class="material-icons-round opacity-10">dashboard</i>
-            <span class="nav-link-text ms-2 ps-1">Dashboards</span>
+            <span class="sidenav-normal  ms-2  ps-1"> Dashboard </span>
           </a>
-          <div class="collapse {{ request()->route()->named('dashboard*') ? 'show' : '' }}" id="dashboardsExamples">
+        </li>
+        <li class="nav-item {{ request()->route()->named('orders*') ? 'active' : '' }}">
+          <a data-bs-toggle="collapse" href="#ordersExamples" class="nav-link text-white {{ request()->route()->named('orders*') ? 'active' : '' }}" aria-controls="ordersExamples" role="button" aria-expanded="false">
+            <i class="material-icons-round opacity-10">receipt_long</i>
+            <span class="nav-link-text ms-2 ps-1">Orders</span>
+          </a>
+          <div class="collapse {{ request()->route()->named('orders*') ? 'show' : '' }}" id="ordersExamples">
             <ul class="nav ">
-              <li class="nav-item {{ request()->route()->named('dashboard.main*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('dashboard.main*') ? 'active' : '' }}" href="/">
-                  <span class="sidenav-mini-icon"> A </span>
-                  <span class="sidenav-normal  ms-2  ps-1"> Analytics </span>
+              <li class="nav-item {{ request()->route()->named('orders.incoming*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('orders.incoming*') ? 'active' : '' }}" href="{{ route('orders.incoming') }}">
+                  <span class="sidenav-mini-icon"> I </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> Incoming Orders </span>
                 </a>
               </li>
-              <li class="nav-item {{ request()->route()->named('dashboard.orders*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('dashboard.orders*') ? 'active' : '' }}" href="{{ route('dashboard.orders') }}">
+              <li class="nav-item {{ request()->route()->named('orders.list*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('orders.list*') ? 'active' : '' }}" href="{{ route('orders.list') }}">
                   <span class="sidenav-mini-icon"> O </span>
                   <span class="sidenav-normal  ms-2  ps-1"> Order List </span>
-                </a>
-              </li>
-              <li class="nav-item {{ request()->route()->named('dashboard.incoming*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('dashboard.incoming*') ? 'active' : '' }}" href="{{ route('dashboard.incoming') }}">
-                  <span class="sidenav-mini-icon"> O </span>
-                  <span class="sidenav-normal  ms-2  ps-1"> Incoming Orders </span>
                 </a>
               </li>
             </ul>
@@ -62,6 +62,12 @@
         </li>
         <li class="nav-item mt-3">
           <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder text-white">Settings</h6>
+        </li>
+        <li class="nav-item {{ request()->route()->named('products*') ? 'active' : '' }}">
+          <a class="nav-link text-white {{ request()->route()->named('products*') ? 'active bg-gradient-primary' : '' }}" href="{{ route('products') }}">
+            <i class="material-icons-round opacity-10">local_laundry_service</i>
+            <span class="sidenav-normal  ms-2  ps-1"> Services & Categories </span>
+          </a>
         </li>
         <li class="nav-item {{ request()->route()->named('landingpage*') ? 'active' : '' }}">
           <a data-bs-toggle="collapse" href="#landingPage" class="nav-link text-white {{ request()->route()->named('landingpage*') ? 'active' : '' }}" aria-controls="landingPage" role="button" aria-expanded="false">
@@ -74,12 +80,6 @@
                 <a class="nav-link text-white {{ request()->route()->named('landingpage.main*') ? 'active' : '' }}" href="/main-page">
                   <span class="sidenav-mini-icon"> M </span>
                   <span class="sidenav-normal  ms-2  ps-1"> Main Page </span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="../../pages/dashboards/analytics.html">
-                  <span class="sidenav-mini-icon"> S </span>
-                  <span class="sidenav-normal  ms-2  ps-1"> Service Page </span>
                 </a>
               </li>
               <li class="nav-item {{ request()->route()->named('landingpage.about*') ? 'active' : '' }}">
@@ -97,28 +97,6 @@
             </ul>
           </div>
         </li>
-        <li class="nav-item {{ request()->route()->named('services*') ? 'active' : '' }}">
-          <a data-bs-toggle="collapse" href="#services" class="nav-link text-white {{ request()->route()->named('services*') ? 'active' : '' }}" aria-controls="services" role="button" aria-expanded="false">
-            <i class="material-icons-round opacity-10">local_laundry_service</i>
-            <span class="nav-link-text ms-2 ps-1">Services</span>
-          </a>
-          <div class="collapse {{ request()->route()->named('services*') ? 'show' : '' }}" id="services">
-            <ul class="nav ">
-              <li class="nav-item {{ request()->route()->named('services.categories*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('services.categories*') ? 'active' : '' }}" href="#">
-                  <span class="sidenav-mini-icon"> Ct </span>
-                  <span class="sidenav-normal  ms-2  ps-1"> Categories </span>
-                </a>
-              </li>
-              <li class="nav-item {{ request()->route()->named('services.products*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('services.products*') ? 'active' : '' }}" href="{{ route('services.products') }}">
-                  <span class="sidenav-mini-icon"> Sr </span>
-                  <span class="sidenav-normal  ms-2  ps-1"> Services </span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
         <li class="nav-item {{ request()->route()->named('users*') ? 'active' : '' }}">
           <a data-bs-toggle="collapse" href="#users" class="nav-link text-white {{ request()->route()->named('users*') ? 'active' : '' }}" aria-controls="users" role="button" aria-expanded="false">
             <i class="material-icons-round opacity-10">people</i>
@@ -126,14 +104,14 @@
           </a>
           <div class="collapse {{ request()->route()->named('users*') ? 'show' : '' }}" id="users">
             <ul class="nav ">
-              <li class="nav-item {{ request()->route()->named('users.customer*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('users.customers*') ? 'active' : '' }}" href="/main-page">
+              <li class="nav-item {{ request()->route()->named('users.customers*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('users.customers*') ? 'active' : '' }}" href="{{ route('users.customers') }}">
                   <span class="sidenav-mini-icon"> Cl </span>
                   <span class="sidenav-normal  ms-2  ps-1"> Customer Lists </span>
                 </a>
               </li>
-              <li class="nav-item {{ request()->route()->named('users.employee*') ? 'active' : '' }}">
-                <a class="nav-link text-white {{ request()->route()->named('users.employee*') ? 'active' : '' }}" href="/about">
+              <li class="nav-item {{ request()->route()->named('users.employees*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('users.employees*') ? 'active' : '' }}" href="{{ route('users.employees') }}">
                   <span class="sidenav-mini-icon"> El </span>
                   <span class="sidenav-normal  ms-2  ps-1"> Employee Lists </span>
                 </a>

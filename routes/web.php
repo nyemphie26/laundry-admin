@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,81 +15,88 @@ use Illuminate\Support\Facades\Artisan;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
-Route::get('/', function () {
-    return view('Pages.dashboard');
-})->name('dashboard.main');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Landing Page
-Route::get('/main-page', function () {
-    return view('Pages.LandingPage.mainPage');
-})->name('landingpage.main');
-Route::get('/about', function () {
-    return view('Pages.LandingPage.about');
-})->name('landingpage.about');
-Route::get('/contact', function () {
-    return view('Pages.LandingPage.contact');
-})->name('landingpage.contact');
+Route::get('/login', function () {
+    return view('Pages.Auth.login');
+})->name('login');
 
-//Account
-Route::get('/account', function () {
-    return view('Pages.Account.settings');
-})->name('account.settings');
-
-//Orders
-Route::get('/orders', function (){
-    return view('Pages.Orders.orders');
-})->name('orders.list');
-
-Route::get('/incoming', function (){
-    return view('Pages.Orders.incoming');
-})->name('orders.incoming');
-
-Route::get('/details', function (){
-    return view('Pages.Orders.details');
-})->name('dashboard.orders.details');
-
-Route::get('/incoming/details', function (){
-    return view('Pages.Orders.details');
-})->name('dashboard.incoming.details');
-
-//Services & Categories
-Route::get('/products', function (){
-    return view('Pages.Products.index');
-})->name('products');
-
-Route::get('/products/category', function (){
-    return view('Pages.Products.category-new');
-})->name('products.category.new');
-
-Route::get('/products/category/edit', function (){
-    return view('Pages.Products.category-edit');
-})->name('products.category.edit');
-
-Route::get('/products/service', function (){
-    return view('Pages.Products.service-new');
-})->name('products.service.new');
-
-Route::get('/products/service/edit', function (){
-    return view('Pages.Products.service-edit');
-})->name('products.service.edit');
-
-//Users
-Route::get('/customers', function (){
-    return view('Pages.Users.customers');
-})->name('users.customers');
-
-Route::get('/employees', function (){
-    return view('Pages.Users.employees');
-})->name('users.employees');
-
-Route::get('/employees/create', function (){
-    return view('Pages.Users.employees-new');
-})->name('users.employees.new');
-
-Route::get('/employees/edit', function (){
-    return view('Pages.Users.employees-edit');
-})->name('users.employees.edit');
+Route::group(['middleware' => ['can:access admin page']], function(){
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard.main');
+    
+    //Landing Page
+    Route::get('/main-page', function () {
+        return view('Pages.LandingPage.mainPage');
+    })->name('landingpage.main');
+    Route::get('/about', function () {
+        return view('Pages.LandingPage.about');
+    })->name('landingpage.about');
+    Route::get('/contact', function () {
+        return view('Pages.LandingPage.contact');
+    })->name('landingpage.contact');
+    
+    //Account
+    Route::get('/account', function () {
+        return view('Pages.Account.settings');
+    })->name('account.settings');
+    
+    //Orders
+    Route::get('/orders', function (){
+        return view('Pages.Orders.orders');
+    })->name('orders.list');
+    
+    Route::get('/incoming', function (){
+        return view('Pages.Orders.incoming');
+    })->name('orders.incoming');
+    
+    Route::get('/details', function (){
+        return view('Pages.Orders.details');
+    })->name('dashboard.orders.details');
+    
+    Route::get('/incoming/details', function (){
+        return view('Pages.Orders.details');
+    })->name('dashboard.incoming.details');
+    
+    //Services & Categories
+    Route::get('/products', function (){
+        return view('Pages.Products.index');
+    })->name('products');
+    
+    Route::get('/products/category', function (){
+        return view('Pages.Products.category-new');
+    })->name('products.category.new');
+    
+    Route::get('/products/category/edit', function (){
+        return view('Pages.Products.category-edit');
+    })->name('products.category.edit');
+    
+    Route::get('/products/service', function (){
+        return view('Pages.Products.service-new');
+    })->name('products.service.new');
+    
+    Route::get('/products/service/edit', function (){
+        return view('Pages.Products.service-edit');
+    })->name('products.service.edit');
+    
+    //Users
+    Route::get('/customers', function (){
+        return view('Pages.Users.customers');
+    })->name('users.customers');
+    
+    Route::get('/employees', function (){
+        return view('Pages.Users.employees');
+    })->name('users.employees');
+    
+    Route::get('/employees/create', function (){
+        return view('Pages.Users.employees-new');
+    })->name('users.employees.new');
+    
+    Route::get('/employees/edit', function (){
+        return view('Pages.Users.employees-edit');
+    })->name('users.employees.edit');
+});
 
 
 Route::get('migrate',function(){

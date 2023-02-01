@@ -23,10 +23,23 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white " href="../../pages/authentication/signin/basic.html">
+                {{-- <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                  document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a> --}}
+
+                <a class="nav-link text-white " href="{{ route('logout') }}" 
+                    onclick="event.preventDefault(); 
+                              document.getElementById('logout-form').submit();">
+
                   <span class="sidenav-mini-icon"> L </span>
                   <span class="sidenav-normal  ms-3  ps-1"> Logout </span>
                 </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
               </li>
             </ul>
           </div>

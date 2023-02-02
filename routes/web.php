@@ -28,6 +28,8 @@ Route::get('/', [HomeController::class, 'index'])->name('dashboard.main');
 
 //Account
 Route::get('/account', [UserController::class, 'profile'])->name('account.settings');
+Route::put('/account/{user}', [UserController::class, 'updateProfile'])->name('account.settings.update');
+Route::put('/account/password/{user}', [UserController::class, 'updatePassword'])->name('account.settings.updatePass');
 
 // Route::get('/account', function () {
 //     return view('Pages.Account.settings');

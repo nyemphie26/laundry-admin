@@ -22,6 +22,73 @@ class UserController extends Controller
         return view('Pages.Account.settings');
     }
 
+    public function updateProfile(Request $request, User $user){
+        $rules = [
+            'name' => 'required|alpha|max:25',
+            'last_name' => 'required|alpha|max:25',
+            'phone' => 'required|numeric|max_digits:25',
+        ];
+        
+        //check email
+        if($request->email != $user->email)
+        {
+            $rules['email'] = 'required|string|email|unique:users';
+        }
+        
+        //check avatar
+        if($request->file('avatar'))
+        {
+            $rules['avatar'] = 'image|file';
+        }
+        
+        $validated = $request->validate($rules);
+        // return $validated;
+
+        DB::transaction(function() use ($validated, $user){
+            $user->name = $validated['name'];
+            $user->last_name = $validated['last_name'];
+            $user->phone = $validated['phone'];
+            
+            if(isset($validated['email'])){
+                $user->email = $validated['email'];
+            }
+
+            if(isset($validated['avatar'])){
+                $user->avatar_path = $validated['avatar']->store('avatars');
+            }
+            $user->save();
+        });
+
+        $redirect = redirect()->route("account.settings");
+
+        return $redirect->with([
+            'message'    => "Profile has been Updated",
+            'success' => true,
+        ]);
+    }
+
+    public function updatePassword(Request $request, User $user){
+        $validated = $request->validate([
+            'current_password' => 'current_password',
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        // return $validated;
+
+        DB::transaction(function() use ($validated, $user){
+            $user->password = Hash::make($validated['password']);
+            $user->save();
+        });
+
+        $redirect = redirect()->route("account.settings");
+
+        return $redirect->with([
+            'message'    => "Password has been Updated",
+            'success' => true,
+        ]);
+    }
+
+
+    // Employee CRUD------------------------------------------------------------------------------
     public function employee(){
         $employees = User::role(['admin','driver','employee'])->get();
         // return $employees;
@@ -142,7 +209,7 @@ class UserController extends Controller
         $redirect = redirect()->route("users.employees");
 
         return $redirect->with([
-            'message'    => "Employee Has been Updated",
+            'message'    => "Employee has been Updated",
             'success' => true,
         ]);
 

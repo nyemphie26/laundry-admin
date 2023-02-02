@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,16 @@ Route::get('/login', function () {
     return view('Pages.Auth.login');
 })->name('login');
 
+Route::get('/', [HomeController::class, 'index'])->name('dashboard.main');
+
+//Account
+Route::get('/account', [UserController::class, 'profile'])->name('account.settings');
+
+// Route::get('/account', function () {
+//     return view('Pages.Account.settings');
+// })->name('account.settings');
+
 Route::group(['middleware' => ['can:access admin page']], function(){
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard.main');
     
     //Landing Page
     Route::get('/main-page', function () {
@@ -37,10 +46,6 @@ Route::group(['middleware' => ['can:access admin page']], function(){
         return view('Pages.LandingPage.contact');
     })->name('landingpage.contact');
     
-    //Account
-    Route::get('/account', function () {
-        return view('Pages.Account.settings');
-    })->name('account.settings');
     
     //Orders
     Route::get('/orders', function (){
@@ -85,17 +90,17 @@ Route::group(['middleware' => ['can:access admin page']], function(){
         return view('Pages.Users.customers');
     })->name('users.customers');
     
-    Route::get('/employees', function (){
-        return view('Pages.Users.employees');
-    })->name('users.employees');
+
+    Route::get('/employees',[UserController::class, 'employee'] )->name('users.employees');
+    Route::get('/employees/create',[UserController::class, 'createEmployee'] )->name('users.employees.new');
+    Route::post('/employees/store',[UserController::class, 'storeEmployee'] )->name('users.employees.store');
+    Route::get('/employees/{user}/edit',[UserController::class, 'editEmployee'] )->name('users.employees.edit');
+    Route::put('/employees/{user}',[UserController::class, 'updateEmployee'] )->name('users.employees.update');
     
-    Route::get('/employees/create', function (){
-        return view('Pages.Users.employees-new');
-    })->name('users.employees.new');
-    
-    Route::get('/employees/edit', function (){
-        return view('Pages.Users.employees-edit');
-    })->name('users.employees.edit');
+});
+
+Route::group(['middleware' => ['can:access driver page']], function(){
+
 });
 
 

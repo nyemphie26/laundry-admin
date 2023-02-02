@@ -9,10 +9,11 @@
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
       <ul class="navbar-nav">
+        {{-- Account Nav --}}
         <li class="nav-item mb-2 mt-0 {{ request()->route()->named('account*') ? 'active' : '' }}">
           <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white {{ request()->route()->named('account*') ? 'active' : '' }}" aria-controls="ProfileNav" role="button" aria-expanded="false">
-            <img src="../../assets/img/team-3.jpg" class="avatar">
-            <span class="nav-link-text ms-2 ps-1">Brooklyn Alice</span>
+            <img src="{{ Auth::user()->avatar_path }}" class="avatar">
+            <span class="nav-link-text ms-2 ps-1">{{ Auth::user()->full_name }}</span>
           </a>
           <div class="collapse {{ request()->route()->named('account*') ? 'show' : '' }}" id="ProfileNav" style="">
             <ul class="nav ">
@@ -23,12 +24,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                {{-- <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                  document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a> --}}
-
                 <a class="nav-link text-white " href="{{ route('logout') }}" 
                     onclick="event.preventDefault(); 
                               document.getElementById('logout-form').submit();">
@@ -45,12 +40,15 @@
           </div>
         </li>
         <hr class="horizontal light mt-0">
+        @can('access admin page')
+        {{-- Dashboard Nav --}}
         <li class="nav-item {{ request()->route()->named('dashboard.main*') ? 'active' : '' }}">
           <a class="nav-link text-white {{ request()->route()->named('dashboard.main*') ? 'active bg-gradient-primary' : '' }}" href="/">
             <i class="material-icons-round opacity-10">dashboard</i>
             <span class="sidenav-normal  ms-2  ps-1"> Dashboard </span>
           </a>
         </li>
+        {{-- Orders Nav --}}
         <li class="nav-item {{ request()->route()->named('orders*') ? 'active' : '' }}">
           <a data-bs-toggle="collapse" href="#ordersExamples" class="nav-link text-white {{ request()->route()->named('orders*') ? 'active' : '' }}" aria-controls="ordersExamples" role="button" aria-expanded="false">
             <i class="material-icons-round opacity-10">receipt_long</i>
@@ -76,12 +74,14 @@
         <li class="nav-item mt-3">
           <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder text-white">Settings</h6>
         </li>
+        {{-- Services Nav --}}
         <li class="nav-item {{ request()->route()->named('products*') ? 'active' : '' }}">
           <a class="nav-link text-white {{ request()->route()->named('products*') ? 'active bg-gradient-primary' : '' }}" href="{{ route('products') }}">
             <i class="material-icons-round opacity-10">local_laundry_service</i>
             <span class="sidenav-normal  ms-2  ps-1"> Services & Categories </span>
           </a>
         </li>
+         {{-- Landing Page Nav --}}
         <li class="nav-item {{ request()->route()->named('landingpage*') ? 'active' : '' }}">
           <a data-bs-toggle="collapse" href="#landingPage" class="nav-link text-white {{ request()->route()->named('landingpage*') ? 'active' : '' }}" aria-controls="landingPage" role="button" aria-expanded="false">
             <i class="material-icons-round opacity-10">language</i>
@@ -110,6 +110,7 @@
             </ul>
           </div>
         </li>
+        {{-- Users Nav --}}
         <li class="nav-item {{ request()->route()->named('users*') ? 'active' : '' }}">
           <a data-bs-toggle="collapse" href="#users" class="nav-link text-white {{ request()->route()->named('users*') ? 'active' : '' }}" aria-controls="users" role="button" aria-expanded="false">
             <i class="material-icons-round opacity-10">people</i>
@@ -132,6 +133,7 @@
             </ul>
           </div>
         </li>
+        @endcan
       </ul>
     </div>
   </aside>

@@ -20,7 +20,6 @@
             <table class="table align-items-center mb-0" id="employee-list">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Id</th>
                   <th class="text-uppercase text-xxs font-weight-bolder opacity-7">Name</th>
                   <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Phone Number</th>
                   <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7 px-0">Active Task</th>
@@ -31,43 +30,44 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="align-middle">
-                    <p class="text-sm font-weight-normal mb-0">43431</p>
-                  </td>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="../../../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="avatar image">
+                @foreach ($employees as $employee)
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="{{ asset($employee->avatar_path) }}" class="avatar avatar-sm me-3" alt="avatar image">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 font-weight-normal text-sm">{{ $employee->full_name }}</h6>
+                          <p class="mb-0 font-weight-normal text-sm">{{ $employee->email }}</p>
+                        </div>
                       </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 font-weight-normal text-sm">John Michael</h6>
-                        <p class="mb-0 font-weight-normal text-sm">john@user.com</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="text-sm font-weight-normal mb-0">555-00-123</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <p class="mb-0 font-weight-normal text-sm">5 Tasks</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <p class="mb-0 font-weight-normal text-sm">10 Tasks</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <p class="mb-0 font-weight-normal text-sm">15 Tasks</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">Driver, Washer</p>
-                  </td>
-                  <td class="text-sm">
-                    <a href="{{ route('users.employees.edit') }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Employee">
-                      <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
+                    </td>
+                    <td>
+                      <p class="text-sm font-weight-normal mb-0">{{ $employee->phone }}</p>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <p class="mb-0 font-weight-normal text-sm">5 Tasks</p>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <p class="mb-0 font-weight-normal text-sm">10 Tasks</p>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <p class="mb-0 font-weight-normal text-sm">15 Tasks</p>
+                    </td>
+                    <td class="align-middle text-center">
+                      @foreach ($employee->getRoleNames() as $role)
+                        <p class="text-sm font-weight-normal mb-0">{{ $role }}</p>
+                      @endforeach
+                    </td>
+                    <td class="text-sm">
+                      <a href="{{ route('users.employees.edit', $employee) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Employee">
+                        <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
+                      </a>
+                    </td>
+                  </tr>
+                @endforeach
+                {{-- <tr>
                   <td class="align-middle">
                     <p class="text-sm font-weight-normal mb-0">93021</p>
                   </td>
@@ -246,7 +246,7 @@
                       <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
                     </a>
                   </td>
-                </tr>
+                </tr> --}}
               </tbody>
             </table>
           </div>

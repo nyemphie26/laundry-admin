@@ -123,5 +123,5 @@ Route::get('/rollback',function(){
   });
 
   Route::get('/seed', function(){
-    Artisan::call('db:seed', array('--class' => 'PermissionsAssign', '--force' => true));
+    Artisan::call('db:seed', ['--force' => true]);
   });

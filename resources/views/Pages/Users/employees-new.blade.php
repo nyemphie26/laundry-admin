@@ -98,7 +98,7 @@
               </div>
               <div class="row mt-3">
                 <div class="col-2">
-                  <img src="{{ asset($user->avatar_path ?? 'assets/img/avatar.png') }}"  class="preview-img img-fluid shadow border-radius-lg" alt="avatar">
+                  <img src="{{ asset('storage/'.$user->avatar_path ?? 'assets/img/avatar.png') }}"  class="preview-img img-fluid shadow border-radius-lg" alt="avatar">
                 </div>
                 <div class="col-10">
                   <label class="form-label">Profile images</label>

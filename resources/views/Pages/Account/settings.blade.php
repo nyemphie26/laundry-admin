@@ -40,7 +40,7 @@
                     <div class="row justify-content-center align-items-center">
                       <div class="col-sm-auto col-4">
                         <div class="avatar avatar-xl position-relative">
-                          <img src="{{ asset(Auth::user()->avatar_path) }}" alt="bruce" class="w-100 rounded-circle shadow-sm">
+                          <img src="{{ asset('storage/'.Auth::user()->avatar_path) }}" alt="bruce" class="w-100 rounded-circle shadow-sm">
                         </div>
                       </div>
                       <div class="col-sm-auto col-8 my-auto">

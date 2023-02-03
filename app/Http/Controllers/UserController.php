@@ -19,7 +19,12 @@ class UserController extends Controller
 
     public function profile(){
         // return Auth::user();
-        return view('Pages.Account.settings');
+        if (Auth::user()->hasPermissionTo('access admin page')) {
+            // return view('Pages.dashboard');
+            return view('Pages.Account.settings');
+        } else {
+            return view('Pages.Mobile.MobileProfile');
+        }
     }
 
     public function updateProfile(Request $request, User $user){

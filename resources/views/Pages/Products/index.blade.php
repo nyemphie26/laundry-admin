@@ -12,7 +12,7 @@
               </div>
               <div class="ms-auto my-auto mt-lg-0 mt-4">
                 <div class="ms-auto my-auto">
-                  <a href="{{ route('products.category.new') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Category</a>
+                  <a href="{{ route('category.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Category</a>
                 </div>
               </div>
             </div>
@@ -79,7 +79,7 @@
               </div>
               <div class="ms-auto my-auto mt-lg-0 mt-4">
                 <div class="ms-auto my-auto">
-                  <a href="{{ route('products.service.new') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Service</a>
+                  <a href="{{ route('service.create') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; New Service</a>
                 </div>
               </div>
             </div>
@@ -96,54 +96,24 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <div class="d-flex">
-                        <div>
-                          <h6 class="my-auto">Wash</h6>
+                  @foreach ($services as $service)
+                    <tr>
+                      <td>
+                        <div class="d-flex">
+                          <div>
+                            <h6 class="my-auto">{{ $service->name }}</h6>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td class="text-sm">Wash, Dry, Fold</td>
-                    <td class="text-xs ">8kg Load, 16kg load, 20kg load</td>
-                    <td class="text-sm">
-                      <a href="{{ route('products.service.edit') }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Service">
-                        <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex">
-                        <div>
-                          <h6 class="my-auto">Blanket</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="text-sm">Bed and Linen</td>
-                    <td class="text-xs ">Small, Standard, Large</td>
-                    <td class="text-sm">
-                      <a href="{{ route('products.service.edit') }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Service">
-                        <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex">
-                        <div>
-                          <h6 class="my-auto">Doona</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="text-sm">Bed and Linen</td>
-                    <td class="text-xs ">Single, Double, Queen, King, Super King</td>
-                    <td class="text-sm">
-                      <a href="{{ route('products.service.edit') }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Service">
-                        <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
-                      </a>
-                    </td>
-                  </tr>
+                      </td>
+                      <td class="text-sm">{{ $service->category->name }}</td>
+                      <td class="text-xs "> </td>
+                      <td class="text-sm">
+                        <a href="{{ route('service.edit', $service) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Service">
+                          <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
+                        </a>
+                      </td>
+                    </tr>
+                  @endforeach
                 </tbody>
                 <tfoot>
                   <tr>

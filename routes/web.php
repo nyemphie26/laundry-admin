@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,25 +70,30 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     })->name('dashboard.incoming.details');
     
     //Services & Categories
-    Route::get('/products', function (){
-        return view('Pages.Products.index');
-    })->name('products');
+    Route::resource('products', ProductController::class)->only('index');
+    Route::resource('category', CategoryController::class)->only('create','edit','store','update');
+    Route::resource('service', ServiceController::class)->only('create','edit','store','update');
+
+
+    // Route::get('/products', function (){
+    //     return view('Pages.Products.index');
+    // })->name('products');
     
-    Route::get('/products/category', function (){
-        return view('Pages.Products.category-new');
-    })->name('products.category.new');
+    // Route::get('/products/category', function (){
+    //     return view('Pages.Products.category-new');
+    // })->name('products.category.new');
     
-    Route::get('/products/category/edit', function (){
-        return view('Pages.Products.category-edit');
-    })->name('products.category.edit');
+    // Route::get('/products/category/edit', function (){
+    //     return view('Pages.Products.category-edit');
+    // })->name('products.category.edit');
     
-    Route::get('/products/service', function (){
-        return view('Pages.Products.service-new');
-    })->name('products.service.new');
+    // Route::get('/products/service', function (){
+    //     return view('Pages.Products.service-new');
+    // })->name('products.service.new');
     
-    Route::get('/products/service/edit', function (){
-        return view('Pages.Products.service-edit');
-    })->name('products.service.edit');
+    // Route::get('/products/service/edit', function (){
+    //     return view('Pages.Products.service-edit');
+    // })->name('products.service.edit');
     
     //Users
     Route::get('/customers', function (){

@@ -56,14 +56,6 @@
                         </div>
                       </div>
                       <div class="col-sm-auto ms-sm-auto mt-sm-0 mt-3 d-flex">
-                        {{-- <label class="form-check-label mb-0">
-                          <small id="profileVisibility">
-                            Switch to invisible
-                          </small>
-                        </label>
-                        <div class="form-check form-switch ms-2 my-auto">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault23" checked onchange="visible()">
-                        </div> --}}
                       </div>
                     </div>
                   </div>

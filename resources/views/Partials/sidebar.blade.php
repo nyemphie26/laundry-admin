@@ -75,8 +75,8 @@
           <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder text-white">Settings</h6>
         </li>
         {{-- Services Nav --}}
-        <li class="nav-item {{ request()->route()->named('products*') ? 'active' : '' }}">
-          <a class="nav-link text-white {{ request()->route()->named('products*') ? 'active bg-gradient-primary' : '' }}" href="{{ route('products.index') }}">
+        <li class="nav-item {{ request()->route()->named(['products*','service.*','category.*']) ? 'active' : '' }}">
+          <a class="nav-link text-white {{ request()->route()->named(['products*','service.*','category.*']) ? 'active bg-gradient-primary' : '' }}" href="{{ route('products.index') }}">
             <i class="material-icons-round opacity-10">local_laundry_service</i>
             <span class="sidenav-normal  ms-2  ps-1"> Services & Categories </span>
           </a>

@@ -73,6 +73,7 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::resource('products', ProductController::class)->only('index');
     Route::resource('category', CategoryController::class)->only('create','edit','store','update');
     Route::resource('service', ServiceController::class)->only('create','edit','store','update');
+    Route::get('/fetchCategory', [CategoryController::class, 'fetchCategory'])->name('fetchCategory');
 
 
     // Route::get('/products', function (){

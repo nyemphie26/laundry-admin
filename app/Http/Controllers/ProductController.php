@@ -16,7 +16,9 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $services = Service::all();
+        $services = Service::with(['category','variants'])->get();
+
+        // return response()->json($services);
         return view(
                     'Pages.Products.index', 
                     compact(

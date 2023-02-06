@@ -82,6 +82,13 @@ class CategoryController extends Controller
     {
         //
     }
+
+    public function fetchCategory(Request $request)
+    {
+        $data['categories'] = Category::all();
+
+        return response()->json($data);
+    }
 }
 
 ?>

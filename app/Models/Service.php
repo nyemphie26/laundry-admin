@@ -13,6 +13,9 @@ class Service extends Model
         'name',
         'slug',
         'price',
+        'product_image',
+        'category_id',
+        'description'
     ];
 
     public function category(){

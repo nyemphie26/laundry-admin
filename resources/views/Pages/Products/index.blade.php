@@ -27,42 +27,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <h6 class="my-auto">
-                        Wash, Dry and Fold
-                      </h6>
-                    </td>
-                    <td class="text-sm">
-                      <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit category">
-                        <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h6 class="my-auto">
-                        Bed and Linen
-                      </h6>
-                    </td>
-                    <td class="text-sm">
-                      <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit category">
-                        <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h6 class="my-auto">
-                        Ironing
-                      </h6>
-                    </td>
-                    <td class="text-sm">
-                      <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit category">
-                        <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
-                      </a>
-                    </td>
-                  </tr>
+                  @foreach ($categories as $category)
+                    <tr>
+                      <td>
+                        <h6 class="my-auto">
+                          {{ $category->name }}
+                        </h6>
+                      </td>
+                      <td class="text-sm">
+                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit category">
+                          <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
+                        </a>
+                      </td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -106,7 +84,7 @@
                         </div>
                       </td>
                       <td class="text-sm">{{ $service->category->name }}</td>
-                      <td class="text-xs "> </td>
+                      <td class="text-xs">{{ $service->variants->count() }} Variant(s)</td>
                       <td class="text-sm">
                         <a href="{{ route('service.edit', $service) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Service">
                           <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>

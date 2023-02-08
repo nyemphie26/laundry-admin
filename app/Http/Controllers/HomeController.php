@@ -28,10 +28,14 @@ class HomeController extends Controller
         $response = Http::get('https://mocki.io/v1/1f67bfff-d4b0-4483-a553-269a5affcf20');
         $collection = json_decode($response);
         // return $response['description'];
-        if (Auth::user()->hasPermissionTo('access admin page')) {
+        if (Auth::user()->hasRole('admin')) {
             return view('Pages.dashboard');
-        } else {
-            return view('Pages.Mobile.MobileHome');
+        } 
+        elseif(Auth::user()->hasAnyRole(['employee','driver'])){
+            return view('Pages.Mobile.Employee.Home');
+        }
+        else {
+            return view('Pages.Mobile.Customer.Home');
         }
         
     }

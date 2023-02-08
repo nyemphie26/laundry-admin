@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -24,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('Pages.Products.category-new');
     }
 
     /**
@@ -35,7 +36,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name_category' => 'required',
+        ]);
+
+        // return str_replace([' ',','], ['-',''],$validatedData['name_category']);
+        
+        DB::transaction(function() use ($validatedData){
+            
+            Category::create([
+                'name' => $validatedData['name_category'],
+                'slug' => str_replace([' ',','], ['-',''],$validatedData['name_category'])
+            ]);
+
+        });
+
+        $redirect = redirect()->route("products.index");
+
+        return $redirect->with([
+            'message'    => "Category has been Added",
+            'success' => true,
+        ]);
     }
 
     /**
@@ -57,7 +78,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $edit = true;
+        // return $category->name;
+        return view('Pages.Products.category-new', compact('edit','category'));
     }
 
     /**
@@ -69,7 +92,26 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validatedData = $request->validate([
+            'name_category' => 'required',
+        ]);
+
+        // return str_replace([' ',','], ['-',''],$validatedData['name_category']);
+        
+        DB::transaction(function() use ($validatedData, $category){
+            
+            $category->name = $validatedData['name_category'];
+            $category->slug = str_replace([' ',','], ['-',''],$validatedData['name_category']);
+            $category->save();
+
+        });
+
+        $redirect = redirect()->route("products.index");
+
+        return $redirect->with([
+            'message'    => "Category has been Updated",
+            'success' => true,
+        ]);
     }
 
     /**

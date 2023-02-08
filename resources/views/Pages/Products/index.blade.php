@@ -35,7 +35,7 @@
                         </h6>
                       </td>
                       <td class="text-sm">
-                        <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit category">
+                        <a href="{{ route('category.edit',$category) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit category">
                           <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
                         </a>
                       </td>

@@ -19,4 +19,8 @@ class Category extends Model
         return $this->hasMany(Service::class);
     
     }
+
+    public function variants(){
+        return $this->hasManyThrough(Variant::class, Service::class);
+    }
 }

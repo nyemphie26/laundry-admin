@@ -15,10 +15,11 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // $categories = Category::with(['services','variants'])->get();
         $categories = Category::all();
         $services = Service::with(['category','variants'])->get();
 
-        // return response()->json($services);
+        // return $categories;
         return view(
                     'Pages.Products.index', 
                     compact(

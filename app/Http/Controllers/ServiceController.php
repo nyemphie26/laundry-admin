@@ -76,7 +76,7 @@ class ServiceController extends Controller
                 'category_id'=> $validatedData['category'],
                 'description'=> $validatedData['description'],
                 'price' => $price,
-                'slug' => str_replace(' ', '-', $validatedData['name_product']),
+                'slug' => str_replace([' ',','], ['-',''], $validatedData['name_product']),
             ]);
     
             if(!isset($validatedData['singlePrice'])){
@@ -171,6 +171,7 @@ class ServiceController extends Controller
             };
 
             $service->name = $validatedData['name_product'];
+            $service->slug = str_replace([' ',','], ['-',''], $validatedData['name_product']);
             $service->category_id = $validatedData['category'];
             $service->description = $validatedData['description'];
 

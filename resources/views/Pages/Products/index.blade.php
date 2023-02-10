@@ -35,9 +35,18 @@
                         </h6>
                       </td>
                       <td class="text-sm">
-                        <a href="{{ route('category.edit',$category) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit category">
-                          <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
-                        </a>
+                        <div class="d-flex">
+                          <a href="{{ route('category.edit',$category) }}" class="btn btn-link px-1" data-bs-toggle="tooltip" data-bs-original-title="Edit category">
+                            <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
+                          </a>
+                          <form action="{{ route('category.destroy',$category) }}" class="form" method="post">
+                            @csrf
+                            @method("delete")
+                            <button type="submit "class="btn btn-link px-1" data-bs-toggle="tooltip" data-bs-original-title="Delete category">
+                              <i class="material-icons text-secondary position-relative text-lg">delete</i>
+                            </button>
+                          </form>
+                        </div>
                       </td>
                     </tr>
                   @endforeach
@@ -83,12 +92,21 @@
                           </div>
                         </div>
                       </td>
-                      <td class="text-sm">{{ $service->category->name }}</td>
+                      <td class="text-sm">{{ $service->category ? $service->category->name : 'No Category' }}</td>
                       <td class="text-xs">{{ $service->variants->count() }} Variant(s)</td>
                       <td class="text-sm">
-                        <a href="{{ route('service.edit', $service) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Service">
-                          <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
-                        </a>
+                        <div class="d-flex">
+                          <a href="{{ route('service.edit', $service) }}" class="btn btn-link px-1" data-bs-toggle="tooltip" data-bs-original-title="Edit Service">
+                            <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
+                          </a>
+                          <form action="{{ route('service.destroy',$service) }}" class="form" method="post">
+                            @csrf
+                            @method("delete")
+                            <button type="submit "class="btn btn-link px-1" data-bs-toggle="tooltip" data-bs-original-title="Delete Service">
+                              <i class="material-icons text-secondary position-relative text-lg">delete</i>
+                            </button>
+                          </form>
+                        </div>
                       </td>
                     </tr>
                   @endforeach

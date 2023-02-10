@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -8,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,11 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard.main');
+// Route::get('/', function(){
+//     // $data = Service::all();
+//     $data = Service::with('category')->whereHas('category')->get();
+//     return $data;
+// });
 
 //Account
 Route::get('/account', [UserController::class, 'profile'])->name('account.settings');
@@ -71,8 +78,8 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     
     //Services & Categories
     Route::resource('products', ProductController::class)->only('index');
-    Route::resource('category', CategoryController::class)->only('create','edit','store','update');
-    Route::resource('service', ServiceController::class)->only('create','edit','store','update');
+    Route::resource('category', CategoryController::class)->only('create','edit','store','update','destroy');
+    Route::resource('service', ServiceController::class)->only('create','edit','store','update','destroy');
     Route::get('/fetchCategory', [CategoryController::class, 'fetchCategory'])->name('fetchCategory');
 
 

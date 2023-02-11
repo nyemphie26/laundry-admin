@@ -15,6 +15,11 @@ class Variant extends Model
         'price',
     ];
 
+    protected $casts = [
+        'name' => 'string',
+        'price' => 'float',
+    ];
+
     public function service(){
 
         return $this->belongsTo(Service::class);

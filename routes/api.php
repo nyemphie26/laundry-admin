@@ -26,6 +26,7 @@ Route::prefix('v1')->group(function(){
         return CategoryResource::collection(Category::all());
     });
     Route::get('/category/{slug}', function($slug){
+        // return Category::where('slug',$slug)->first();
         return new CategoryResource(Category::where('slug',$slug)->first());
     });
     Route::apiResource('/services', ServiceController::class)->only('index');

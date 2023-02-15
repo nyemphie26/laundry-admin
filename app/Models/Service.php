@@ -10,15 +10,17 @@ class Service extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'slug',
-        'price',
-        'product_image',
-        'category_id',
-        'description'
-    ];
-
+    // protected $fillable = [
+    //     'name',
+    //     'slug',
+    //     'price',
+    //     'product_image',
+    //     'category_id',
+    //     'description'
+    // ];
+    
+    protected $guarded = 'id';
+    
     public function category(){
 
         return $this->belongsTo(Category::class);

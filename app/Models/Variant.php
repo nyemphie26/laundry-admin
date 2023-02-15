@@ -4,20 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use BinaryCats\Sku\HasSku;
 
 class Variant extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSku;
 
-
-    protected $fillable = [
-        'name',
-        'price',
-    ];
+    protected $guarded = 'id';
+    // protected $fillable = [
+    //     'name',
+    //     'price',
+    //     'sku',
+    // ];
 
     protected $casts = [
         'name' => 'string',
         'price' => 'float',
+        'sku' => 'string',
     ];
 
     public function service(){

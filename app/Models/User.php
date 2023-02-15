@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return "{$this->name} {$this->last_name}";
     }
+
+    public function works()
+    {
+        return $this->hasMany(OrderAssign::class);
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Delivery::class);
+    }
 }

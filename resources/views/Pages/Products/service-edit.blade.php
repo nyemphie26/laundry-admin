@@ -97,21 +97,27 @@
                 @if (!$service->price)
                   @foreach ($service->variants as $variant)
                   <div class="row mb-4">
-                      <div class="col-6">
+                      <div class="col-3">
+                        <div class="input-group input-group-dynamic">
+                          <label class="form-label">SKU</label>
+                          <input class="multisteps-form__input form-control disabled" type="text" name="sku[]" value="{{ $variant->sku }}" readonly/>
+                        </div>
+                      </div>
+                      <div class="col-4">
                         <div class="input-group input-group-dynamic">
                           <label class="form-label">Variant Name</label>
                           <input class="multisteps-form__input form-control" type="text" name="variants[]" id="variant" value="{{ $variant->name }}"/>
                         </div>
                       </div>
-                    <div class="col-3">
-                      <div class="input-group input-group-dynamic">
-                        <label class="form-label">Price</label>
-                        <input type="number" class="form-control w-100" name="price[]" id="price" value="{{ $variant->price }}">
+                      <div class="col-2">
+                        <div class="input-group input-group-dynamic">
+                          <label class="form-label">Price</label>
+                          <input type="number" class="form-control w-100" name="price[]" id="price" value="{{ $variant->price }}">
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-3">
-                      <button class="btn btn-link btn-sm" type="button" onclick="removeField(this)">-&nbsp;Remove Field</button>
-                    </div>
+                      <div class="col-3">
+                        <button class="btn btn-link btn-sm" type="button" onclick="removeField(this)">-&nbsp;Remove Field</button>
+                      </div>
                   </div>
                   @endforeach
                 @endif

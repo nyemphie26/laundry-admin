@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VariantResource extends JsonResource
+class OrderDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,11 @@ class VariantResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'sku' => $this->sku,
-            'name' => $this->name,
-            'price' => $this->price,
+            'sku'       => $this->sku,
+            'name'      => $this->item,
+            'qty'       => $this->qty,
+            'price'     => $this->price,
+            'subtotal'  => $this->subtotal
         ];
     }
 }

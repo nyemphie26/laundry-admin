@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\Api\v1\ServiceController;
-use App\Http\Resources\CategoryResource;
+use App\Http\Controllers\Api\v1\LoginController;
+use App\Http\Controllers\API\v1\OrderController;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Resources\CategoryResource;
+use App\Http\Controllers\Api\v1\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function(){
+
+    Route::post('/token/login', [LoginController::class, 'index']);
+
     Route::get('/categories', function(){
         return CategoryResource::collection(Category::all());
     });
@@ -30,4 +35,11 @@ Route::prefix('v1')->group(function(){
         return new CategoryResource(Category::where('slug',$slug)->first());
     });
     Route::apiResource('/services', ServiceController::class)->only('index');
+
+    Route::middleware('auth:sanctum')->group(function (){
+        Route::post('/token/logout', [LoginController::class, 'destroy']);
+
+        Route::apiResource('/orders', OrderController::class)->only('index','store');
+
+    });
 });

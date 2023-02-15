@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VariantResource extends JsonResource
+class DeliveryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,8 @@ class VariantResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'sku' => $this->sku,
-            'name' => $this->name,
-            'price' => $this->price,
+            'phone'     => $this->phone,
+            'address'   => $this->address,
         ];
     }
 }

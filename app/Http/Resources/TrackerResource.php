@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VariantResource extends JsonResource
+class TrackerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,8 @@ class VariantResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'sku' => $this->sku,
-            'name' => $this->name,
-            'price' => $this->price,
+            'status'    => $this->status,
+            'image'     => $this->image_path
         ];
     }
 }

@@ -80,17 +80,23 @@ class ServiceController extends Controller
             ]);
     
             if(!isset($validatedData['singlePrice'])){
-                $variants=[];
+                // $variants=[];
                 foreach($validatedData['variants'] as $key=>$val)
                 {
-                    $variants[$key] = [
-                        'service_id' => $service->id,
-                        'name' => $val,
-                        'price' => $validatedData['price'][$key]
-                    ];
+                    // $variants[$key] = [
+                    //     'service_id' => $service->id,
+                    //     'name' => $val,
+                    //     'price' => $validatedData['price'][$key]
+                    // ];
+
+                    $variant = new Variant();
+                    $variant->service_id = $service->id;
+                    $variant->name = $val;
+                    $variant->price = $validatedData['price'][$key];
+                    $variant->save();
                 }
 
-                Variant::insert($variants);
+                // Variant::insert($variants);
             };
 
         });
@@ -123,6 +129,7 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $categories = Category::all();
+        // return $service->variants;
         return view('Pages.Products.service-edit', compact('service','categories'));
     }
 
@@ -135,6 +142,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
+        // return $request;
         $validatedData = $request->validate([
             'name_product' => 'required',
             'category' => 'required',
@@ -142,9 +150,10 @@ class ServiceController extends Controller
             'singlePrice' => '',
             'variants' => '',
             'price' => '',
-            'description' => ''
+            'description' => '',
+            'sku' => ''
         ]);
-        
+
         DB::transaction(function() use ($validatedData, $service){
             // $price = null;
             if(isset($validatedData['product_image'])){
@@ -156,18 +165,29 @@ class ServiceController extends Controller
             }
             
             if(!isset($validatedData['singlePrice'])){
-                Variant::where('service_id',$service->id)->delete();
-                $variants=[];
+                // Variant::where('service_id',$service->id)->delete();
+                Variant::where('service_id',$service->id)->whereNotIn('sku',$validatedData['sku'])->delete();
                 foreach($validatedData['variants'] as $key=>$val)
                 {
-                    $variants[$key] = [
-                        'service_id' => $service->id,
-                        'name' => $val,
-                        'price' => $validatedData['price'][$key]
-                    ];
-                }
 
-                Variant::insert($variants);
+                    if (isset($validatedData['sku'][$key])) {
+                        Variant::where('sku', $validatedData['sku'][$key])
+                                ->update([
+                                    'name' => $val,
+                                    'price' => $validatedData['price'][$key]
+                                ]);
+                    }
+
+                    else
+                    {
+                        $variant = new Variant();
+                        $variant->service_id = $service->id;
+                        $variant->name = $val;
+                        $variant->price = $validatedData['price'][$key];
+                        $variant->save();
+                    }
+
+                }
             };
 
             $service->name = $validatedData['name_product'];

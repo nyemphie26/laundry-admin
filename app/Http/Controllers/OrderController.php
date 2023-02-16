@@ -33,7 +33,6 @@ class OrderController extends Controller
         }
         $drivers = User::role('driver')->get();
         $employees = User::role('employee')->get();
-        // return $order->trackers;
         return view('Pages.Orders.details', compact('order','drivers','employees','incoming'));
     }
 
@@ -73,4 +72,5 @@ class OrderController extends Controller
             'success' => true,
         ]);
     }
+
 }

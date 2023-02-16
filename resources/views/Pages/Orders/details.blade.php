@@ -119,40 +119,63 @@
               @endif
             </div>
           </div>
-          <div class="col-lg-5 col-md-6 col-12">
-            <h6 class="mb-3">Customer Information</h6>
-            <ul class="list-group">
-              <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                <div class="d-flex flex-column">
-                  <h6 class="mb-3 text-sm">{{ $order->delivery->name }}</h6>
-                  <span class="mb-2 text-xs">Email Address: <span class="text-dark ms-2 font-weight-bold">{{ $order->delivery->email }}</span></span>
-                  <span class="mb-2 text-xs">Phone Number: <span class="text-dark ms-2 font-weight-bold">{{ $order->delivery->phone }}</span></span>
-                  <span class="mb-2 text-xs">Address Details: </span>
-                  <span class="text-xs"><span class="text-dark font-weight-bold ms-2">{{ $order->delivery->address }}</span></span>
+          <div class="col-lg-9 col-md-6 col-12">
+            <div class="row">
+              <div class="col-lg-6 col-md-12 col-12">
+                <h6 class="mb-3">Customer Information</h6>
+                <ul class="list-group">
+                  <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <div class="d-flex flex-column">
+                      <h6 class="mb-3 text-sm">{{ $order->delivery->name }}</h6>
+                      <span class="mb-2 text-xs">Email Address: <span class="text-dark ms-2 font-weight-bold">{{ $order->delivery->email }}</span></span>
+                      <span class="mb-2 text-xs">Phone Number: <span class="text-dark ms-2 font-weight-bold">{{ $order->delivery->phone }}</span></span>
+                      <span class="mb-2 text-xs">Address Details: </span>
+                      <span class="text-xs"><span class="text-dark font-weight-bold ms-2">{{ $order->delivery->address }}</span></span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6 col-12 ms-auto">
+                <h6 class="mb-3">Order Summary</h6>
+                <div class="d-flex justify-content-between">
+                  <span class="mb-2 text-sm">
+                    Total:
+                  </span>
+                  <span class="text-dark font-weight-bold ms-2">${{ $order->total }}</span>
                 </div>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-4 col-12 ms-auto">
-            <h6 class="mb-3">Order Summary</h6>
-            <div class="d-flex justify-content-between">
-              <span class="mb-2 text-sm">
-                Total:
-              </span>
-              <span class="text-dark font-weight-bold ms-2">${{ $order->total }}</span>
+                <div class="d-flex justify-content-between">
+                  <span class="text-sm">
+                    Taxes:
+                  </span>
+                  <span class="text-dark ms-2 font-weight-bold">${{ $order->tax }}</span>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                  <span class="mb-2 text-lg">
+                    Grand Total:
+                  </span>
+                  <span class="text-dark text-lg ms-2 font-weight-bold">${{ $order->grand_total }}</span>
+                </div>
+              </div>
             </div>
-            <div class="d-flex justify-content-between">
-              <span class="text-sm">
-                Taxes:
-              </span>
-              <span class="text-dark ms-2 font-weight-bold">${{ $order->tax }}</span>
-            </div>
-            <div class="d-flex justify-content-between mt-4">
-              <span class="mb-2 text-lg">
-                Grand Total:
-              </span>
-              <span class="text-dark text-lg ms-2 font-weight-bold">${{ $order->grand_total }}</span>
-            </div>
+            @if (!isset($incoming))
+              <div class="row justify-content-between">
+                <div class="d-flex">
+                    <h6 class="text-lg mb-0 mt-2">Assigned Employees</h6>
+                </div>
+                <div class="w-25 me-4">
+                  <label class="form-control m-0 p-0">Pickup Driver :</label>
+                  <label class="form-control m-0 p-0 text-bold">{{ $order->assigns()->where('status','picker')->first()->employee->getFullNameAttribute() }}</label>
+                </div>
+                <div class="w-25 me-4">
+                  <label class="form-control m-0 p-0">Laundryman :</label>
+                  <label class="form-control m-0 p-0 text-bold">{{ $order->assigns()->where('status','washer')->first()->employee->getFullNameAttribute() }}</label>
+                </div>
+                <div class="w-25 me-4">
+                  <label class="form-control m-0 p-0">Delivery Driver :</label>
+                  <label class="form-control m-0 p-0 text-bold">{{ $courier = $order->assigns()->where('status','deliverer')->first() ? $courier->employee->getFullNameAttribute() : '-' }}</label>
+                </div>
+              </div>
+            @endif
           </div>
         </div>
       </div>

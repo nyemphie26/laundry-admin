@@ -9,7 +9,8 @@ class OrderAssign extends Model
 {
     use HasFactory;
 
-    protected $guarded = 'id';
+    protected $guarded = ['id'];
+    public $timestamps = true;
 
     public function order()
     {

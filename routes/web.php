@@ -9,7 +9,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Models\Category;
+use App\Models\Order;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,21 +62,15 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     
     
     //Orders
-    Route::get('/orders', function (){
-        return view('Pages.Orders.orders');
-    })->name('orders.list');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.list');
     
-    Route::get('/incoming', function (){
-        return view('Pages.Orders.incoming');
-    })->name('orders.incoming');
-    
-    Route::get('/details', function (){
-        return view('Pages.Orders.details');
-    })->name('dashboard.orders.details');
+    Route::get('/incoming', [OrderController::class, 'incoming'])->name('orders.incoming');
+    Route::get('/details/{order}', [OrderController::class, 'details'])->name('orders.details');
+    Route::post('/orders/{order}', [OrderController::class, 'accept'])->name('orders.accept');
     
     Route::get('/incoming/details', function (){
         return view('Pages.Orders.details');
-    })->name('dashboard.incoming.details');
+    })->name('dashboard.orders.details');
     
     //Services & Categories
     Route::resource('products', ProductController::class)->only('index');
@@ -82,27 +78,6 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::resource('service', ServiceController::class)->only('create','edit','store','update','destroy');
     Route::get('/fetchCategory', [CategoryController::class, 'fetchCategory'])->name('fetchCategory');
 
-
-    // Route::get('/products', function (){
-    //     return view('Pages.Products.index');
-    // })->name('products');
-    
-    // Route::get('/products/category', function (){
-    //     return view('Pages.Products.category-new');
-    // })->name('products.category.new');
-    
-    // Route::get('/products/category/edit', function (){
-    //     return view('Pages.Products.category-edit');
-    // })->name('products.category.edit');
-    
-    // Route::get('/products/service', function (){
-    //     return view('Pages.Products.service-new');
-    // })->name('products.service.new');
-    
-    // Route::get('/products/service/edit', function (){
-    //     return view('Pages.Products.service-edit');
-    // })->name('products.service.edit');
-    
     //Users
     Route::get('/customers', function (){
         return view('Pages.Users.customers');

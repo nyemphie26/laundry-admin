@@ -19,7 +19,8 @@ class Service extends Model
     //     'description'
     // ];
     
-    protected $guarded = 'id';
+    protected $guarded = ['id'];
+    public $timestamps = true;
     
     public function category(){
 

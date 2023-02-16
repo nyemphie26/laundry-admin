@@ -55,8 +55,8 @@ class OrderController extends Controller
                     $newDetails->order_id = $newOrder->id;
                     $newDetails->sku = $value['sku'];
                     $newDetails->item = $value['name'];
-                    $newDetails->price = $value['qty'];
-                    $newDetails->qty = $value['price'];
+                    $newDetails->price = $value['price'];
+                    $newDetails->qty = $value['qty'];
                     $newDetails->subtotal = $value['subtotal'];
                     $newDetails->save();
                 }

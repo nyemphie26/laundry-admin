@@ -6,12 +6,14 @@ use BinaryCats\Sku\HasSku;
 use BinaryCats\Sku\Concerns\SkuOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\Builder;
 
 class Order extends Model
 {
     use HasFactory, HasSku;
 
-    protected $guarded = 'id';
+    protected $guarded = ['id'];
 
     public function skuOptions() : SkuOptions
     {
@@ -22,6 +24,11 @@ class Order extends Model
             ->forceUnique(true)
             ->generateOnCreate(true)
             ->refreshOnUpdate(false);
+    }
+
+    public function cust()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     
     public function details()
@@ -47,6 +54,21 @@ class Order extends Model
     public function schedules()
     {
         return $this->hasMany(Schedule::class);
+    }
+
+    public function getPlacedDate(): HasOne
+    {
+        return $this->hasOne(OrderTracker::class)->ofMany('created_at','min');
+    }
+
+    public function getLatestStatus()
+    {
+        return $this->hasOne(OrderTracker::class)->ofMany('created_at');
+    }
+
+    public function pickup(): HasOne
+    {
+        return $this->hasOne(Schedule::class)->ofMany('created_at','min');
     }
 }
 

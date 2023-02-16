@@ -51,445 +51,45 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ($orders as $order)
                 <tr>
                   <td>
                     <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10421</p>
+                      <p class="text-xs font-weight-normal ms-2 mb-0">#&nbsp;{{ $order->order_no }}</p>
                     </div>
                   </td>
                   <td class="font-weight-normal">
-                    <span class="my-2 text-xs">1 Nov, 10:20 AM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">done</i></button>
-                      <span>Delivered</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <img src="../../../assets/img/team-2.jpg" class="avatar avatar-xs me-2" alt="user image">
-                      <span>Orlando Imieto</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">Wash, Dry, and Fold</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$140,20</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10422</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">1 Nov, 10:53 AM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">done</i></button>
-                      <span>Delivered</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <img src="../../../assets/img/team-1.jpg" class="avatar avatar-xs me-2" alt="user image">
-                      <span>Alice Murinho</span>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">Wash, Dry, and Fold</span>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">$42,00</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10423</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">1 Nov, 11:13 AM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-dark mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">restart_alt</i></button>
-                      <span>On process</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <div class="avatar avatar-xs me-2 bg-gradient-dark">
-                        <span>M</span>
-                      </div>
-                      <span>Michael Mirra</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">
-                      Ironing
-                      <span class="text-secondary ms-2"> +1 more </span>
-                    </span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$25,50</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10424</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">1 Nov, 12:20 PM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">done</i></button>
-                      <span>Delivered</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <div class="d-flex align-items-center">
-                        <img src="../../../assets/img/team-3.jpg" class="avatar avatar-xs me-2" alt="user image">
-                        <span>Andrew Nichel</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">
-                      Bed and Linen
-                    </span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$19,40</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10425</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">1 Nov, 1:40 PM</span>
+                    <span class="my-2 text-xs">{{ date('d M, H:i A', strtotime($order->getPlacedDate->created_at)) }}</span>
                   </td>
                   <td class="text-xs font-weight-normal">
                     <div class="d-flex align-items-center">
                       <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">notifications</i></button>
-                      <span>New Order</span>
+                      <span>{{ $order->getLatestStatus->status }}</span>
                     </div>
                   </td>
                   <td class="text-xs font-weight-normal">
                     <div class="d-flex align-items-center">
                       <div class="d-flex align-items-center">
-                        <img src="../../../assets/img/team-4.jpg" class="avatar avatar-xs me-2" alt="user image">
-                        <span>Sebastian Koga</span>
+                        <img src="{{ asset('storage/'.$order->cust->avatar_path) }}" class="avatar avatar-xs me-2" alt="user image">
+                        <span>{{ $order->cust->getFullNameAttribute() }}</span>
                       </div>
                     </div>
                   </td>
                   <td class="text-xs font-weight-normal">
                     <span class="my-2 text-xs">
-                        Wash, Dry, and Fold
-                      <span class="text-secondary ms-2"> x 2 </span>
+                        {{ $order->details->count() }}&nbsp;Item(s)
                     </span>
                   </td>
                   <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$44,90</span>
+                    <span class="my-2 text-xs">$ {{ $order->grand_total }}</span>
                   </td>
                   <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
+                    <a href="{{ route('orders.details', $order) }}" class="btn btn-link btn-sm m-0">
+                        {{ $order->getLatestStatus->status == 'placed' ? 'assign order' : 'see details' }}
                     </a>
                   </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10426</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">1 Nov, 2:19 AM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">done</i></button>
-                      <span>Delivered</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <div class="avatar avatar-xs me-2 bg-gradient-primary">
-                        <span>L</span>
-                      </div>
-                      <span>Laur Gilbert</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">
-                        Wash, Dry, and Fold
-                    </span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$112,50</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10427</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">1 Nov, 3:42 AM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">done</i></button>
-                      <span>Delivered</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <div class="avatar avatar-xs me-2 bg-gradient-dark">
-                        <span>I</span>
-                      </div>
-                      <span>Iryna Innda</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">
-                      Ironing
-                    </span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$200,00</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10428</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">2 Nov, 9:32 AM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">done</i></button>
-                      <span>Delivered</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <div class="avatar avatar-xs me-2 bg-gradient-dark">
-                        <span>A</span>
-                      </div>
-                      <span>Arrias Liunda</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">
-                      Ironing
-                    </span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$350,00</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10429</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">2 Nov, 10:14 AM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">done</i></button>
-                      <span>Delivered</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <div class="d-flex align-items-center">
-                        <img src="../../../assets/img/team-5.jpg" class="avatar avatar-xs me-2" alt="user image">
-                        <span>Rugna Ilpio</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">
-                      Bed and Linen
-                    </span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$15,00</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10430</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">2 Nov, 12:56 PM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-dark mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">restart_alt</i></button>
-                      <span>On process</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <div class="d-flex align-items-center">
-                        <img src="../../../assets/img/ivana-squares.jpg" class="avatar avatar-xs me-2" alt="user image">
-                        <span>Anna Landa</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">
-                        Wash, Dry, and Fold
-                      <span class="text-secondary ms-2"> x 3 </span>
-                    </span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$25,00</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10431</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">2 Nov, 3:12 PM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">done</i></button>
-                      <span>Delivered</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <div class="avatar avatar-xs me-2 bg-gradient-dark">
-                        <span>K</span>
-                      </div>
-                      <span>Karl Innas</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">
-                      Bed and Linen
-                    </span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$164,90</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10432</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">2 Nov, 5:12 PM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">done</i></button>
-                      <span>Delivered</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <div class="avatar avatar-xs me-2 bg-gradient-info">
-                        <span>O</span>
-                      </div>
-                      <span>Oana Kilas</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">
-                        Wash, Dry, and Fold
-                    </span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$23,90</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.orders.details') }}" class="btn btn-link btn-sm m-0">
-                      see details
-                    </a>
-                  </td>
-                </tr>
+              </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

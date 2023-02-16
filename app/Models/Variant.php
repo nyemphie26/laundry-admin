@@ -10,7 +10,8 @@ class Variant extends Model
 {
     use HasFactory, HasSku;
 
-    protected $guarded = 'id';
+    protected $guarded = ['id'];
+    public $timestamps = true;
     // protected $fillable = [
     //     'name',
     //     'price',

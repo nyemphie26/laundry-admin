@@ -33,7 +33,7 @@
             <table class="table table-flush" id="datatable-search">
               <thead class="thead-light">
                 <tr>
-                  <th>Id</th>
+                  <th>Order No</th>
                   <th>Date</th>
                   <th>Status</th>
                   <th>Customer</th>
@@ -43,77 +43,45 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <p class="text-xs font-weight-normal ms-2 mb-0">#10425</p>
-                      </div>
-                    </td>
-                    <td class="font-weight-normal">
-                      <span class="my-2 text-xs">1 Nov, 1:40 PM</span>
-                    </td>
-                    <td class="text-xs font-weight-normal">
-                      <div class="d-flex align-items-center">
-                        <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">notifications</i></button>
-                        <span>New Order</span>
-                      </div>
-                    </td>
-                    <td class="text-xs font-weight-normal">
-                      <div class="d-flex align-items-center">
+                @foreach ($orders as $order)
+                  <tr>
+                      <td>
                         <div class="d-flex align-items-center">
-                          <img src="../../../assets/img/team-4.jpg" class="avatar avatar-xs me-2" alt="user image">
-                          <span>Sebastian Koga</span>
+                          <p class="text-xs font-weight-normal ms-2 mb-0">#&nbsp;{{ $order->order_no }}</p>
                         </div>
-                      </div>
-                    </td>
-                    <td class="text-xs font-weight-normal">
-                      <span class="my-2 text-xs">
-                          Wash, Dry, and Fold
-                        <span class="text-secondary ms-2"> x 2 </span>
-                      </span>
-                    </td>
-                    <td class="text-xs font-weight-normal">
-                      <span class="my-2 text-xs">$44,90</span>
-                    </td>
-                    <td class="text-xs font-weight-normal">
-                      <a href="{{ route('dashboard.incoming.details') }}" class="btn btn-link btn-sm m-0">
-                        assign order
-                      </a>
-                    </td>
+                      </td>
+                      <td class="font-weight-normal">
+                        <span class="my-2 text-xs">{{ date('d M, H:i A', strtotime($order->getPlacedDate->created_at)) }}</span>
+                      </td>
+                      <td class="text-xs font-weight-normal">
+                        <div class="d-flex align-items-center">
+                          <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">notifications</i></button>
+                          <span>New Order</span>
+                        </div>
+                      </td>
+                      <td class="text-xs font-weight-normal">
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex align-items-center">
+                            <img src="{{ asset('storage/'.$order->cust->avatar_path) }}" class="avatar avatar-xs me-2" alt="user image">
+                            <span>{{ $order->cust->getFullNameAttribute() }}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="text-xs font-weight-normal">
+                        <span class="my-2 text-xs">
+                            {{ $order->details->count() }}&nbsp;Item(s)
+                        </span>
+                      </td>
+                      <td class="text-xs font-weight-normal">
+                        <span class="my-2 text-xs">$ {{ $order->grand_total }}</span>
+                      </td>
+                      <td class="text-xs font-weight-normal">
+                        <a href="{{ route('orders.details', $order) }}" class="btn btn-link btn-sm m-0">
+                          assign order
+                        </a>
+                      </td>
                   </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <p class="text-xs font-weight-normal ms-2 mb-0">#10421</p>
-                    </div>
-                  </td>
-                  <td class="font-weight-normal">
-                    <span class="my-2 text-xs">1 Nov, 10:20 AM</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">notifications</i></button>
-                      <span>New Order</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <div class="d-flex align-items-center">
-                      <img src="../../../assets/img/team-2.jpg" class="avatar avatar-xs me-2" alt="user image">
-                      <span>Orlando Imieto</span>
-                    </div>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">Wash, Dry, and Fold</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <span class="my-2 text-xs">$140,20</span>
-                  </td>
-                  <td class="text-xs font-weight-normal">
-                    <a href="{{ route('dashboard.incoming.details') }}" class="btn btn-link btn-sm m-0">
-                      assign order
-                    </a>
-                  </td>
-                </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

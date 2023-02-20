@@ -28,8 +28,8 @@ class Variant extends Model
     public function skuOptions() : SkuOptions
     {
         return SkuOptions::make()
-            ->from(['label'])
-            ->target('name')
+            ->from(['name'])
+            ->target('sku')
             ->using('-')
             ->forceUnique(true)
             ->generateOnCreate(true)

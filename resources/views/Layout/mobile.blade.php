@@ -23,10 +23,10 @@
         <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.0.6') }}" rel="stylesheet" />
         @yield('page-css')
     </head>
-    <body class="bg-primary">
+    <body class=" bg-gray-200">
       <div class="container col-lg-8 justify-content-center px-0">
       <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-          <div class="container-fluid pt-4 pb-5">
+          <div class="container-fluid pt-4 pb-5 px-3">
             @include('Partials.alert')
             <div class="row justify-content-center">
               @yield('content')

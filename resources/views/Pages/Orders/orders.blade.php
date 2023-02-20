@@ -85,7 +85,17 @@
                   </td>
                   <td class="text-xs font-weight-normal">
                     <a href="{{ route('orders.details', $order) }}" class="btn btn-link btn-sm m-0">
-                        {{ $order->getLatestStatus->status == 'placed' ? 'assign order' : 'see details' }}
+                      @switch($order->getLatestStatus->status)
+                          @case('placed')
+                              assign order
+                              @break
+                          @case('processed')
+                              assign delivery
+                              @break
+                          @default
+                              see details
+                      @endswitch
+                        {{-- {{ $order->getLatestStatus->status == 'placed' ? 'assign order' : 'see details' }} --}}
                     </a>
                   </td>
               </tr>

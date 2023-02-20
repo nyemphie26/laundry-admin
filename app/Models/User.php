@@ -60,4 +60,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Delivery::class);
     }
+
+    public function pickupWorks()
+    {
+        return $this->hasMany(PickupAssign::class);
+    }
+
+    public function laundryWorks()
+    {
+        return $this->hasMany(LaundressAssign::class);
+    }
+
+    public function deliveryWork()
+    {
+        return $this->hasMany(DeliveryAssign::class);
+    }
 }

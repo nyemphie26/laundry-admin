@@ -32,7 +32,7 @@ class HomeController extends Controller
             return view('Pages.dashboard');
         } 
         elseif(Auth::user()->hasAnyRole(['employee','driver'])){
-            return view('Pages.Mobile.Employee.Home');
+            return redirect()->route('mobile.home');
         }
         else {
             return view('Pages.Mobile.Customer.Home');

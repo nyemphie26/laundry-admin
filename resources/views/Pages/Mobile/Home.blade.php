@@ -8,7 +8,7 @@
                 <div class="full-background cursor-pointer" style="background-image: url('https://images.unsplash.com/photo-1604213410393-89f141bb96b8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTA5fHxuYXR1cmV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60')"></div>
                 <div class="card-body">
                   <h5 class="text-white mb-0">Welcome back,</h5>
-                  <p class="text-white text-sm">John Doe.</p>
+                  <p class="text-white text-sm">{{ Auth()->user()->getFullNameAttribute() }}.</p>
                   <div class="d-flex mt-4 pt-2 justify-content-end text-right">
                     <h1>{{ env('APP_NAME') }}</h1>
                   </div>
@@ -26,9 +26,11 @@
                 </div>
                 <div class="card-body pt-0 p-3 text-center">
                   <h6 class="text-center mb-0">Today's Work</h6>
-                  <span class="text-xs">See All</span>
+                  <a href="{{ route('mobile.today') }}">
+                    <span class="text-xs">See All</span>
+                  </a>
                   <hr class="horizontal dark my-3">
-                  <h5 class="mb-0">5 Works</h5>
+                  <h5 class="mb-0">xx Work(s)</h5>
                 </div>
               </div>
             </div>
@@ -43,7 +45,7 @@
                   <h6 class="text-center mb-0">Upcoming Work</h6>
                   <span class="text-xs">See All</span>
                   <hr class="horizontal dark my-3">
-                  <h5 class="mb-0">10+ Work(s)</h5>
+                  <h5 class="mb-0">{{ $upcomingWorks }} Work(s)</h5>
                 </div>
               </div>
             </div>
@@ -59,9 +61,9 @@
                   </div>
                 </div>
                 <div class="col-8 my-auto text-end">
-                  <p class="text-sm mb-0 opacity-7">Battery Health</p>
+                  <p class="text-sm mb-0 opacity-7">Completed Works</p>
                   <h5 class="font-weight-bolder mb-0">
-                    99 %
+                    {{ $allWorks->CompletePick + $allWorks->CompleteLaundry + $allWorks->CompleteDelivery }}
                   </h5>
                 </div>
               </div>
@@ -76,9 +78,9 @@
                   </div>
                 </div>
                 <div class="col-8 my-auto text-end">
-                  <p class="text-sm mb-0 opacity-7">Music Volume</p>
+                  <p class="text-sm mb-0 opacity-7">All Works</p>
                   <h5 class="font-weight-bolder mb-0">
-                    30/100
+                    {{ $allWorks->Pick + $allWorks->Laundry + $allWorks->Delivery }}
                   </h5>
                 </div>
               </div>

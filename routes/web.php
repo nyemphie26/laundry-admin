@@ -25,27 +25,18 @@ use App\Models\Order;
 */
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/login', function () {
     return view('Pages.Auth.login');
 })->name('login');
 
+
 Route::get('/', [HomeController::class, 'index'])->name('dashboard.main');
-// Route::get('/', function(){
-//     // $data = Service::all();
-//     $data = Service::with('category')->whereHas('category')->get();
-//     return $data;
-// });
 
 //Account
 Route::get('/account', [UserController::class, 'profile'])->name('account.settings');
 Route::put('/account/{user}', [UserController::class, 'updateProfile'])->name('account.settings.update');
 Route::put('/account/password/{user}', [UserController::class, 'updatePassword'])->name('account.settings.updatePass');
 
-// Route::get('/account', function () {
-//     return view('Pages.Account.settings');
-// })->name('account.settings');
 
 Route::group(['middleware' => ['can:access admin page']], function(){
     
@@ -67,6 +58,7 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::get('/incoming', [OrderController::class, 'incoming'])->name('orders.incoming');
     Route::get('/details/{order}', [OrderController::class, 'details'])->name('orders.details');
     Route::post('/orders/{order}', [OrderController::class, 'accept'])->name('orders.accept');
+    Route::post('/delivery/{order}', [OrderController::class, 'delivery'])->name('orders.delivery');
     
     Route::get('/incoming/details', function (){
         return view('Pages.Orders.details');
@@ -90,10 +82,6 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::get('/employees/{user}/edit',[UserController::class, 'editEmployee'] )->name('users.employees.edit');
     Route::put('/employees/{user}',[UserController::class, 'updateEmployee'] )->name('users.employees.update');
     
-});
-
-Route::group(['middleware' => ['can:access driver page']], function(){
-
 });
 
 

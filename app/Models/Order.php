@@ -46,6 +46,21 @@ class Order extends Model
         return $this->hasMany(OrderAssign::class);
     }
 
+    public function pickupAssign()
+    {
+        return $this->hasOne(PickupAssign::class);
+    }
+
+    public function laundressAssign()
+    {
+        return $this->hasOne(LaundressAssign::class);
+    }
+
+    public function deliveryAssign()
+    {
+        return $this->hasOne(DeliveryAssign::class);
+    }
+
     public function trackers()
     {
         return $this->hasMany(OrderTracker::class);
@@ -68,7 +83,13 @@ class Order extends Model
 
     public function pickup(): HasOne
     {
-        return $this->hasOne(Schedule::class)->ofMany('created_at','min');
+        return $this->hasOne(Schedule::class)->where('status','pickup');
     }
+
+    public function deliveryDate():HasOne
+    {
+        return $this->hasOne(Schedule::class)->where('status','deliver');
+    }
+    
 }
 

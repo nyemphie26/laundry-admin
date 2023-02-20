@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_trackers', function (Blueprint $table) {
+        Schema::create('delivery_assigns', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id');
-            $table->enum('status',['placed','accepted','picking','pickedup','processing','processed','scheduled','delivering','delivered','completed'])->default('placed');
-            $table->string('image_path')->nullable();
+            $table->foreignId('user_id');
+            $table->enum('status',[0,1,2]);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_trackers');
+        Schema::dropIfExists('delivery_assigns');
     }
 };

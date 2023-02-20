@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DeliveryAssign;
+use App\Models\LaundressAssign;
 use App\Models\User;
 use App\Models\Order;
-use App\Models\OrderAssign;
 use App\Models\OrderTracker;
-use Carbon\Carbon;
+use App\Models\PickupAssign;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,10 +39,15 @@ class OrderController extends Controller
     public function details(Order $order)
     {
         $incoming = null;
-        if($order->getLatestStatus->status == 'placed')
+        $latestStatus = $order->getLatestStatus->status;
+        if($latestStatus == 'placed')
         {
-            $incoming = true;
+            $incoming = 'incoming';
         }
+        elseif ($latestStatus == 'processed') {
+            $incoming = 'finished';
+        }
+        
         $drivers = User::role('driver')->get();
         $employees = User::role('employee')->get();
         return view('Pages.Orders.details', compact('order','drivers','employees','incoming'));
@@ -48,25 +55,19 @@ class OrderController extends Controller
 
     public function accept(Order $order, Request $request)
     {
-        $assigns = [
-            [
+
+        DB::transaction(function() use($request, $order){
+            // OrderAssign::insert($assigns);
+            PickupAssign::create([
                 "order_id"  => $order->id,
                 "user_id"   => $request['choiced-driver'],
-                "status"    => 'picker',
-                "created_at"=> Carbon::now(),
-                "updated_at"=> Carbon::now(),
-            ],
-            [
+                "status"    => '0'
+            ]);
+            LaundressAssign::create([
                 "order_id"  => $order->id,
                 "user_id"   => $request['choiced-employee'],
-                "status"    => 'washer',
-                "created_at"=> Carbon::now(),
-                "updated_at"=> Carbon::now(),
-            ]
-        ];
-        
-        DB::transaction(function() use($assigns, $order){
-            OrderAssign::insert($assigns);
+                "status"    => '0'
+            ]);
             OrderTracker::create([
                 'order_id' => $order->id,
                 'status' => 'accepted'
@@ -79,6 +80,34 @@ class OrderController extends Controller
 
         return $redirect->with([
             'message'    => "Order with no $order->order_no has been accepted",
+            'success' => true,
+        ]);
+    }
+
+    public function delivery(Order $order, Request $request)
+    {
+
+        DB::transaction(function() use($request,$order){
+            Schedule::create([
+                'order_id' => $order->id,
+                'schedule_date' => $request['delivery_date'],
+                'status' => 'deliver',
+            ]);
+            OrderTracker::create([
+                'order_id' => $order->id,
+                'status' => 'scheduled'
+            ]);
+            DeliveryAssign::create([
+                "order_id"  => $order->id,
+                "user_id"   => $request['choiced-driver'],
+                "status"    => '0'
+            ]);
+        });
+
+        $redirect = redirect()->route("orders.list");
+
+        return $redirect->with([
+            'message'    => "Order with no $order->order_no has been scheduled",
             'success' => true,
         ]);
     }

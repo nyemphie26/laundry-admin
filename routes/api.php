@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\v1\LoginController;
-use App\Http\Controllers\API\v1\OrderController;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\CategoryResource;
+use App\Http\Controllers\Api\v1\LoginController;
+use App\Http\Controllers\Api\v1\OrderController;
 use App\Http\Controllers\Api\v1\ServiceController;
 
 /*

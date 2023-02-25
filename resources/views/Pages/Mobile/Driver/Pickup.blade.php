@@ -76,13 +76,13 @@
     var id = actionBtn.dataset.order
     var assign = actionBtn.dataset.assign
     var url = '{{ route("mobile.updateStatus", ":id") }}';
+    var photo = null;
     link = url.replace(":id", id);
-
+    // console.log('status:'+status+', id:'+id+', assign:'+assign);
     if (status=="picked") {
       photoInput.click();
     } else {
-      updateStatus(link,status,assign);
-      location.reload();
+      updateStatus(link,status,assign)
     }
   });
 
@@ -99,9 +99,8 @@
     let photo = photoInput.files[0];
     link = url.replace(":id", id);
 
-    updateStatus(link,status,assign, photo)
+    updateStatus(link,status,assign)
     myModal.hide();
-    location.reload();
   });
 
 </script>

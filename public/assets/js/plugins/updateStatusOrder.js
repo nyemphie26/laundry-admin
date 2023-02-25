@@ -1,4 +1,4 @@
-function updateStatus(link,status, assign, photo){
+function updateStatus(link,status, assign){
     fetch(link,{
       method:'POST',
       headers: {
@@ -8,12 +8,12 @@ function updateStatus(link,status, assign, photo){
       body: JSON.stringify({
           status: status,
           assign: assign,
-          photo: photo
         }
       )
     })
     .then(res=>res.json())
-    .then(()=>location.reload())
-    // .then(data=>console.log(data))
+    .then(data=>{
+      location.reload();
+    })
     .catch(err=>console.log(err))
   }

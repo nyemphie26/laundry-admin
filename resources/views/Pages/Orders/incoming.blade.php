@@ -34,7 +34,7 @@
               <thead class="thead-light">
                 <tr>
                   <th>Order No</th>
-                  <th>Date</th>
+                  <th>Incoming Date</th>
                   <th>Status</th>
                   <th>Customer</th>
                   <th>Service Orders</th>

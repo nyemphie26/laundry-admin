@@ -24,6 +24,27 @@ class GenerateStatus {
        return $result;
     }
 
+    public static function SummaryStatus($status)
+    {
+        switch ($status) {
+            case '0':
+                $result = 'Assigned';
+                break;
+            case '1':
+                $result = 'On going';
+                break;
+            case '2':
+                $result = 'Finished';
+                break;
+            
+            default:
+                $result = 'Sit and Relax';
+                break;
+        }
+
+       return $result;
+    }
+
     public static function forDriver($status)
     {
        switch ($status) {

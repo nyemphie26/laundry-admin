@@ -47,7 +47,6 @@
     var url = '{{ route("mobile.updateStatus", ":id") }}';
     link = url.replace(":id", id);
     updateStatus(link,status,assign);
-    location.reload();
   });
 </script>
 @endsection

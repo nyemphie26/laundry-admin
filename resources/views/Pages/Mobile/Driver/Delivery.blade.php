@@ -79,7 +79,6 @@
       photoInput.click();
     } else {
       updateStatus(link, status, assign);
-      location.reload();
     }
   });
 
@@ -98,7 +97,6 @@
 
     updateStatus(link,status,assign,photo);
     myModal.hide();
-    location.reload();
   });
 
 </script>

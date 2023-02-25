@@ -65,14 +65,22 @@ class WorkController extends Controller
     {
         $works = LaundressAssign::where('user_id',Auth()->user()->id)->with('order.pickupAssign')->whereHas('order.pickupAssign', function($q){
             $q->where('status','2');
-        })->get();
+        })
+        ->where('status','!=','2')
+        ->get();
         // return $works;
         return view('Pages.Mobile.Laundryman.Laundry', compact('works'));
     }
     
     public function summary()
     {
-        $works = OrderAssign::where('user_id',Auth()->user()->id)->with(['order','order.delivery','order.schedules'])->where('status','picker')->get();
+        $works = Auth::user()->load([
+            'pickupWorks' => function($query){$query->latest();},
+            'deliveryWork' => function($query){$query->latest();},
+            'laundryWorks' => function($query){$query->latest();}
+        ]);
+
+        // return $works;
         
         if (Auth::user()->hasRole('driver')) {
             # code...

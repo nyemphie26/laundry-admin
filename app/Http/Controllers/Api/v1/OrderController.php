@@ -33,7 +33,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-
+        $array_items = json_decode($request->items,true);
+        $array_delivery = json_decode($request->delivery,true);
+        // return response()->json(['message'=> $array_delivery['address']],200);
         try {
             DB::beginTransaction();
 
@@ -50,7 +52,7 @@ class OrderController extends Controller
                 $newSchedule->status = 'pickup';
                 $newSchedule->save();
 
-                foreach ($request->items as $key => $value) {
+                foreach ($array_items as $key => $value) {
                     $newDetails = new OrderDetails();
                     $newDetails->order_id = $newOrder->id;
                     $newDetails->sku = $value['sku'];
@@ -64,19 +66,19 @@ class OrderController extends Controller
                 $newDelivery = new Delivery();
                 $newDelivery->order_id  = $newOrder->id;
                 $newDelivery->user_id   = auth()->user()->id;
-                $newDelivery->name      = $request->delivery['name'];
-                $newDelivery->phone     = $request->delivery['phone'];
-                $newDelivery->email     = $request->delivery['email'];
-                $newDelivery->address   = $request->delivery['address'];
+                $newDelivery->name      = $array_delivery['name'];
+                $newDelivery->phone     = $array_delivery['phone'];
+                $newDelivery->email     = $array_delivery['email'];
+                $newDelivery->address   = $array_delivery['address'];
                 $newDelivery->save();
 
                 $newTracker = new OrderTracker();
                 $newTracker->order_id = $newOrder->id;
                 $newTracker->status = 'placed';
                 $newTracker->save();
-
+            
             DB::commit();
-
+            
             return response()->json(['message'=> 'Stored'],200);
         } catch (\Throwable $th) {
             DB::rollBack();

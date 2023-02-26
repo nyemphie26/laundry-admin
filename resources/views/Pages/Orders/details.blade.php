@@ -158,6 +158,31 @@
                   <div class="timeline-content">
                     <h6 class="text-dark text-sm font-weight-bold mb-0">{{ GenerateStatus::forTracker($tracker->status) }}</h6>
                     <p class="text-secondary font-weight-normal text-xs mt-1 mb-0">{{ date('d M H:i A', strtotime($tracker->created_at)) }}</p>
+                    @if ($tracker->image_path)
+                        {{-- <a href="{{ asset($tracker->image_path) }}">Image</a> --}}
+                        <button type="button" class="btn btn-link btn-sm m-0" data-bs-toggle="modal" data-bs-target="#photo-{{ $tracker->id }}">
+                          See Uploaded Image
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="photo-{{ $tracker->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Uploaded By Driver On {{ date('d M H:i A', strtotime($tracker->created_at)) }}</h5>
+                                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <img src="{{ asset($tracker->image_path) }}" class="preview-img img-fluid shadow border-radius-lg">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-warning" data-bs-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    @endif
                   </div>
                 </div>
               @endforeach
@@ -202,6 +227,7 @@
             </div>
     </div>
   </div>
+  
 </div>
 @endsection
 

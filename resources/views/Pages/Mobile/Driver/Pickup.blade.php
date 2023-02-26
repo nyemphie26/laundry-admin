@@ -21,17 +21,22 @@
                 <ul class="dropdown-menu px-2 py-3" aria-labelledby="more" data-popper-placement="left-start">
                   <li><a href="{{ route('mobile.details', $work->order_id) }}" class="dropdown-item border-radius-md">Details</a></li>
                   @if ($work->status == 0)
-                    <li><a class="dropdown-item border-radius-md" href="javascript:;" id="btnsave" data-order="{{ $work->order_id }}" data-status="picking" data-assign="pickup">Picking Up Now!</a></li>
+                    <li>
+                      <button class="dropdown-item border-radius-md" data-order="{{ $work->order_id }}" data-status="picking" data-assign="pickup" onclick="updateStats(this)">Picking Up Now!</button>
+                    </li>
                   @elseif($work->status == 1)
-                    <li><a class="dropdown-item border-radius-md" href="javascript:;" id="btnsave" data-order="{{ $work->order_id }}" data-status="picked" data-assign="pickup">Already Picked Up!</a></li>
-                    {{-- OPEN CAMERA : https://davidwalsh.name/browser-camera --}}
-                    @endif
+                    <li>
+                      <button class="dropdown-item border-radius-md" data-order="{{ $work->order_id }}" data-status="picked" data-assign="pickup" onclick="uploadPhoto(this,'confirmPhoto', 'takePhoto-{{ $work->order_id }}')">Already Picked Up!</button>
+                    </li>
+                  @endif
                 </ul>
               </div>
             </div>
-            <form enctype="multipart/form-data" method="post">
-              <input type="file" accept="image/*" id="takePhoto" capture="camera" name="photoUpload" style="display: none"/>
-            </form>
+            @if ($work->status == 1)
+              <form enctype="multipart/form-data" method="post">
+                <input type="file" accept="image/*" id="takePhoto-{{ $work->order_id }}" capture="camera" name="photoUpload[]" style="display: none" onchange="showPreview(this)"/>
+              </form>
+            @endif
           </div>
         </div>
         @endforeach
@@ -49,13 +54,13 @@
             </div>
             <div class="modal-body justify-content-center">
               <div class="py-3 text-center">
-                <h4 class="text-gradient text-danger mt-4">Check the photo you take!</h4>
                 <img class="preview-img img-fluid shadow border-radius-lg">
+                <h4 class="text-gradient text-danger mt-4">Double check before submit this photo!</h4>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" id="confirmPhoto" class="btn btn-secondary">Ok, Confirm</button>
-              <button type="button" class="btn btn-link ml-auto" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" id="confirmPhoto" class="btn btn-secondary" onclick="updateStats(this)">Ok, Confirm</button>
+              <button type="button" class="btn btn-link ml-auto" data-bs-dismiss="modal" onclick="cancelUpload()">Cancel</button>
             </div>
           </div>
         </div>
@@ -65,43 +70,4 @@
 @section('page-script')
 <script src="{{ asset('assets/js/plugins/formPreviewImage.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/updateStatusOrder.js') }}"></script>
-<script>
-  var actionBtn = document.getElementById("btnsave");
-  var confirmUploadPhoto = document.getElementById("confirmPhoto");
-  var photoInput = document.getElementById("takePhoto");
-  const myModal = new bootstrap.Modal(document.getElementById('modal-take-photo'), {static:false});
-
-  actionBtn.addEventListener("click", function(){ 
-    var status = actionBtn.dataset.status
-    var id = actionBtn.dataset.order
-    var assign = actionBtn.dataset.assign
-    var url = '{{ route("mobile.updateStatus", ":id") }}';
-    var photo = null;
-    link = url.replace(":id", id);
-    // console.log('status:'+status+', id:'+id+', assign:'+assign);
-    if (status=="picked") {
-      photoInput.click();
-    } else {
-      updateStatus(link,status,assign)
-    }
-  });
-
-  takePhoto.addEventListener("change",(e)=>{
-    previewImg(e.target.id, 'preview-img');
-    myModal.show();
-  })
-
-  confirmUploadPhoto.addEventListener("click", ()=>{
-    var status = actionBtn.dataset.status
-    var id = actionBtn.dataset.order
-    var assign = actionBtn.dataset.assign
-    var url = '{{ route("mobile.updateStatus", ":id") }}';
-    let photo = photoInput.files[0];
-    link = url.replace(":id", id);
-
-    updateStatus(link,status,assign)
-    myModal.hide();
-  });
-
-</script>
 @endsection

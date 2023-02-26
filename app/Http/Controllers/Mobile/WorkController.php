@@ -102,9 +102,12 @@ class WorkController extends Controller
     
     public function updateStatus(Request $request)
     {
+        $file = $request->file('photoFile');
+        $status = $request->input('status');
+        $assign = $request->input('assign');
         $id = $request->order;
         
-        switch ($request['status']) {
+        switch ($status) {
             case 'picking':
                 $status = 'picking';
                 $state = '1';
@@ -146,7 +149,7 @@ class WorkController extends Controller
                 break;
         }
 
-        switch ($request['assign']) {
+        switch ($assign) {
             case 'pickup':
                 $update = PickupAssign::where('order_id',$id)->first();
                 break;
@@ -161,14 +164,14 @@ class WorkController extends Controller
                 $update = null;
                 break;
         }
-
+        
         try {
             DB::beginTransaction();
             $path = null;
 
-            // if (isset($request['photo'])) {
-            //     $path = $request['photo']->store('courierPhotos');
-            // }
+            if (isset($file)) {
+                $path = $file->store('courierPhotos');
+            }
             OrderTracker::create([
                 'order_id' => $id,
                 'status' => $status,

@@ -24,6 +24,17 @@ class OrderController extends Controller
         $data = Order::with(['details','delivery','assigns','trackers','schedules'])->where('user_id', auth()->user()->id)->get();
         return OrderResource::collection($data);
     }
+    
+    public function activeOrders()
+    {
+        $data = Order::where('user_id', auth()->user()->id)
+                    ->whereHas('getLatestStatus', function($q){
+                        $q->where('status','!=','completed');
+                            // ->where('status','!=','delivered');
+                    })
+                    ->get();
+        return OrderResource::collection($data);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -96,7 +107,12 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        return new OrderResource(
+            Order::with(['details','delivery','assigns','trackers','schedules'])
+                    ->where('order_no', $id)
+                    ->where('user_id', auth()->user()->id)
+                    ->first()
+        );
     }
 
     /**

@@ -38,8 +38,9 @@ Route::prefix('v1')->group(function(){
 
     Route::middleware('auth:sanctum')->group(function (){
         Route::post('/token/logout', [LoginController::class, 'destroy']);
-
-        Route::apiResource('/orders', OrderController::class)->only('index','store');
+        
+        Route::apiResource('/orders', OrderController::class)->only('index','store', 'show');
+        Route::get('/active_orders', [OrderController::class, 'activeOrders']);
 
     });
 });

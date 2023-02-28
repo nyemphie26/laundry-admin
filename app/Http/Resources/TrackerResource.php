@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use DateTime;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TrackerResource extends JsonResource
@@ -17,7 +18,8 @@ class TrackerResource extends JsonResource
         // return parent::toArray($request);
         return [
             'status'    => $this->status,
-            'image'     => $this->image_path
+            'image'     => $this->image_path ? asset($this->image_path) : null,
+            'date'      => $this->created_at,
         ];
     }
 }

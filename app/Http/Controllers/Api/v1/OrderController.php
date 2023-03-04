@@ -21,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data = Order::with(['details','delivery','assigns','trackers','schedules'])->where('user_id', auth()->user()->id)->get();
+        $data = Order::with(['details','delivery','assigns','trackers','schedules'])->where('user_id', auth()->user()->id)->latest('created_at')->paginate(5);
         return OrderResource::collection($data);
     }
     
@@ -32,6 +32,7 @@ class OrderController extends Controller
                         $q->where('status','!=','completed');
                             // ->where('status','!=','delivered');
                     })
+                    ->latest('created_at')
                     ->get();
         return OrderResource::collection($data);
     }

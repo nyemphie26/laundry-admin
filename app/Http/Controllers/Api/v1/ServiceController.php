@@ -12,11 +12,7 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $data = Service::with(['category', 'variants'])->whereHas('category')->get();
-        // $data = Service::with(['category' => function($q){
-        //     $q->whereNull('deleted_at');
-        // }, 'variants'])->get();
+        $data = Service::with(['category', 'variants'])->whereHas('category')->paginate(5);
         return ServiceResource::collection($data);
-        // return new ServiceResourceCollection(resource: $data);
     }
 }

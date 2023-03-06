@@ -25,7 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function(){
 
-    Route::post('/token/login', [LoginController::class, 'index']);
+    // Route::post('/token/login', [LoginController::class, 'index']);
+    Route::post('/login', [LoginController::class, 'index']);
+    Route::post('/register', [LoginController::class, 'register']);
 
     Route::get('/categories', function(){
         return CategoryResource::collection(Category::all());
@@ -37,7 +39,7 @@ Route::prefix('v1')->group(function(){
     Route::apiResource('/services', ServiceController::class)->only('index');
 
     Route::middleware('auth:sanctum')->group(function (){
-        Route::post('/token/logout', [LoginController::class, 'destroy']);
+        Route::post('/logout', [LoginController::class, 'destroy']);
         
         Route::apiResource('/orders', OrderController::class)->only('index','store', 'show');
         Route::get('/active_orders', [OrderController::class, 'activeOrders']);

@@ -2,383 +2,510 @@
 @extends('Layout.main')
 
 @section('content')
-    <div class="col-lg-12 position-relative z-index-2">
+    <div class="col-lg-6 position-relative z-index-2">
         <div class="row mb-4">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card  mb-2">
                     <div class="card-header p-3 pt-2">
                         <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary shadow text-center border-radius-xl mt-n4 position-absolute">
                         <i class="material-icons opacity-10">leaderboard</i>
                         </div>
                         <div class="text-end pt-1">
-                        <p class="text-sm mb-0 text-capitalize">New Orders</p>
-                        <h4 class="mb-0">10</h4>
+                        <h4 class="mb-0">{{ $orders->where('getLatestStatus.status','placed')->count() }}</h4>
                         </div>
                     </div>
                     <hr class="dark horizontal my-0">
                     <div class="card-footer p-3">
-                        <p class="mb-0"><a href="{{ route('orders.incoming') }}" class="text-primary"> Click here</a> to see the orders</p>
+                        <p class="mb-0"><a href="{{ route('orders.incoming') }}" class="text-primary">New Orders!</a></p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-sm-0 mt-4">
-                <div class="card  mb-2">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="card mb-2">
                     <div class="card-header p-3 pt-2">
                         <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
-                        <i class="material-icons opacity-10">local_laundry_service</i>
+                            <i class="material-icons opacity-10">local_laundry_service</i>
                         </div>
                         <div class="text-end pt-1">
-                        <p class="text-sm mb-0 text-capitalize">On process orders</p>
-                        <h4 class="mb-0">35</h4>
+                            <h4 class="mb-0">{{ $orders->where('getLatestStatus.status','processing')->count() }}</h4>
                         </div>
                     </div>
                     <hr class="dark horizontal my-0">
                     <div class="card-footer p-3">
-                        <p class="mb-0"><a href="{{ route('orders.list') }}" class="text-primary"> Click here</a> to see the order list</p>
+                        <p class="mb-0"><a href="{{ route('orders.list') }}" class="text-primary">Processing Orders</a></p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
+            <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
                 <div class="card  mb-2">
                 <div class="card-header p-3 pt-2 bg-transparent">
                     <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">store</i>
+                    <i class="material-icons opacity-10">local_shipping</i>
                     </div>
                     <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize ">Revenue</p>
-                    <h4 class="mb-0 ">34k</h4>
+                    <h4 class="mb-0 ">{{ $orders->where('getLatestStatus.status','processed')->count() }}</h4>
                     </div>
                 </div>
                 <hr class="horizontal my-0 dark">
                 <div class="card-footer p-3">
-                    <p class="mb-0 "><span class="text-success text-sm font-weight-bolder">+105% </span>than last month</p>
-                </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
-                <div class="card ">
-                <div class="card-header p-3 pt-2 bg-transparent">
-                    <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">person_add</i>
-                    </div>
-                    <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize ">Customer</p>
-                    <h4 class="mb-0 ">+91</h4>
-                    </div>
-                </div>
-                <hr class="horizontal my-0 dark">
-                <div class="card-footer p-3">
-                    <p class="mb-0 ">Just updated</p>
+                    <p class="mb-0"><a href="{{ route('orders.list') }}" class="text-primary">Assign Deliveries!</a></p>
                 </div>
                 </div>
             </div>
         </div>
         <div class="row mb-4">
-        <div class="col-lg-4 col-md-6 mt-4 mb-4">
-            <div class="card z-index-2 ">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                <div class="chart">
-                    <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
-                </div>
+            <div class="col-lg-8 col-md-6 mt-4 mb-4">
+                <div class="card z-index-2 ">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                            <div class="chart">
+                                <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="mb-0 ">Website Views</h6>
+                        <p class="text-sm ">Last Campaign Performance</p>
+                        <hr class="dark horizontal">
+                        <div class="d-flex ">
+                            <i class="material-icons text-sm my-auto me-1">schedule</i>
+                            <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card-body">
-                <h6 class="mb-0 ">Website Views</h6>
-                <p class="text-sm ">Last Campaign Performance</p>
-                <hr class="dark horizontal">
-                <div class="d-flex ">
-                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
+            <div class="col-lg-4 d-flex align-items-end flex-column">
+                <div class="card mb-auto mt-4">
+                    <div class="card-header p-3 pt-2 bg-transparent">
+                        <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">person_add</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <h4 class="mb-0 ">{{ $orders->where('getLatestStatus.status','delivered')->count() }}</h4>
+                        </div>
+                    </div>
+                    <hr class="horizontal my-0 dark">
+                    <div class="card-footer p-3">
+                        <p class="mb-0 ">Complete Orders</p>
+                    </div>
                 </div>
-            </div>
+                <div class="card mb-4">
+                    <div class="card-header p-3 pt-2">
+                        <div class="icon icon-lg icon-shape bg-gradient-warning shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">attach_money</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <h4 class="mb-0">35k</h4>
+                        </div>
+                    </div>
+                    <hr class="dark horizontal my-0">
+                    <div class="card-footer p-3">
+                        <p class="mb-0">Monthly Revenue</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6 mt-4 mb-4">
-            <div class="card z-index-2  ">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
-                <div class="chart">
-                    <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
+        <div class="row mb-4">
+            <div class="col-lg-12 col-md-6 mt-4 mb-4">
+                <div class="card z-index-2  ">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                    <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+                    <div class="chart">
+                        <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
+                    </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="mb-0 "> Daily Sales </h6>
+                    <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
+                    <hr class="dark horizontal">
+                    <div class="d-flex ">
+                    <i class="material-icons text-sm my-auto me-1">schedule</i>
+                    <p class="mb-0 text-sm"> updated 4 min ago </p>
+                    </div>
                 </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <h6 class="mb-0 "> Daily Sales </h6>
-                <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
-                <hr class="dark horizontal">
-                <div class="d-flex ">
-                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm"> updated 4 min ago </p>
-                </div>
-            </div>
             </div>
         </div>
-        <div class="col-lg-4 mt-4 mb-3">
-            <div class="card z-index-2 ">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                <div class="chart">
-                    <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+        <div class="row mb-4">
+            <div class="col-lg-12 mt-4 mb-3">
+                <div class="card z-index-2 ">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                    <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                    <div class="chart">
+                        <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+                    </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="mb-0 ">Completed Tasks</h6>
+                    <p class="text-sm ">Last Campaign Performance</p>
+                    <hr class="dark horizontal">
+                    <div class="d-flex ">
+                    <i class="material-icons text-sm my-auto me-1">schedule</i>
+                    <p class="mb-0 text-sm">just updated</p>
+                    </div>
                 </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <h6 class="mb-0 ">Completed Tasks</h6>
-                <p class="text-sm ">Last Campaign Performance</p>
-                <hr class="dark horizontal">
-                <div class="d-flex ">
-                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm">just updated</p>
-                </div>
-            </div>
             </div>
         </div>
-        </div>
+    </div>
+    <div class="col-lg-6 postition-relative z-index-z">
         <div class="card mb-4">
-            <div class="d-flex">
-            <div class="icon icon-shape icon-lg bg-gradient-success shadow text-center border-radius-xl mt-n3 ms-4">
-                <i class="material-icons opacity-10" aria-hidden="true">language</i>
-            </div>
-            <h6 class="mt-3 mb-2 ms-3 ">Sales by Country</h6>
-            </div>
-            <div class="card-body p-3">
-            <div class="row">
-                <div class="col-lg-6 col-md-7">
-                <div class="table-responsive">
-                    <table class="table align-items-center ">
-                    <tbody>
-                        <tr>
-                        <td class="w-30">
-                            <div class="d-flex px-2 py-1 align-items-center">
-                            <div>
-                                <img src="../../assets/img/icons/flags/US.png" alt="Country flag">
-                            </div>
-                            <div class="ms-4">
-                                <p class="text-xs font-weight-bold mb-0 ">Country:</p>
-                                <h6 class="text-sm font-weight-normal mb-0 ">United States</h6>
-                            </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Sales:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">2500</h6>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Value:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">$230,900</h6>
-                            </div>
-                        </td>
-                        <td class="align-middle text-sm">
-                            <div class="col text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Bounce:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">29.9%</h6>
-                            </div>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td class="w-30">
-                            <div class="d-flex px-2 py-1 align-items-center">
-                            <div>
-                                <img src="../../assets/img/icons/flags/DE.png" alt="Country flag">
-                            </div>
-                            <div class="ms-4">
-                                <p class="text-xs font-weight-bold mb-0 ">Country:</p>
-                                <h6 class="text-sm font-weight-normal mb-0 ">Germany</h6>
-                            </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Sales:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">3.900</h6>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Value:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">$440,000</h6>
-                            </div>
-                        </td>
-                        <td class="align-middle text-sm">
-                            <div class="col text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Bounce:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">40.22%</h6>
-                            </div>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td class="w-30">
-                            <div class="d-flex px-2 py-1 align-items-center">
-                            <div>
-                                <img src="../../assets/img/icons/flags/GB.png" alt="Country flag">
-                            </div>
-                            <div class="ms-4">
-                                <p class="text-xs font-weight-bold mb-0 ">Country:</p>
-                                <h6 class="text-sm font-weight-normal mb-0 ">Great Britain</h6>
-                            </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Sales:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">1.400</h6>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Value:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">$190,700</h6>
-                            </div>
-                        </td>
-                        <td class="align-middle text-sm">
-                            <div class="col text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Bounce:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">23.44%</h6>
-                            </div>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td class="w-30">
-                            <div class="d-flex px-2 py-1 align-items-center">
-                            <div>
-                                <img src="../../assets/img/icons/flags/BR.png" alt="Country flag">
-                            </div>
-                            <div class="ms-4">
-                                <p class="text-xs font-weight-bold mb-0 ">Country:</p>
-                                <h6 class="text-sm font-weight-normal mb-0 ">Brasil</h6>
-                            </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Sales:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">562</h6>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Value:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">$143,960</h6>
-                            </div>
-                        </td>
-                        <td class="align-middle text-sm">
-                            <div class="col text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">Bounce:</p>
-                            <h6 class="text-sm font-weight-normal mb-0 ">32.14%</h6>
-                            </div>
-                        </td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
-                </div>
-                <div class="col-lg-6 col-md-5">
-                <div id="map" class="mt-0 mt-lg-n4"></div>
-                </div>
-            </div>
+            <div class="card-header">
+                <h3 class="mb-0">Quick Setup</h3>
             </div>
         </div>
-        <div class="row mt-5">
-        <div class="col-lg-4 col-md-6">
-            <div class="card" data-animation="true">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <a class="d-block blur-shadow-image">
-                <img src="../../assets/img/products/product-1-min.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
-                </a>
-                <div class="colored-shadow" style="background-image: url(&quot;../../assets/img/products/product-1-min.jpg&quot;);"></div>
-            </div>
-            <div class="card-body text-center">
-                <div class="d-flex mt-n6 mx-auto">
-                <a class="btn btn-link text-primary ms-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refresh">
-                    <i class="material-icons text-lg">refresh</i>
-                </a>
-                <button class="btn btn-link text-info me-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
-                    <i class="material-icons text-lg">edit</i>
-                </button>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <div class="d-sm-flex text-center flex-column">
+                            <div>
+                                <h5 class="mb-0">Serviced Area</h5>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-link btn-sm m-0" data-bs-toggle="modal" data-bs-target="#modal-area">New Area</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        <div class="table-responsive">
+                            <table class="table table-flush display" id="datatable-postal">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Postal Code</th>
+                                        <th>Active</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    @foreach ($postals as $postal)
+                                        <tr>
+                                            <td>
+                                                <span class="my-2 text-sm">{{ $postal->postal_code }}</span>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="postalStatus" data-postal="{{ $postal->postal_code }}" onchange="updatePostal(this)" {{ $postal->status == 0 ? '' : 'checked' }}>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <h5 class="font-weight-normal mt-3">
-                <a href="javascript:;">Cozy 5 Stars Apartment</a>
-                </h5>
-                <p class="mb-0">
-                The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona.
-                </p>
             </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer d-flex">
-                <p class="font-weight-normal my-auto">$899/night</p>
-                <i class="material-icons position-relative ms-auto text-lg me-1 my-auto">place</i>
-                <p class="text-sm my-auto"> Barcelona, Spain</p>
-            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="d-sm-flex text-center flex-column">
+                            <div>
+                                <h5 class="mb-0">Service Tax</h5>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-link btn-sm m-0" data-bs-toggle="modal" data-bs-target="#modal-tax">Update Tax</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        <div class="table-responsive">
+                            <table class="table table-flush" id="datatable-tax">
+                                <thead>
+                                    <tr>
+                                        <th>Date Updated</th>
+                                        <th>Tax</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    @foreach ($taxes as $tax)
+                                        <tr>
+                                            <td>
+                                                <span class="my-2 text-sm">{{ date('d.m.y', strtotime($tax->created_at)) }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="my-2 text-sm">{{ $tax->tax }}</span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6 mt-5 mt-md-0">
-            <div class="card" data-animation="true">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <a class="d-block blur-shadow-image">
-                <img src="../../assets/img/products/product-2-min.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
-                </a>
-                <div class="colored-shadow" style="background-image: url(&quot;../../assets/img/products/product-2-min.jpg&quot;);"></div>
-            </div>
-            <div class="card-body text-center">
-                <div class="d-flex mt-n6 mx-auto">
-                <a class="btn btn-link text-primary ms-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refresh">
-                    <i class="material-icons text-lg">refresh</i>
-                </a>
-                <button class="btn btn-link text-info me-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
-                    <i class="material-icons text-lg">edit</i>
-                </button>
+        <div class="row">
+            <div class="col-lg-12 position-relative">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <div class="d-sm-flex text-center flex-column">
+                            <div>
+                                <h5 class="mb-0">Store Operational</h5>
+                            </div>
+                            <div>
+                                <span class="btn btn-link-secondary btn-sm mb-0">
+                                    Last Update :
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Days</th>
+                                            <th>Hours</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                @foreach ($storeDays as $day)
+                                                @endforeach
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="fcustomCheck1" name="opDays"
+                                                    @foreach ($storeDays as $item)
+                                                        {{ $item->day == 1 ? 'checked' : '' }}
+                                                    @endforeach>
+                                                    <label class="custom-control-label" for="customCheck1">Monday</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="2" id="fcustomCheck1" name="opDays"
+                                                    @foreach ($storeDays as $item)
+                                                        {{ $item->day == 2 ? 'checked' : '' }}
+                                                    @endforeach>
+                                                    <label class="custom-control-label" for="customCheck1">Tuesday</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="3" id="fcustomCheck1" name="opDays"
+                                                    @foreach ($storeDays as $item)
+                                                        {{ $item->day == 3 ? 'checked' : '' }}
+                                                    @endforeach>
+                                                    <label class="custom-control-label" for="customCheck1">Wednesday</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="4" id="fcustomCheck1" name="opDays"
+                                                    @foreach ($storeDays as $item)
+                                                        {{ $item->day == 4 ? 'checked' : '' }}
+                                                    @endforeach>
+                                                    <label class="custom-control-label" for="customCheck1">Thursday</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="5" id="fcustomCheck1" name="opDays"
+                                                    @foreach ($storeDays as $item)
+                                                        {{ $item->day == 5 ? 'checked' : '' }}
+                                                    @endforeach>
+                                                    <label class="custom-control-label" for="customCheck1">Friday</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="6" id="fcustomCheck1" name="opDays"
+                                                    @foreach ($storeDays as $item)
+                                                        {{ $item->day == 6 ? 'checked' : '' }}
+                                                    @endforeach>
+                                                    <label class="custom-control-label" for="customCheck1">Saturday</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="0" id="fcustomCheck1" name="opDays"
+                                                    @foreach ($storeDays as $item)
+                                                        {{ $item->day == 0 ? 'checked' : '' }}
+                                                    @endforeach>
+                                                    <label class="custom-control-label" for="customCheck1">Sunday</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group input-group-static my-3">
+                                                    <label>Hour From</label>
+                                                    <input type="time" class="form-control" name="storeHourFrom" value="{{ $storeHour['operational']->hourFrom ?? '00:00' }}">
+                                                </div>
+                                                <div class="input-group input-group-static my-3">
+                                                    <label>Until Hour</label>
+                                                    <input type="time" class="form-control" name="storeHourUntil" value="{{ $storeHour['operational']->hourUntil ?? '00:00' }}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td colspan="2">
+                                               <button type="button" class="btn bg-gradient-primary btn-sm m-0 w-100" onclick="updateOperational()">Update</button>
+                                           </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="table-responsive">
+                                    <table class="table" id="datatable-offDays">
+                                        <thead>
+                                            <th>Off Days</th>
+                                            <th>
+                                                <button type="button" class="btn btn-link btn-sm m-0 p-0" data-bs-toggle="modal" data-bs-target="#modal-offDay">Add New</button>
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($offDays as $offDay)
+                                                <tr>
+                                                    <td><span class="my-2 text-sm">{{ date('D, d M Y', strtotime($offDay->date)) }}</span></td>
+                                                    <td class="text-sm text-center">
+                                                        <form action="#" class="form" method="post">
+                                                        @csrf
+                                                        @method("delete")
+                                                        <button type="submit "class="btn btn-link m-0 p-0" data-date="{{ $offDay->id }}" data-bs-toggle="tooltip" data-bs-original-title="Delete Day" onclick="deleteOffDay(this)">
+                                                            <i class="material-icons text-secondary position-relative text-lg">delete</i>
+                                                        </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h5 class="font-weight-normal mt-3">
-                <a href="javascript:;">Office Studio</a>
-                </h5>
-                <p class="mb-0">
-                The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the night life in London, UK.
-                </p>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer d-flex">
-                <p class="font-weight-normal my-auto">$1.119/night</p>
-                <i class="material-icons position-relative ms-auto text-lg me-1 my-auto">place</i>
-                <p class="text-sm my-auto"> London, UK</p>
-            </div>
             </div>
         </div>
-        <div class="col-lg-4 mt-5 mt-lg-0">
-            <div class="card" data-animation="true">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <a class="d-block blur-shadow-image">
-                <img src="../../assets/img/products/product-3-min.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
-                </a>
-                <div class="colored-shadow" style="background-image: url(&quot;../../assets/img/products/product-3-min.jpg&quot;);"></div>
-            </div>
-            <div class="card-body text-center">
-                <div class="d-flex mt-n6 mx-auto">
-                <a class="btn btn-link text-primary ms-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refresh">
-                    <i class="material-icons text-lg">refresh</i>
-                </a>
-                <button class="btn btn-link text-info me-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
-                    <i class="material-icons text-lg">edit</i>
-                </button>
+        <div class="row">
+            <div class="col-lg-12 position-relative">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <div class="d-sm-flex text-center flex-column">
+                            <div>
+                                <h5 class="mb-0">Pickup and Delivery</h5>
+                            </div>
+                            <div>
+                                <span class="btn btn-link-secondary btn-sm mb-0">
+                                    Last Update :
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">
+                                        Morning Schedule
+                                    </th>
+                                    <th colspan="2">
+                                        Afternoon Schedule
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-sm text-center">
+                                        <div class="input-group input-group-static my-3">
+                                            <label>Hour From</label>
+                                            <input type="time" class="form-control" name="morningFrom" value="{{ $storeHour['morningSchedule']->hourFrom ?? '00:00' }}">
+                                        </div>
+                                    </td>
+                                    <td class="text-sm text-center">
+                                        <div class="input-group input-group-static my-3">
+                                            <label>Until Hour</label>
+                                            <input type="time" class="form-control" name="morningUntil" value="{{ $storeHour['morningSchedule']->hourUntil ?? '00:00' }}">
+                                        </div>
+                                    </td>
+                                    <td class="text-sm text-center">
+                                        <div class="input-group input-group-static my-3">
+                                            <label>Hour From</label>
+                                            <input type="time" class="form-control" name="afternoonFrom" value="{{ $storeHour['afternoonSchedule']->hourFrom ?? '00:00' }}">
+                                        </div>
+                                    </td>
+                                    <td class="text-sm text-center">
+                                        <div class="input-group input-group-static my-3">
+                                            <label>Until Hour</label>
+                                            <input type="time" class="form-control" name="afternoonUntil" value="{{ $storeHour['afternoonSchedule']->hourUntil ?? '00:00' }}">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <button type="button" class="btn bg-gradient-primary btn-sm m-0 w-100" onclick="updatePickup()">Update</button>
+                                    </td>
+                                 </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <h5 class="font-weight-normal mt-3">
-                <a href="javascript:;">Beautiful Castle</a>
-                </h5>
-                <p class="mb-0">
-                The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.
-                </p>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer d-flex">
-                <p class="font-weight-normal my-auto">$459/night</p>
-                <i class="material-icons position-relative ms-auto text-lg me-1 my-auto">place</i>
-                <p class="text-sm my-auto"> Milan, Italy</p>
-            </div>
             </div>
         </div>
+    </div>
+
+    {{-- MODAL --}}
+    {{-- Modal New Area --}}
+    <div class="modal modal-sm fade" id="modal-area" tabindex="-1" role="dialog" aria-labelledby="modal-area" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title font-weight-normal" id="modal-title-area">New Serviced Area</h6>
+              <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group-outline mb-0">
+                    <label class="form-label">Postal Code</label>
+                    <input type="text" class="form-control" name="postalCode" id="postalCode">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn bg-gradient-primary" onclick="addPostal()">Add New</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+    {{-- Modal New Tax --}}
+    <div class="modal modal-sm fade" id="modal-tax" tabindex="-1" role="dialog" aria-labelledby="modal-tax" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title font-weight-normal" id="modal-title-tax">New Tax Service</h6>
+              <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group-outline mb-0">
+                    <label class="form-label">Tax (in percent)</label>
+                    <input type="text" class="form-control" name="tax" id="tax">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn bg-gradient-primary" onclick="updateTax()">Add New</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+    {{-- Modal New Off Day --}}
+    <div class="modal modal-sm fade" id="modal-offDay" tabindex="-1" role="dialog" aria-labelledby="modal-offDay" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title font-weight-normal" id="modal-title-offDay">New Off Day</h6>
+              <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group-static">
+                <input class="form-control datepickers" placeholder="Please select date" type="text" id="offDay" onfocus="focused(this)" onfocusout="defocused(this)">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn bg-gradient-primary" onclick="updateOffDay()">Add New</button>
+            </div>
+          </div>
         </div>
     </div>
 @endsection
@@ -388,8 +515,10 @@
     <script src="../../assets/js/plugins/dragula/dragula.min.js"></script>
     <script src="../../assets/js/plugins/jkanban/jkanban.js"></script>
     <script src="../../assets/js/plugins/chartjs.min.js"></script>
-    {{-- <script src="../../assets/js/plugins/world.js"></script> --}}
+    <script src="{{ asset('assets/js/plugins/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables.js') }}"></script>
     <script>
+
         var ctx = document.getElementById("chart-bars").getContext("2d");
 
         new Chart(ctx, {
@@ -636,51 +765,122 @@
         },
         });
 
-        // Initialize the vector map
-        var map = new jsVectorMap({
-        selector: "#map",
-        map: "world_merc",
-        zoomOnScroll: false,
-        zoomButtons: false,
-        selectedMarkers: [1, 3],
-        markersSelectable: true,
-        markers: [{
-            name: "USA",
-            coords: [40.71296415909766, -74.00437720027804]
-            },
-            {
-            name: "Germany",
-            coords: [51.17661451970939, 10.97947735117339]
-            },
-            {
-            name: "Brazil",
-            coords: [-7.596735421549542, -54.781694323779185]
-            },
-            {
-            name: "Russia",
-            coords: [62.318222797104276, 89.81564777631716]
-            },
-            {
-            name: "China",
-            coords: [22.320178999475512, 114.17161225541399],
-            style: {
-                fill: '#E91E63'
-            }
-            }
-        ],
-        markerStyle: {
-            initial: {
-            fill: "#e91e63"
-            },
-            hover: {
-            fill: "E91E63"
-            },
-            selected: {
-            fill: "E91E63"
-            }
-        },
+        new flatpickr('.datepickers', {});
 
-
+        const tablePostal = new simpleDatatables.DataTable("#datatable-postal", {
+            searchable: true,
+            perPageSelect: false,
+            perPage: 3,
+            sortable: false,
         });
+
+        const tableTax = new simpleDatatables.DataTable("#datatable-tax", {
+            searchable: false,
+            perPageSelect: false,
+            perPage: 3,
+            sortable: false,
+        });
+
+        const tableOffDays = new simpleDatatables.DataTable("#datatable-offDays", {
+            searchable: false,
+            perPageSelect: false,
+            perPage: 5,
+            sortable: false,
+        });
+        
+        function addPostal(){
+            var link = '/status/postal';
+            var postal = document.getElementById('postalCode').value;
+            let formdata = new FormData();
+            formdata.append('postal', postal);
+            updateStatus(link, 'POST', formdata);
+        }
+        
+        function updatePostal(e){
+            var postal = e.dataset.postal;
+            var link = '/status/postalUpdate/'+postal;
+            let formdata = new FormData();
+            if (e.checked != true)
+            {
+                formdata.append('status', '0');
+                updateStatus(link, 'POST', formdata);
+            }
+            else
+            {
+                formdata.append('status', '1');
+                updateStatus(link, 'POST', formdata);
+            }
+        }
+
+        function updateTax(){
+            var tax = document.getElementById('tax').value;
+            var link = '/status/tax';
+            let formdata = new FormData();
+            formdata.append('tax', tax);
+            updateStatus(link, 'POST', formdata);
+        }
+
+        function updateOffDay(){
+            var offDay = document.getElementById('offDay').value;
+            var link = '/status/offDay';
+            let formdata = new FormData();
+            formdata.append('date', offDay);
+            updateStatus(link, 'POST', formdata);
+        }
+
+        function deleteOffDay(e){
+            var id = e.dataset.date;
+            var link = '/status/offDay/'+id;
+            updateStatus(link, 'DELETE');
+        }
+
+        function updateOperational(){
+            let days = [];
+            const checked = document.querySelectorAll('input[name="opDays"]:checked');
+            days = Array.from(checked).map(x => x.value);
+            let hourFrom = document.querySelector('input[name="storeHourFrom"]').value;
+            let hourUntil = document.querySelector('input[name="storeHourUntil"]').value;
+
+            var link = '/status/operational';
+            let formdata = new FormData();
+            formdata.append('days', JSON.stringify(days));
+            formdata.append('hourFrom', hourFrom);
+            formdata.append('hourUntil', hourUntil);
+            updateStatus(link, 'POST', formdata);
+        }
+
+        function updatePickup(){
+            const morningFrom = document.querySelector('input[name="morningFrom"]').value;
+            const morningUntil = document.querySelector('input[name="morningUntil"]').value;
+            const afternoonFrom = document.querySelector('input[name="afternoonFrom"]').value;
+            const afternoonUntil = document.querySelector('input[name="afternoonUntil"]').value;
+            console.log('Morning From '+ morningFrom+' Until '+ morningUntil);
+            console.log('Afternoon From '+ afternoonFrom+' Until '+ afternoonUntil);
+
+            var link = '/status/pickupSchedule';
+            let formdata = new FormData();
+            formdata.append('morningFrom', morningFrom);
+            formdata.append('morningUntil', morningUntil);
+            formdata.append('afternoonFrom', afternoonFrom);
+            formdata.append('afternoonUntil', afternoonUntil);
+            updateStatus(link, 'POST', formdata);
+
+        }
+
+        function updateStatus(link, method, formdata){
+        fetch(link,{
+            method: method,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' // replace with your own CSRF token
+            },
+            body: formdata
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            location.reload();
+        })
+        // .then(data=>console.log(data))
+        .catch(err=>console.log(err))
+    }
     </script>
 @endsection

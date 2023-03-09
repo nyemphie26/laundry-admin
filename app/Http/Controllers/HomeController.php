@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Tax;
+use App\Models\Order;
+use App\Models\OffDay;
+use App\Models\Postal;
+use App\Models\StoreDay;
+use App\Models\StoreHour;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -29,7 +34,21 @@ class HomeController extends Controller
         $collection = json_decode($response);
         // return $response['description'];
         if (Auth::user()->hasRole('admin')) {
-            return view('Pages.dashboard');
+           $postals = Postal::all();
+           $taxes = Tax::latest('created_at')->get();
+           $offDays = OffDay::latest('date')->get();
+           $storeDays = StoreDay::all();
+           $storeHour = StoreHour::all()->keyBy('key');
+           $orders = Order::with('getLatestStatus')->get();
+        //    return $orders;
+            return view('Pages.dashboard', compact([
+                                                'postals',
+                                                'taxes',
+                                                'offDays',
+                                                'storeDays',
+                                                'storeHour',
+                                                'orders',
+                                            ]));
         } 
         elseif(Auth::user()->hasAnyRole(['employee','driver'])){
             return redirect()->route('mobile.home');

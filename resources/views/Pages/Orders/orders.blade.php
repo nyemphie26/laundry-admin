@@ -98,7 +98,7 @@
                         {{-- {{ $order->getLatestStatus->status == 'placed' ? 'assign order' : 'see details' }} --}}
                     </a>
                   </td>
-              </tr>
+                </tr>
                 @endforeach
               </tbody>
             </table>

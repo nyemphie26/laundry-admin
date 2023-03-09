@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Models\Category;
 use App\Models\Order;
@@ -82,6 +83,14 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::get('/employees/{user}/edit',[UserController::class, 'editEmployee'] )->name('users.employees.edit');
     Route::put('/employees/{user}',[UserController::class, 'updateEmployee'] )->name('users.employees.update');
     
+    //internal API for javascript fetch
+    Route::post('/status/postal',[DashboardController::class, 'storePostal'])->name('postal.store');
+    Route::post('/status/postalUpdate/{postal}',[DashboardController::class, 'updatePostal'])->name('postal.update');
+    Route::post('/status/tax',[DashboardController::class, 'storeTax'])->name('tax.store');
+    Route::post('/status/offDay',[DashboardController::class, 'storeOffDay'])->name('offDay.store');
+    Route::delete('/status/offDay/{offDay}',[DashboardController::class, 'destroyOffDay'])->name('offDay.destroy');
+    Route::post('/status/operational',[DashboardController::class, 'storeOperational'])->name('operational.store');
+    Route::post('/status/pickupSchedule',[DashboardController::class, 'storePickupSchedule'])->name('schedule.store');
 });
 
 

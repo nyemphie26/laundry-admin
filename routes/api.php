@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\v1\BookScheduleController;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,5 +45,7 @@ Route::prefix('v1')->group(function(){
         Route::apiResource('/orders', OrderController::class)->only('index','store', 'show');
         Route::get('/active_orders', [OrderController::class, 'activeOrders']);
 
+        
     });
+    Route::apiResource('/schedules/{dateNow}/{long}', BookScheduleController::class)->only('index');
 });

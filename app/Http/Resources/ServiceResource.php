@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceResource extends JsonResource
 {
@@ -16,6 +17,7 @@ class ServiceResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
+            'picture'       => $this->product_image ? Storage::url($this->product_image) : null,
             'service_name'  => $this->name,
             'slug'          => $this->slug,
             'category'      => $this->category->name,

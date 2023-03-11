@@ -99,7 +99,7 @@
               <div class="row mt-3">
                 <div class="col-2">
                   @if(isset($edit))
-                  <img src="{{ asset('storage/'.$user->avatar_path) }}"  class="preview-img img-fluid shadow border-radius-lg" alt="avatar">
+                  <img src="{{ $user->avatar_path }}"  class="preview-img img-fluid shadow border-radius-lg" alt="avatar">
                   @else
                   <img src="{{ asset('assets/img/avatar.png') }}"  class="preview-img img-fluid shadow border-radius-lg" alt="avatar">
                   @endif

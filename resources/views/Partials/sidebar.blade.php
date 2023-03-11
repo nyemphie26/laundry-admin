@@ -12,7 +12,7 @@
         {{-- Account Nav --}}
         <li class="nav-item mb-2 mt-0 {{ request()->route()->named('account*') ? 'active' : '' }}">
           <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white {{ request()->route()->named('account*') ? 'active' : '' }}" aria-controls="ProfileNav" role="button" aria-expanded="false">
-            <img src="{{ 'storage/'.Auth::user()->avatar_path }}" class="avatar">
+            <img src="{{Auth::user()->avatar_path }}" class="avatar">
             <span class="nav-link-text ms-2 ps-1">{{ Auth::user()->full_name }}</span>
           </a>
           <div class="collapse {{ request()->route()->named('account*') ? 'show' : '' }}" id="ProfileNav" style="">

@@ -49,6 +49,7 @@ class UserController extends Controller
         $validated = $request->validate($rules);
         // return $validated;
 
+        // return $user->avatar_path = env('APP_URL')."/storage".$validated['avatar'];
         DB::transaction(function() use ($validated, $user){
             $user->name = $validated['name'];
             $user->last_name = $validated['last_name'];
@@ -59,7 +60,8 @@ class UserController extends Controller
             }
 
             if(isset($validated['avatar'])){
-                $user->avatar_path = $validated['avatar']->store('avatars');
+                // $user->avatar_path = $validated['avatar']->store('avatars');
+                $user->avatar_path = env('APP_URL')."/storage/".$validated['avatar']->store('avatars');
             }
             $user->save();
         });
@@ -132,7 +134,7 @@ class UserController extends Controller
                 'phone' => $validated['phone'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
-                'avatar_path' => $validated['avatar_path'],
+                'avatar_path' => env('APP_URL')."/storage/".$validated['avatar_path'],
             ]);
     
             $user->assignRole($validated['role']);
@@ -204,7 +206,7 @@ class UserController extends Controller
             }
 
             if(isset($validated['avatar'])){
-                $user->avatar_path = $validated['avatar']->store('avatars');
+                $user->avatar_path = env('APP_URL')."/storage/".$validated['avatar']->store('avatars');
             }
             $user->save();
             // User::where('id',$user->id)->update($validated);

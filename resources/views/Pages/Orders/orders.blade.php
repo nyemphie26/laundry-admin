@@ -70,7 +70,7 @@
                   <td class="text-xs font-weight-normal">
                     <div class="d-flex align-items-center">
                       <div class="d-flex align-items-center">
-                        <img src="{{ asset('storage/'.$order->cust->avatar_path) }}" class="avatar avatar-xs me-2" alt="user image">
+                        <img src="{{ asset($order->cust->avatar_path) }}" class="avatar avatar-xs me-2" alt="user image">
                         <span>{{ $order->cust->getFullNameAttribute() }}</span>
                       </div>
                     </div>
@@ -84,7 +84,7 @@
                     <span class="my-2 text-xs">$ {{ $order->grand_total }}</span>
                   </td>
                   <td class="text-xs font-weight-normal">
-                    <a href="{{ route('orders.details', $order) }}" class="btn btn-link btn-sm m-0">
+                    <a href="{{ route('orders.list.details', $order) }}" class="btn btn-link btn-sm m-0">
                       @switch($order->getLatestStatus->status)
                           @case('placed')
                               assign order

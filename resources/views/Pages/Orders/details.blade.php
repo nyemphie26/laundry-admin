@@ -20,9 +20,78 @@
             <p class="text-sm mb-0">
               Order no. <b>{{ $order->order_no }}</b> from <b>{{ date('d.m.Y', strtotime($order->getPlacedDate->created_at)) }}</b>
             </p>
-            <p class="text-sm">
-              Pick up scheduled: <b>{{ date('D, d.m.Y', strtotime($order->pickup->schedule_date)) }}</b>
+          </div>
+        </div>
+        <div class="row justify-content-between mt-3">
+          <div class="w-lg-50 me-4">
+            <p class="text-sm mb-0">
+              Pickup on :<br><b>{{ date('l, d.m.Y -- H:i A', strtotime($order->pickup->schedule_date)) }}</b>
             </p>
+          </div>
+          <div class="w-lg-25 me-4">
+            @switch($incoming)
+                @case('finished')
+                  <div class="input-group input-group-static my-3">
+                    <label><p class="text-sm mb-0">Delivery on :</p></label>
+                    {{-- <input type="date" class="form-control" name="delivery_date"> --}}
+                    <div class="input-group input-group-static">
+                      <input class="form-control datepickers" placeholder="Select Delivery Date" name="delivery_date" type="text" id="delivery_date" onfocus="focused(this)" onfocusout="defocused(this)">
+                    </div>
+                    </div>
+                    @break
+                @default
+                  <p class="text-sm mb-0">
+                    Delivery on :<br><b>{{$order->deliveryDate ? date('l, d.M.Y', strtotime($order->deliveryDate->schedule_date)) : '-' }}</b>
+                  </p>
+            @endswitch
+          </div>
+        </div>
+        <div class="row justify-content-between mt-2 mt-lg-0">
+          <div class="w-lg-30 me-4">
+            <p class="text-sm mb-0">Pickup Driver :</p>
+            @switch($incoming)
+                @case('incoming')
+                    <select class="form-control" name="choiced-driver" id="choices-driver">
+                      <option value="" selected>-- Select One --</option>
+                      @foreach ($drivers as $driver)
+                        <option value="{{ $driver->id }}">{{ $driver->getFullNameAttribute() }}</option>
+                      @endforeach
+                    </select>
+                    @break
+                @default
+                    
+                  <p class="text-sm mb-0"><b> {{ $order->pickupAssign->employee->getFullNameAttribute() }}</b></p>
+            @endswitch
+          </div>
+          <div class="w-lg-30 me-4">
+            <p class="text-sm mb-0">Laundryman :</p>
+            @switch($incoming)
+                @case('incoming')
+                    <select class="form-control" name="choiced-employee" id="choices-employee">
+                      <option value="" selected>-- Select One --</option>
+                      @foreach ($employees as $employee)
+                        <option value="{{ $employee->id }}">{{ $employee->getFullNameAttribute() }}</option>
+                      @endforeach
+                    </select>
+                    @break
+                @default
+                  <p class="text-sm mb-0"><b> {{ $order->laundressAssign->employee->getFullNameAttribute() }}</b></p>
+            @endswitch
+          </div>
+          <div class="w-lg-25 me-4">
+            <p class="text-sm mb-0">Delivery Driver :</p>
+            @switch($incoming)
+                @case('finished')
+                    <select class="form-control" name="choiced-driver" id="choices-driver">
+                      <option value="" selected>-- Select One --</option>
+                      @foreach ($drivers as $driver)
+                        <option value="{{ $driver->id }}">{{ $driver->getFullNameAttribute() }}</option>
+                      @endforeach
+                    </select>
+                    @break
+                @default
+                  <p class="text-sm mb-0"><b> {{ $order->deliveryAssign ? $order->deliveryAssign->employee->getFullNameAttribute() : '-' }}</b></p>
+            @endswitch
           </div>
         </div>
         <hr class="horizontal dark mt-0 mb-4">
@@ -75,63 +144,6 @@
               </span>
               <span class="text-dark text-lg ms-2 font-weight-bold">${{ $order->grand_total }}</span>
             </div>
-          </div>
-        </div>
-
-        <div class="row justify-content-between">
-          <div class="d-flex">
-              <h6 class="text-lg mb-0 mt-2">Assigned Employees</h6>
-          </div>
-          <div class="w-lg-30 me-4">
-            <label class="form-control m-0 p-0">Pickup Driver :</label>
-            @switch($incoming)
-                @case('incoming')
-                    <select class="form-control" name="choiced-driver" id="choices-driver">
-                      <option value="" selected>-- Select One --</option>
-                      @foreach ($drivers as $driver)
-                        <option value="{{ $driver->id }}">{{ $driver->getFullNameAttribute() }}</option>
-                      @endforeach
-                    </select>
-                    @break
-                @default
-                  <label class="form-control m-0 p-0 text-bold">{{ $order->pickupAssign->employee->getFullNameAttribute() }}</label>
-            @endswitch
-          </div>
-          <div class="w-lg-30 me-4">
-            <label class="form-control m-0 p-0">Laundryman :</label>
-            @switch($incoming)
-                @case('incoming')
-                    <select class="form-control" name="choiced-employee" id="choices-employee">
-                      <option value="" selected>-- Select One --</option>
-                      @foreach ($employees as $employee)
-                        <option value="{{ $employee->id }}">{{ $employee->getFullNameAttribute() }}</option>
-                      @endforeach
-                    </select>
-                    @break
-                @default
-                  <label class="form-control m-0 p-0 text-bold">{{ $order->laundressAssign->employee->getFullNameAttribute() }}</label>
-            @endswitch
-          </div>
-          <div class="w-lg-25 me-4">
-            <label class="form-control m-0 p-0">Delivery Driver :</label>
-            @switch($incoming)
-                @case('finished')
-                    <select class="form-control" name="choiced-driver" id="choices-driver">
-                      <option value="" selected>-- Select One --</option>
-                      @foreach ($drivers as $driver)
-                        <option value="{{ $driver->id }}">{{ $driver->getFullNameAttribute() }}</option>
-                      @endforeach
-                    </select>
-                    <div class="input-group input-group-static my-3">
-                      <label>Select Delivery Date</label>
-                      <input type="date" class="form-control" name="delivery_date">
-                    </div>
-                    @break
-                @default
-                  <label class="form-control m-0 p-0 text-bold">{{ $order->deliveryAssign ? $order->deliveryAssign->employee->getFullNameAttribute() : '-' }}</label>
-                  <label class="form-control m-0 p-0">Delivery Date :</label>
-                  <label class="form-control m-0 p-0 text-bold">{{$order->deliveryDate ? date('l, d.M.Y', strtotime($order->deliveryDate->schedule_date)) : '-' }}</label>
-            @endswitch
           </div>
         </div>
       </div>
@@ -233,6 +245,7 @@
 
 @section('page-script')
     <script src="{{ asset('assets/js/plugins/choices.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/flatpickr.min.js') }}"></script>
 
     <script>
         if (document.getElementById('choices-driver')) {
@@ -247,5 +260,11 @@
             searchEnabled: false
           });
         };
+
+        new flatpickr('.datepickers', {
+          altInput: true,
+          altFormat: "D, d.m.Y",
+          dateFormat: "Y-m-d",
+        });
       </script>
 @endsection

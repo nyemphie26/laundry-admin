@@ -30,6 +30,12 @@ class OrderController extends Controller
         return view('Pages.Orders.incoming', compact('orders'));
     }
     
+    public function assigning()
+    {
+        $orders = Order::whereHas('getLatestStatus', function($q){$q->where('status','processed');})->with(['cust','details'])->get();
+        return view('Pages.Orders.assigning', compact('orders'));
+    }
+    
     public function index()
     {
         $orders = Order::with(['getLatestStatus','cust','details'])->get();
@@ -86,8 +92,8 @@ class OrderController extends Controller
 
     public function delivery(Order $order, Request $request)
     {
-
         DB::transaction(function() use($request,$order){
+            
             Schedule::create([
                 'order_id' => $order->id,
                 'schedule_date' => $request['delivery_date'],
@@ -110,6 +116,22 @@ class OrderController extends Controller
             'message'    => "Order with no $order->order_no has been scheduled",
             'success' => true,
         ]);
+    }
+
+    public function sms()
+    {
+        $basic  = new \Vonage\Client\Credentials\Basic("48c1faaf", "mLZFJUYUa2scgHSm");
+        $client = new \Vonage\Client($basic);
+        $response = $client->sms()->send(
+            new \Vonage\SMS\Message\SMS("6285213895226", 'SYARIF H', 'Yang, screenshot pesan ini, trus kirim ke WA aku ya')
+        );
+        $message = $response->current();
+
+        if ($message->getStatus() == 0) {
+            echo "The message was sent successfully\n";
+        } else {
+            echo "The message failed with status: " . $message->getStatus() . "\n";
+        }
     }
 
 }

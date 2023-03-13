@@ -48,7 +48,7 @@
                 </div>
                 <hr class="horizontal my-0 dark">
                 <div class="card-footer p-3">
-                    <p class="mb-0"><a href="{{ route('orders.list') }}" class="text-primary">Assign Deliveries!</a></p>
+                    <p class="mb-0"><a href="{{ route('orders.assigning') }}" class="text-primary">Assign Deliveries!</a></p>
                 </div>
                 </div>
             </div>

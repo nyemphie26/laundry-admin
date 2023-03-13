@@ -1,3 +1,4 @@
+
 @extends('Layout.main')
 @section('content')
 <div class="container-fluid py-4">
@@ -27,7 +28,10 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h5 class="mb-0">New Requests Order</h5>
+            <h5 class="mb-0">Assign Orders</h5>
+            <p class="text-sm mb-0">
+              Assign drivers to quickly deliver the orders below to your customers.
+            </p>
           </div>
           <div class="table-responsive">
             <table class="table table-flush" id="datatable-search">
@@ -76,7 +80,7 @@
                         <span class="my-2 text-xs">$ {{ $order->grand_total }}</span>
                       </td>
                       <td class="text-xs font-weight-normal">
-                        <a href="{{ route('orders.incoming.details', $order) }}" class="btn btn-link btn-sm m-0">
+                        <a href="{{ route('orders.assigning.details', $order) }}" class="btn btn-link btn-sm m-0">
                           assign order
                         </a>
                       </td>

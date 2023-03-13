@@ -62,10 +62,16 @@
                   <span class="sidenav-normal  ms-2  ps-1"> Incoming Orders </span>
                 </a>
               </li>
+              <li class="nav-item {{ request()->route()->named('orders.assigning*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('orders.assigning*') ? 'active' : '' }}" href="{{ route('orders.assigning') }}">
+                  <span class="sidenav-mini-icon"> D </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> Delivery Orders </span>
+                </a>
+              </li>
               <li class="nav-item {{ request()->route()->named('orders.list*') ? 'active' : '' }}">
                 <a class="nav-link text-white {{ request()->route()->named('orders.list*') ? 'active' : '' }}" href="{{ route('orders.list') }}">
                   <span class="sidenav-mini-icon"> O </span>
-                  <span class="sidenav-normal  ms-2  ps-1"> Order List </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> All Orders </span>
                 </a>
               </li>
             </ul>

@@ -35,7 +35,7 @@
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
-                          <img src="{{ $employee->avatar_path }}" class="avatar avatar-sm me-3" alt="avatar image">
+                          <img src="{{ asset($employee->avatar_path) }}" class="avatar avatar-sm me-3" alt="avatar image">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 font-weight-normal text-sm">{{ $employee->full_name }}</h6>

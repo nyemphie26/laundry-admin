@@ -55,9 +55,12 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     
     //Orders
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.list');
+    Route::get('/orders/details/{order}', [OrderController::class, 'details'])->name('orders.list.details');
     
     Route::get('/incoming', [OrderController::class, 'incoming'])->name('orders.incoming');
-    Route::get('/details/{order}', [OrderController::class, 'details'])->name('orders.details');
+    Route::get('/incoming/details/{order}', [OrderController::class, 'details'])->name('orders.incoming.details');
+    Route::get('/assigning', [OrderController::class, 'assigning'])->name('orders.assigning');
+    Route::get('/assigning/details/{order}', [OrderController::class, 'details'])->name('orders.assigning.details');
     Route::post('/orders/{order}', [OrderController::class, 'accept'])->name('orders.accept');
     Route::post('/delivery/{order}', [OrderController::class, 'delivery'])->name('orders.delivery');
     

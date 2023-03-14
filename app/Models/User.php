@@ -58,7 +58,7 @@ class User extends Authenticatable
 
     public function order()
     {
-        return $this->hasMany(Delivery::class);
+        return $this->hasMany(Order::class);
     }
 
     public function pickupWorks()

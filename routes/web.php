@@ -75,9 +75,7 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::get('/fetchCategory', [CategoryController::class, 'fetchCategory'])->name('fetchCategory');
 
     //Users
-    Route::get('/customers', function (){
-        return view('Pages.Users.customers');
-    })->name('users.customers');
+    Route::get('/customers', [UserController::class, 'customers'])->name('users.customers');
     
 
     Route::get('/employees',[UserController::class, 'employee'] )->name('users.employees');

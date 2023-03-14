@@ -94,6 +94,13 @@ class UserController extends Controller
         ]);
     }
 
+    // Customers CRUD-----------------------------------------------------------------------------
+    public function customers()
+    {
+        $customers = User::role(['user'])->withCount('order as total_order')->withSum('order as revenue','grand_total')->orderBy('total_order','DESC')->get();
+        // return $customers;
+        return view('Pages.Users.customers', compact('customers'));
+    }
 
     // Employee CRUD------------------------------------------------------------------------------
     public function employee(){

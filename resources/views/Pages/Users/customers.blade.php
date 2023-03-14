@@ -23,172 +23,35 @@
                   <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Phone Number</th>
                   <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Total Orders</th>
                   <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Total Payment</th>
-                  <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Id</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="../../../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="avatar image">
+                @foreach ($customers as $customer)
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="{{ asset($customer->avatar_path) }}" class="avatar avatar-sm me-3" alt="avatar image">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 font-weight-normal text-sm">{{ $customer->getFullNameAttribute() }}</h6>
+                        </div>
                       </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 font-weight-normal text-sm">John Michael</h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="mb-0 font-weight-normal text-sm">john@user.com</p>
-                  </td>
-                  <td>
-                    <p class="text-sm font-weight-normal mb-0">555-00-123</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <p class="mb-0 font-weight-normal text-sm">15 Orders</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">150k</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">43431</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="../../../assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="avatar image">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 font-weight-normal text-sm">Alexa Liras</h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="mb-0 font-weight-normal text-sm">alexa@user.com</p>
-                  </td>
-                  <td>
-                    <p class="text-sm font-weight-normal mb-0">555-00-123</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <p class="mb-0 font-weight-normal text-sm">15 Orders</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">150k</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">93021</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="../../../assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="avatar image">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 font-weight-normal text-sm">Laurent Perrier</h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="mb-0 font-weight-normal text-sm">laurent@user.com</p>
-                  </td>
-                  <td>
-                    <p class="text-sm font-weight-normal mb-0">555-00-123</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <p class="mb-0 font-weight-normal text-sm">15 Orders</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">150k</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">10392</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="../../../assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="avatar image">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 font-weight-normal text-sm">Michael Levi</h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="mb-0 font-weight-normal text-sm">michael@user.com</p>
-                  </td>
-                  <td>
-                    <p class="text-sm font-weight-normal mb-0">555-00-123</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <p class="mb-0 font-weight-normal text-sm">15 Orders</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">150k</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">34002</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="../../../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="avatar image">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 font-weight-normal text-sm">Richard Gran</h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="mb-0 font-weight-normal text-sm">richard@user.com</p>
-                  </td>
-                  <td>
-                    <p class="text-sm font-weight-normal mb-0">555-00-123</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <p class="mb-0 font-weight-normal text-sm">15 Orders</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">150k</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">91879</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="../../../assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="avatar image">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 font-weight-normal text-sm">Miriam Eric</h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="mb-0 font-weight-normal text-sm">miriam@user.com</p>
-                  </td>
-                  <td>
-                    <p class="text-sm font-weight-normal mb-0">555-00-123</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <p class="mb-0 font-weight-normal text-sm">15 Orders</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">150k</p>
-                  </td>
-                  <td class="align-middle text-center">
-                    <p class="text-sm font-weight-normal mb-0">23042</p>
-                  </td>
-                </tr>
+                    </td>
+                    <td>
+                      <p class="mb-0 font-weight-normal text-sm">{{ $customer->email }}</p>
+                    </td>
+                    <td>
+                      <p class="text-sm font-weight-normal mb-0">{{ $cutomer->phone ?? '-' }}</p>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <p class="mb-0 font-weight-normal text-sm">{{ $customer->total_order }} Orders</p>
+                    </td>
+                    <td class="align-middle text-center">
+                      <p class="text-sm font-weight-normal mb-0">{{ $customer->revenue<1000 ? $customer->revenue : round($customer->revenue/1000, 1).'k' }}</p>
+                    </td>
+                  </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

@@ -1,18 +1,16 @@
 <?php
 
-use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\OrderController;
-use App\Models\Category;
-use App\Models\Order;
+use App\Http\Controllers\LandingPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,15 +40,12 @@ Route::put('/account/password/{user}', [UserController::class, 'updatePassword']
 Route::group(['middleware' => ['can:access admin page']], function(){
     
     //Landing Page
-    Route::get('/main-page', function () {
-        return view('Pages.LandingPage.mainPage');
-    })->name('landingpage.main');
-    Route::get('/about', function () {
-        return view('Pages.LandingPage.about');
-    })->name('landingpage.about');
-    Route::get('/contact', function () {
-        return view('Pages.LandingPage.contact');
-    })->name('landingpage.contact');
+    Route::get('/main-page', [LandingPageController::class, 'index'])->name('landingpage.main');
+    Route::post('/main-page', [LandingPageController::class, 'storeValue'])->name('landingpage.store');
+    Route::get('/about', [LandingPageController::class, 'about'])->name('landingpage.about');
+    Route::post('/about', [LandingPageController::class, 'storeValue'])->name('about.store');
+    Route::get('/contact', [LandingPageController::class, 'contact'])->name('landingpage.contact');
+    Route::post('/contact', [LandingPageController::class, 'storeValue'])->name('contact.store');
     
     
     //Orders

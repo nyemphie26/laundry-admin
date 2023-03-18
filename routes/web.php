@@ -36,6 +36,13 @@ Route::get('/account', [UserController::class, 'profile'])->name('account.settin
 Route::put('/account/{user}', [UserController::class, 'updateProfile'])->name('account.settings.update');
 Route::put('/account/password/{user}', [UserController::class, 'updatePassword'])->name('account.settings.updatePass');
 
+Route::get('stripe-success', function(){
+    return view('Pages.Stripe.stripe_success');
+})->name('stripe-success');
+Route::get('stripe-cancel', function(){
+    return view('Pages.Stripe.stripe_cancel');
+})->name('stripe-cancel');
+
 
 Route::group(['middleware' => ['can:access admin page']], function(){
     

@@ -1,13 +1,18 @@
 <?php
 
-use App\Http\Controllers\Api\v1\BookScheduleController;
+use Stripe\Stripe;
 use App\Models\Category;
+use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\CategoryResource;
 use App\Http\Controllers\Api\v1\LoginController;
 use App\Http\Controllers\Api\v1\OrderController;
 use App\Http\Controllers\Api\v1\ServiceController;
+use App\Http\Controllers\Api\v1\BookScheduleController;
+use App\Http\Controllers\Api\v1\StripeController;
+use GuzzleHttp\Promise\Create;
+use Stripe\PaymentMethod;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +43,8 @@ Route::prefix('v1')->group(function(){
         return new CategoryResource(Category::where('slug',$slug)->first());
     });
     Route::apiResource('/services', ServiceController::class)->only('index');
+    Route::apiResource('/schedules/{dateNow}/{long}', BookScheduleController::class)->only('index');
+    
 
     Route::middleware('auth:sanctum')->group(function (){
         Route::post('/logout', [LoginController::class, 'destroy']);
@@ -45,7 +52,13 @@ Route::prefix('v1')->group(function(){
         Route::apiResource('/orders', OrderController::class)->only('index','store', 'show');
         Route::get('/active_orders', [OrderController::class, 'activeOrders']);
 
+        Route::post('/create-payment-intent', [StripeController::class, 'paymentIntent']);
+        Route::post('/create-payment-method', [StripeController::class, 'paymentMethod']);
+        Route::post('/confirm-payment', [StripeController::class, 'confirmPayment']);
+        
+        Route::post('/create-checkout-page', [StripeController::class, 'checkoutPage']);
+        Route::post('/retrieve-checkout-page', [StripeController::class, 'retrieveCheckout']);
+        Route::post('/popup-window', [StripeController::class, 'popUp']);
         
     });
-    Route::apiResource('/schedules/{dateNow}/{long}', BookScheduleController::class)->only('index');
 });

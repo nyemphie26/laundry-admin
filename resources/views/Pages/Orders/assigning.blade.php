@@ -2,7 +2,7 @@
 @extends('Layout.main')
 @section('content')
 <div class="container-fluid py-4">
-    <div class="d-sm-flex justify-content-end">
+    {{-- <div class="d-sm-flex justify-content-end">
       <div class="d-flex">
         <div class="dropdown d-inline">
           <a href="javascript:;" class="btn btn-outline-dark dropdown-toggle " data-bs-toggle="dropdown" id="navbarDropdownMenuLink2">
@@ -23,7 +23,7 @@
           Export .XLS
         </button>
       </div>
-    </div>
+    </div> --}}
     <div class="row">
       <div class="col-12">
         <div class="card">
@@ -59,7 +59,7 @@
                       </td>
                       <td class="text-xs font-weight-normal">
                         <div class="d-flex align-items-center">
-                          <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">notifications</i></button>
+                          <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">{{ GenerateStatus::iconTracker($order->getLatestStatus->status) }}</i></button>
                           <span>New Order</span>
                         </div>
                       </td>
@@ -81,7 +81,7 @@
                       </td>
                       <td class="text-xs font-weight-normal">
                         <a href="{{ route('orders.assigning.details', $order) }}" class="btn btn-link btn-sm m-0">
-                          assign order
+                          assign delivery
                         </a>
                       </td>
                   </tr>

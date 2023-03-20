@@ -37,7 +37,7 @@
                   </div>
                 </div>
                 <div class="col-12 col-sm-4 mt-3 mt-sm-0">
-                  <select class="form-control mb-0 @error('role') is-invalid @enderror" name="role[]" id="choicesRole" multiple>
+                  <select class="form-control mb-0 @error('role') is-invalid @enderror" name="role[]" id="choicesRole" >
                       <option value="">Select Role</option>
                       <option value="admin">Admin</option>
                       <option value="employee">Employee</option>
@@ -47,8 +47,8 @@
                       <small class="text-danger">{{ $message }}</small>
                   @enderror
                   @isset($edit)
-                  <p class="text-xs text-success py-0 my-0">Last user role(s): {{ $user->getRoleNames() }}</p>
-                  <p class="text-xs text-success py-0 my-0">Leave this blank if no role updates</p>
+                  <p class="text-xs text-success py-0 my-0">Last user role: {{ $user->getRoleNames() }}</p>
+                  <p class="text-xs text-warning py-0 my-0">Leave this blank if no role updates</p>
                   @endisset
                 </div>
               </div>
@@ -83,7 +83,7 @@
                     @enderror
                   </div>
                   @isset($edit)
-                  <p class="text-xs text-success py-2">Leave this blank if no password updates</p>
+                  <p class="text-xs text-warning py-2">Leave this blank if no password updates</p>
                   @endisset
                 </div>
                 <div class="col-12 col-sm-6 mt-3 mt-sm-0">
@@ -92,7 +92,7 @@
                     <input id="confirm_password" name="password_confirmation" type="password" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
                   </div>
                   @isset($edit)
-                  <p class="text-xs text-success py-2">Leave this blank if no password updates</p>
+                  <p class="text-xs text-warning py-2">Leave this blank if no password updates</p>
                   @endisset
                 </div>
               </div>
@@ -111,15 +111,15 @@
                       <small class="text-danger">{{ $message }}</small>
                   @enderror
                   @isset($edit)
-                  <p class="text-xs text-success py-2">Leave this blank if no avatar updates</p>
+                  <p class="text-xs text-warning py-2">Leave this blank if no avatar updates</p>
                   @endisset
                 </div>
               </div>
-              <div class="button-row d-flex mt-4">
+              <div class="button-row d-flex mt-4 float-end">
                 @isset($edit)
-                <a href="{{ route('users.employees') }}" class="btn bg-gradient-secondary ms-auto mb-0">Cancel</a>
+                <a href="{{ route('users.employees') }}" class="btn btn-outline-secondary mb-0">Cancel</a>
                 @endisset
-                <button class="btn bg-gradient-primary ms-auto mb-0" type="submit" title="Send">{{ isset($edit) ? 'Update' : 'Submit' }}</button>
+                <button class="btn bg-gradient-primary ms-2 mb-0" type="submit" title="Send">{{ isset($edit) ? 'Update' : 'Submit' }}</button>
               </div>
             </form>
           </div>

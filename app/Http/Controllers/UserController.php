@@ -104,7 +104,7 @@ class UserController extends Controller
 
     // Employee CRUD------------------------------------------------------------------------------
     public function employee(){
-        $employees = User::role(['admin','driver','employee','user'])->get();
+        $employees = User::role(['admin','driver','employee'])->get();
         // return $employees;
         return view('Pages.Users.employees', compact('employees'));
     }

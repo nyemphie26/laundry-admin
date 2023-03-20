@@ -1,7 +1,7 @@
 @extends('Layout.main')
 @section('content')
 <div class="container-fluid py-4">
-    <div class="d-sm-flex justify-content-between">
+    {{-- <div class="d-sm-flex justify-content-between">
       <div>
         <a href="javascript:;" class="btn btn-icon bg-gradient-primary">
           New order
@@ -27,14 +27,14 @@
           Export .XLS
         </button>
       </div>
-    </div>
+    </div> --}}
     <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
             <h5 class="mb-0">Orders Table</h5>
             <p class="text-sm mb-0">
-              View all the orders from the previous year.
+              View all the orders from your customers.
             </p>
           </div>
           <div class="table-responsive">
@@ -63,7 +63,7 @@
                   </td>
                   <td class="text-xs font-weight-normal">
                     <div class="d-flex align-items-center">
-                      <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">notifications</i></button>
+                      <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-2 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-sm" aria-hidden="true">{{ GenerateStatus::iconTracker($order->getLatestStatus->status) }}</i></button>
                       <span>{{ $order->getLatestStatus->status }}</span>
                     </div>
                   </td>

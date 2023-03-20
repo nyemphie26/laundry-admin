@@ -37,10 +37,10 @@ Route::put('/account/{user}', [UserController::class, 'updateProfile'])->name('a
 Route::put('/account/password/{user}', [UserController::class, 'updatePassword'])->name('account.settings.updatePass');
 
 Route::get('stripe-success', function(){
-    return view('Pages.Stripe.stripe_success');
+    return view('Pages.Stripe.checkout_success');
 })->name('stripe-success');
 Route::get('stripe-cancel', function(){
-    return view('Pages.Stripe.stripe_cancel');
+    return view('Pages.Stripe.checkout_cancel');
 })->name('stripe-cancel');
 
 

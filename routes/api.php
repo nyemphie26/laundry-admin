@@ -51,14 +51,9 @@ Route::prefix('v1')->group(function(){
         
         Route::apiResource('/orders', OrderController::class)->only('index','store', 'show');
         Route::get('/active_orders', [OrderController::class, 'activeOrders']);
-
-        Route::post('/create-payment-intent', [StripeController::class, 'paymentIntent']);
-        Route::post('/create-payment-method', [StripeController::class, 'paymentMethod']);
-        Route::post('/confirm-payment', [StripeController::class, 'confirmPayment']);
         
         Route::post('/create-checkout-page', [StripeController::class, 'checkoutPage']);
         Route::post('/retrieve-checkout-page', [StripeController::class, 'retrieveCheckout']);
-        Route::post('/popup-window', [StripeController::class, 'popUp']);
         
     });
 });

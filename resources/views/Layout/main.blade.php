@@ -24,9 +24,13 @@
         @yield('page-css')
     </head>
     <body class="g-sidenav-show  bg-gray-200">
+          @auth
           @include('Partials.sidebar')
+          @endauth
         <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+            @auth
             @include('Partials.navbar')
+            @endauth  
             <div class="container-fluid py-4">
               @include('Partials.alert')
                 <div class="row justify-content-center">

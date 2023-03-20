@@ -41,4 +41,9 @@ class Variant extends Model
         return $this->belongsTo(Service::class);
     
     }
+
+    public function getServiceProductName()
+    {
+        return "{$this->service->name} ({$this->name})";
+    }
 }

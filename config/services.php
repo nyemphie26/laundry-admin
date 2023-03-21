@@ -35,5 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET_KEY'),
     ],
     
-
+    '5csms' => [
+        'user' => env('5CSMS_USER'),
+        'api-key' => env('5CSMS_API_KEY'),
+        'sender' => env('5CSMS_SENDER'),
+    ]
 ];

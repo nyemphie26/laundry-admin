@@ -43,7 +43,6 @@ Route::get('stripe-cancel', function(){
     return view('Pages.Stripe.checkout_cancel');
 })->name('stripe-cancel');
 
-
 Route::group(['middleware' => ['can:access admin page']], function(){
     
     //Landing Page
@@ -65,10 +64,6 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::get('/assigning/details/{order}', [OrderController::class, 'details'])->name('orders.assigning.details');
     Route::post('/orders/{order}', [OrderController::class, 'accept'])->name('orders.accept');
     Route::post('/delivery/{order}', [OrderController::class, 'delivery'])->name('orders.delivery');
-    
-    Route::get('/incoming/details', function (){
-        return view('Pages.Orders.details');
-    })->name('dashboard.orders.details');
     
     //Services & Categories
     Route::resource('products', ProductController::class)->only('index');

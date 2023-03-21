@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DeliveryAssign;
-use App\Models\LaundressAssign;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Schedule;
 use App\Models\OrderTracker;
 use App\Models\PickupAssign;
-use App\Models\Schedule;
 use Illuminate\Http\Request;
+use App\Models\DeliveryAssign;
+use App\Models\LaundressAssign;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class OrderController extends Controller
 {
@@ -123,7 +124,7 @@ class OrderController extends Controller
         $basic  = new \Vonage\Client\Credentials\Basic("48c1faaf", "mLZFJUYUa2scgHSm");
         $client = new \Vonage\Client($basic);
         $response = $client->sms()->send(
-            new \Vonage\SMS\Message\SMS("6285213895226", 'SYARIF H', 'Yang, screenshot pesan ini, trus kirim ke WA aku ya')
+            new \Vonage\SMS\Message\SMS("6281373875234", 'WashPress', 'Your Order #123 will delivered on 17 April, 2023')
         );
         $message = $response->current();
 
@@ -132,6 +133,22 @@ class OrderController extends Controller
         } else {
             echo "The message failed with status: " . $message->getStatus() . "\n";
         }
+    }
+
+    public function sendSms(Order $order, $deliveryDate)
+    {
+        $response = Http::withHeaders([
+            'User' => config('services.5csms.user'),
+            'Api-Key' => config('services.5csms.api-key'),
+        ])
+        ->post('https://www.5centsms.com.au/api/v4/sms', [
+            'sender' => config('services.5csms.sender'),
+            'to' => $order->delivery->phone,
+            'message' => 'Hi There! Your Order #'.$order->order_no.' will ship on'.date('l, d F y',strtotime($deliveryDate)),
+        ]);
+        
+        // Output the response
+        echo $response->body();
     }
 
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\v1\OrderController;
 use App\Http\Controllers\Api\v1\ServiceController;
 use App\Http\Controllers\Api\v1\BookScheduleController;
 use App\Http\Controllers\Api\v1\StripeController;
+use App\Http\Controllers\Api\v2\LandingPageController;
 use GuzzleHttp\Promise\Create;
 use Stripe\PaymentMethod;
 
@@ -56,4 +57,11 @@ Route::prefix('v1')->group(function(){
         Route::post('/retrieve-checkout-page', [StripeController::class, 'retrieveCheckout']);
         
     });
+});
+
+Route::prefix('v2')->group(function(){
+    Route::get('landing-page', [LandingPageController::class, 'homePage']);
+    Route::get('about-page', [LandingPageController::class, 'about']);
+    Route::get('contact-page', [LandingPageController::class, 'contact']);
+    Route::get('service-page/{slug}', [LandingPageController::class, 'service']);
 });

@@ -353,7 +353,7 @@
         let formdata    = new FormData();
         formdata.append('Greetings.title', sectionTitle);
         formdata.append('Greetings.desc', sectionSubtitle);
-        formdata.append('Greetings.background',backgroundImage.files[0]);
+        formdata.append('Greetings.picture',backgroundImage.files[0]);
         updateValue(formdata);
       }
 
@@ -402,10 +402,10 @@
             body: formdata
         })
         .then(res=>res.json())
-        // .then(data=>{
-        //     location.reload();
-        // })
-        .then(data=>console.log(data))
+        .then(data=>{
+            location.reload();
+        })
+        // .then(data=>console.log(data))
         .catch(err=>console.log(err))
       };
   </script>

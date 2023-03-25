@@ -50,33 +50,49 @@
             </div>
             <div class="card-body pt-0">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="input-group input-group-static mb-4">
                             <label>Title</label>
                             <input type="text" class="form-control" id="location_title" value="{{ $data['Location_title'] ?? '' }}">
                         </div>
-                        <div class="col-lg-12">
-                            <label>Description</label>
-                            <div id="location_desc_quill" class="h-50">
-                              {!! $data['Location_desc'] ?? '' !!}
-                            </div>
-                            <input type="hidden" class="form-control" placeholder="Section Description" id="location_desc" value="{{ $data['Location_desc'] ?? '' }}">
+                        <label>Description</label>
+                        <div id="location_desc_quill" class="h-50">
+                          {!! $data['Location_desc'] ?? '' !!}
+                        </div>
+                        <input type="hidden" class="form-control" placeholder="Section Description" id="location_desc" value="{{ $data['Location_desc'] ?? '' }}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="input-group input-group-static mb-4">
+                            <label>Location URL</label>
+                            <p class="form-text text-muted text-xs ms-1 d-inline">
+                                (input with no space)
+                            </p>
+                            <textarea name="url" id="url" cols="30" rows="4" class="form-control outline">{{ $data['Location_url'] ?? '' }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="input-group input-group-static mb-4">
+                            <label class="text-danger">How to embed location url from google maps</label>
+                            <ol class="text-sm">
+                                <li>Go to Google Maps (https://www.google.com/maps) and search for the location you want to embed.</li>
+                                <li>Click on the "Share" button located on the left side of the screen.</li>
+                                <li>Select "Embed a map" from the list of sharing options.</li>
+                                <li>Within the < iframe > tag, look for the src attribute, which will contain the link to the embedded map.</li>
+                                <li>Copy the link provided in the src attribute.</li>
+                                <li>Paste the code into the Location URL field above.</li>
+                            </ol>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="input-group input-group-static mb-4">
-                            <label>G-Maps Coordinate</label>
-                            <p class="form-text text-muted text-xs ms-1 d-inline">
-                                (latitude)
+                        <span class="text-danger text-sm">Watch this code bellow for example. Only copy the highlight text (the text inside double quoted) from the src attribute</span>
+                        <div class="card card-body border card-plain border-radius-lg mt-2">
+                            <p class="text-sm">
+                                src="<mark>https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3309.65368139313!2d151.17972371536112!3d-33.95003438063375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12b0f11b3383db%3A0xafdf355d5a4b6577!2sBandar%20Udara%20Sydney!5e0!3m2!1sid!2sid!4v1679713565636!5m2!1sid!2sid</mark>"
                             </p>
-                            <input type="text" class="form-control" id="location_latitude" value="{{ $data['Location_latitude'] ?? '' }}">
-                        </div>
-                        <div class="input-group input-group-static mb-4">
-                            <label>G-Maps Coordinate</label>
-                            <p class="form-text text-muted text-xs ms-1 d-inline">
-                                (longitude)
-                            </p>
-                            <input type="text" class="form-control" id="location_longitude" value="{{ $data['Location_longitude'] ?? '' }}">
                         </div>
                     </div>
                 </div>
@@ -120,13 +136,11 @@
         function updateLocation(){
             var locationTitle       = document.getElementById('location_title').value;
             var locationDesc        = document.getElementById('location_desc').value;
-            var latitude            = document.getElementById('location_latitude').value;
-            var longitude           = document.getElementById('location_longitude').value;
+            var url                 = document.getElementById('url').value;
             let formdata    = new FormData();
             formdata.append('Location.title', locationTitle);
             formdata.append('Location.desc', locationDesc);
-            formdata.append('Location.latitude', latitude);
-            formdata.append('Location.longitude', longitude);
+            formdata.append('Location.url', url);
             updateValue(formdata);
         }
 

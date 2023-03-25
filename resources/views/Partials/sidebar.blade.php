@@ -113,6 +113,12 @@
                   <span class="sidenav-normal  ms-2  ps-1"> Contact Us Page </span>
                 </a>
               </li>
+              <li class="nav-item {{ request()->route()->named('landingpage.services*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('landingpage.services*') ? 'active' : '' }}" href="/services">
+                  <span class="sidenav-mini-icon"> Sv </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> Services Page </span>
+                </a>
+              </li>
             </ul>
           </div>
         </li>

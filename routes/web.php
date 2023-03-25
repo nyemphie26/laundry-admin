@@ -52,6 +52,8 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::post('/about', [LandingPageController::class, 'storeValue'])->name('about.store');
     Route::get('/contact', [LandingPageController::class, 'contact'])->name('landingpage.contact');
     Route::post('/contact', [LandingPageController::class, 'storeValue'])->name('contact.store');
+    Route::get('/services', [LandingPageController::class, 'services'])->name('landingpage.services');
+    Route::post('/services', [LandingPageController::class, 'storeValue'])->name('services.store');
     
     
     //Orders

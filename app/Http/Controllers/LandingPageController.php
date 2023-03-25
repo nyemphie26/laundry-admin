@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\LandingPage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -40,11 +41,24 @@ class LandingPageController extends Controller
         return view('Pages.LandingPage.contact', compact('data'));
     }
 
+    public function services()
+    {
+        $data = LandingPage::where('page','LIKE','Service%')->get()->keyBy('key')->pluck('value','key');
+        $categories = Category::all();
+        // return $data['bed-and-linen_Page_title'];
+        return view('Pages.LandingPage.services', compact('categories','data'));
+    }
+
     public function storeValue(Request $request)
     {
         $formData = request()->all();
-        $page = Route::getCurrentRoute();
-        // return response()->json(['message'=>$page->uri],200);
+        if (isset($formData['keyPage'])) {
+            $page = $formData['keyPage'];
+        }
+        else {
+            $page = Route::getCurrentRoute()->uri;
+        }
+        // return response()->json(['message'=>$page],200);
 
         foreach ($formData as $key => $value) {
             if (Str::contains($key,['_background','_picture'])) {
@@ -58,17 +72,17 @@ class LandingPageController extends Controller
         
         try {
             foreach ($formData as $key => $value) {
-                if (Str::contains($key,['_background'])) {
+                if (Str::contains($key,['_background','_picture'])) {
                     //store background
                     if ($value != 'undefined') {
                         LandingPage::updateOrCreate(
-                            ['key' => $key], ['value'=>$value, 'page'=>$page->uri]
+                            ['key' => $key], ['value'=>env('APP_URL')."/storage/".$value, 'page'=>$page]
                         );
                     }
                 }
-                else{
+                elseif($key != 'keyPage'){
                     LandingPage::updateOrCreate(
-                        ['key' => $key], ['value'=>$value, 'page'=>$page->uri]
+                        ['key' => $key], ['value'=>$value, 'page'=>$page]
                     );
                 }
             }

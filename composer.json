@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "binary-cats/laravel-sku": "^0.6.0",
         "doctrine/dbal": "^3.6",
+        "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",

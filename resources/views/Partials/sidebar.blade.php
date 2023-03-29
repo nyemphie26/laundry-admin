@@ -77,6 +77,42 @@
             </ul>
           </div>
         </li>
+        {{-- Report v.1 Nav --}}
+        <li class="nav-item {{ request()->route()->named('summary*') ? 'active' : '' }}">
+          <a class="nav-link text-white {{ request()->route()->named('summary*') ? 'active bg-gradient-primary' : '' }}" href="{{ route('summary.index') }}">
+            <i class="material-icons-round opacity-10">book</i>
+            <span class="sidenav-normal  ms-2  ps-1"> Reports v.1 </span>
+          </a>
+        </li>
+        {{-- Reports Nav --}}
+        {{-- <li class="nav-item {{ request()->route()->named('report*') ? 'active' : '' }}">
+          <a data-bs-toggle="collapse" href="#reportNav" class="nav-link text-white {{ request()->route()->named('report*') ? 'active' : '' }}" aria-controls="reportNav" role="button" aria-expanded="false">
+            <i class="material-icons-round opacity-10">book</i>
+            <span class="nav-link-text ms-2 ps-1">Reports</span>
+          </a>
+          <div class="collapse {{ request()->route()->named('report*') ? 'show' : '' }}" id="reportNav">
+            <ul class="nav ">
+              <li class="nav-item {{ request()->route()->named('report.orders*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('report.orders*') ? 'active' : '' }}" href="{{ route('report.orders') }}">
+                  <span class="sidenav-mini-icon"> Os </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> Orders Summary </span>
+                </a>
+              </li>
+              <li class="nav-item {{ request()->route()->named('report.finance*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('report.finance*') ? 'active' : '' }}" href="{{ route('report.finance') }}">
+                  <span class="sidenav-mini-icon"> Fs </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> Financial Summary </span>
+                </a>
+              </li>
+              <li class="nav-item {{ request()->route()->named('report.list*') ? 'active' : '' }}">
+                <a class="nav-link text-white {{ request()->route()->named('report.list*') ? 'active' : '' }}" href="">
+                  <span class="sidenav-mini-icon"> O </span>
+                  <span class="sidenav-normal  ms-2  ps-1"> All Orders </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li> --}}
         <li class="nav-item mt-3">
           <h6 class="ps-4 text-uppercase text-xs font-weight-bolder text-white">Settings</h6>
         </li>

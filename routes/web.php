@@ -11,6 +11,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,12 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     //Users
     Route::get('/customers', [UserController::class, 'customers'])->name('users.customers');
     
+    //Report
+    Route::get('/summary', [ReportController::class, 'index'])->name('summary.index');
+    Route::post('/summary', [ReportController::class, 'show'])->name('summary.show');
+    Route::get('/summaryPdf/{start}/{end}', [ReportController::class, 'generatePdf'])->name('summary.pdf');
+    Route::get('/report/orders', [ReportController::class, 'orders'])->name('report.orders');
+    Route::get('/report/finance', [ReportController::class, 'finance'])->name('report.finance');
 
     Route::get('/employees',[UserController::class, 'employee'] )->name('users.employees');
     Route::get('/employees/create',[UserController::class, 'createEmployee'] )->name('users.employees.new');
@@ -91,6 +98,7 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::delete('/status/offDay/{offDay}',[DashboardController::class, 'destroyOffDay'])->name('offDay.destroy');
     Route::post('/status/operational',[DashboardController::class, 'storeOperational'])->name('operational.store');
     Route::post('/status/pickupSchedule',[DashboardController::class, 'storePickupSchedule'])->name('schedule.store');
+
 });
 
 

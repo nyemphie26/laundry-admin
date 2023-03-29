@@ -30,8 +30,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $response = Http::get('https://mocki.io/v1/1f67bfff-d4b0-4483-a553-269a5affcf20');
-        $collection = json_decode($response);
+        // $response = Http::get('https://mocki.io/v1/1f67bfff-d4b0-4483-a553-269a5affcf20');
+        // $collection = json_decode($response);
         // return $response['description'];
         if (Auth::user()->hasRole('admin')) {
            $postals = Postal::all();

@@ -319,11 +319,11 @@
                                             <td>
                                                 <div class="input-group input-group-static my-3">
                                                     <label>Hour From</label>
-                                                    <input type="time" class="form-control" name="storeHourFrom" value="{{ $storeHour['operational']->hourFrom ?? '00:00' }}">
+                                                    <input type="text" class="form-control time-picker" name="storeHourFrom" value="{{ $storeHour['operational']->hourFrom ?? '00:00' }}" onfocus="focused(this)" onfocusout="defocused(this)">
                                                 </div>
                                                 <div class="input-group input-group-static my-3">
                                                     <label>Until Hour</label>
-                                                    <input type="time" class="form-control" name="storeHourUntil" value="{{ $storeHour['operational']->hourUntil ?? '00:00' }}">
+                                                    <input type="text" class="form-control time-picker" name="storeHourUntil" value="{{ $storeHour['operational']->hourUntil ?? '00:00' }}" onfocus="focused(this)" onfocusout="defocused(this)">
                                                 </div>
                                             </td>
                                         </tr>
@@ -400,25 +400,25 @@
                                     <td class="text-sm text-center">
                                         <div class="input-group input-group-static my-3">
                                             <label>Hour From</label>
-                                            <input type="time" class="form-control" name="morningFrom" value="{{ $storeHour['morningSchedule']->hourFrom ?? '00:00' }}">
+                                            <input type="text" class="form-control time-picker" name="morningFrom" value="{{ $storeHour['morningSchedule']->hourFrom ?? '00:00' }}">
                                         </div>
                                     </td>
                                     <td class="text-sm text-center">
                                         <div class="input-group input-group-static my-3">
                                             <label>Until Hour</label>
-                                            <input type="time" class="form-control" name="morningUntil" value="{{ $storeHour['morningSchedule']->hourUntil ?? '00:00' }}">
+                                            <input type="text" class="form-control time-picker" name="morningUntil" value="{{ $storeHour['morningSchedule']->hourUntil ?? '00:00' }}">
                                         </div>
                                     </td>
                                     <td class="text-sm text-center">
                                         <div class="input-group input-group-static my-3">
                                             <label>Hour From</label>
-                                            <input type="time" class="form-control" name="afternoonFrom" value="{{ $storeHour['afternoonSchedule']->hourFrom ?? '00:00' }}">
+                                            <input type="text" class="form-control time-picker" name="afternoonFrom" value="{{ $storeHour['afternoonSchedule']->hourFrom ?? '00:00' }}">
                                         </div>
                                     </td>
                                     <td class="text-sm text-center">
                                         <div class="input-group input-group-static my-3">
                                             <label>Until Hour</label>
-                                            <input type="time" class="form-control" name="afternoonUntil" value="{{ $storeHour['afternoonSchedule']->hourUntil ?? '00:00' }}">
+                                            <input type="text" class="form-control time-picker" name="afternoonUntil" value="{{ $storeHour['afternoonSchedule']->hourUntil ?? '00:00' }}">
                                         </div>
                                     </td>
                                 </tr>
@@ -498,7 +498,7 @@
             </div>
             <div class="modal-body">
                 <div class="input-group input-group-static">
-                <input class="form-control datepickers" placeholder="Please select date" type="text" id="offDay" onfocus="focused(this)" onfocusout="defocused(this)">
+                    <input class="form-control datepickers" placeholder="Please select date" type="text" id="offDay" onfocus="focused(this)" onfocusout="defocused(this)">
                 </div>
             </div>
             <div class="modal-footer">
@@ -766,6 +766,11 @@
         });
 
         new flatpickr('.datepickers', {});
+        new flatpickr('.time-picker', {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        });
 
         const tablePostal = new simpleDatatables.DataTable("#datatable-postal", {
             searchable: true,

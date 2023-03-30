@@ -1,8 +1,8 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/codj2387/
+    - export DEPLOYPATH=/home4/washpres/
     - /bin/cp -r * $DEPLOYPATH/dashboard #copy all from root
-    - /bin/cp -r ./public/* $DEPLOYPATH/public_html/dashboard.codignore.com
+    - /bin/cp -r ./public/* $DEPLOYPATH/public_html/dashboard.washpress.com.au
     # - /bin/cp ./public/js/*.js $DEPLOYPATH/public_html/welikework.codignore.com/js
     # - /bin/cp ./public/css/*.css $DEPLOYPATH/public_html/welikework.codignore.com/css

@@ -1,19 +1,16 @@
 <?php
 
-use Stripe\Stripe;
 use App\Models\Category;
-use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\CategoryResource;
+use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\LoginController;
 use App\Http\Controllers\Api\v1\OrderController;
-use App\Http\Controllers\Api\v1\ServiceController;
-use App\Http\Controllers\Api\v1\BookScheduleController;
 use App\Http\Controllers\Api\v1\StripeController;
+use App\Http\Controllers\Api\v1\ServiceController;
 use App\Http\Controllers\Api\v2\LandingPageController;
-use GuzzleHttp\Promise\Create;
-use Stripe\PaymentMethod;
+use App\Http\Controllers\Api\v1\BookScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +52,8 @@ Route::prefix('v1')->group(function(){
         
         Route::post('/create-checkout-page', [StripeController::class, 'checkoutPage']);
         Route::post('/retrieve-checkout-page', [StripeController::class, 'retrieveCheckout']);
+
+        Route::put('/profile/{user}', [UserController::class, 'update']);
         
     });
 });

@@ -8,6 +8,7 @@ use App\Models\OffDay;
 use App\Models\Postal;
 use App\Models\StoreDay;
 use App\Models\StoreHour;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -40,8 +41,8 @@ class HomeController extends Controller
            $storeDays = StoreDay::all();
            $storeHour = StoreHour::all()->keyBy('key');
            $orders = Order::with('getLatestStatus')->get();
-        //    return $orders;
-            return view('Pages.dashboard', compact([
+            
+           return view('Pages.dashboard', compact([
                                                 'postals',
                                                 'taxes',
                                                 'offDays',

@@ -31,6 +31,8 @@ Route::get('/login', function () {
 
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard.main');
+Route::get('/smsTest', [OrderController::class, 'testSms']);
+Route::get('/accountTest', [OrderController::class, 'testAccount']);
 
 //Account
 Route::get('/account', [UserController::class, 'profile'])->name('account.settings');
@@ -98,6 +100,9 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::delete('/status/offDay/{offDay}',[DashboardController::class, 'destroyOffDay'])->name('offDay.destroy');
     Route::post('/status/operational',[DashboardController::class, 'storeOperational'])->name('operational.store');
     Route::post('/status/pickupSchedule',[DashboardController::class, 'storePickupSchedule'])->name('schedule.store');
+    Route::get('/dailyOrders',[DashboardController::class, 'dailyOrders']);
+    Route::get('/lastRevenue',[DashboardController::class, 'lastRevenue']);
+    Route::get('/lastCust',[DashboardController::class, 'lastCust']);
 
 });
 

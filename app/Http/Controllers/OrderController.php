@@ -111,6 +111,8 @@ class OrderController extends Controller
             ]);
         });
 
+        // $sendSms = $this->sendSms($order,$request['delivery_date']);
+        
         $redirect = redirect()->route("orders.list");
 
         return $redirect->with([
@@ -149,6 +151,69 @@ class OrderController extends Controller
         
         // Output the response
         echo $response->body();
+    }
+
+    public function testAccount()
+    {
+        $url = 'https://www.5centsms.com.au/api/v4/account'; 
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'User: letsmove150@gmail.com',
+            'Api-Key: urc3Bu2Voo936ciqsi7LmCWiBhgqn4',
+        ));
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $response = json_decode($result, true);
+        // print_r($response);
+        return $response;
+    }
+
+    public function testSms()
+    {
+        // $response = Http::withHeaders([
+        //     'User' => config('services.5csms.user'),
+        //     'Api-Key' => config('services.5csms.api-key'),
+        // ])
+        // ->post('https://www.5centsms.com.au/api/v4/account');
+        
+        // return $response;
+
+        $url = 'https://www.5centsms.com.au/api/v4/sms';
+
+	    $fields = array(
+            'sender' => urlencode('0403123123'),
+            'to' => urlencode('0403111111'),
+            'message' => urlencode('Test Message'),
+            'test' => urlencode('true'),
+        );  
+        $fields_string = "";
+        foreach($fields as $key => $value) {
+            $fields_string .= $key . '=' . $value . '&';
+        }
+        rtrim($fields_string, '&');
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'User: ['.config('services.5csms.user').']',
+            'Api-Key: ['.config('services.5csms.api-key').']',
+        ));
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $response = json_decode($result, true);
+        print_r($response);
     }
 
 }

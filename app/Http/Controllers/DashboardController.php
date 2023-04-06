@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OffDay;
 use App\Models\Tax;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\OffDay;
 use App\Models\Postal;
 use App\Models\StoreDay;
 use App\Models\StoreHour;
@@ -131,5 +133,47 @@ class DashboardController extends Controller
             return response()->json(['message'=>$th->getMessage()],500);
         }
         
+    }
+
+    public function dailyOrders()
+    {
+        $data =  Order::selectRaw('
+                            DATE_FORMAT(created_at, "%a") AS date,
+                            COUNT(id) AS orders
+                        ')
+                        ->whereDate('created_at','like', date('Y-m').'%')
+                        ->groupBy('date')
+                        ->get()
+                        ->pluck('orders','date');
+        
+        return response()->json(['data'=>$data]);
+    }
+
+    public function lastRevenue()
+    {
+        $data = Order::selectRaw('
+                            DATE_FORMAT(created_at, "%b") AS date,
+                            COUNT(id) AS orders,
+                            ROUND(SUM(grand_total),2) AS revenue
+                        ')
+                        ->whereDate('created_at','like', date('Y').'%')
+                        ->groupBy('date')
+                        ->get()
+                        ->pluck('revenue','date');
+        return response()->json(['data'=>$data]);
+    }
+    
+    public function lastCust()
+    {
+        $data = User::role(['user'])
+                    ->selectRaw('
+                            DATE_FORMAT(created_at, "%b") AS date,
+                            COUNT(id) AS customers
+                        ')
+                    ->whereDate('created_at','like', date('Y').'%')
+                    ->groupBy('date')
+                    ->get()
+                    ->pluck('customers','date');
+        return response()->json(['data'=>$data]);
     }
 }

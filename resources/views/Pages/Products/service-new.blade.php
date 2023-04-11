@@ -82,46 +82,32 @@
                 </div>
                 <div class="card mt-4">
                     <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <h5 class="font-weight-bolder">Pricing</h5>
-                        <div class="col-3" id="singlePrice">
-                            <div class="input-group input-group-dynamic  @error('singlePrice') is-invalid is-filled @enderror">
-                                <label class="form-label">Price</label>
-                                <input type="number" class="form-control w-100" name="singlePrice" id="singlePriceField">
-                                @error('singlePrice')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="form-check form-switch">
-                                <label class="form-check-label" id="hasVariant">Has Variant</label>
-                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="visible()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="multisteps-form__content mt-3">
-                        <div class="container px-0" id="rowVariant" style="display: none">
-                            <div class="row mb-4">
-                                <div class="col-6">
-                                <div class="input-group input-group-static">
-                                    <label>Variant Name</label>
-                                    <input class="multisteps-form__input form-control" type="text" name="variants[]" id="variant"/>
-                                </div>
-                                </div>
-                            <div class="col-3">
-                                <div class="input-group input-group-static">
-                                <label>Price</label>
-                                <input type="number" class="form-control w-100" name="price[]" id="price">
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                {{-- <button class="btn btn-link btn-sm" type="button" onclick="removeField(this)">-&nbsp;Remove Field</button> --}}
+                        <div class="d-flex justify-content-between">
+                            <h5 class="font-weight-bolder">Pricing</h5>
+                            <div class="flex">
                                 <button class="btn btn-link btn-sm" type="button" onclick="addField(true, 'variant','price')" id="addVariant">+&nbsp;Add variant</button>
                             </div>
+                        </div>
+                        <div class="multisteps-form__content mt-3">
+                            <div class="container px-0" id="rowVariant">
+                                <div class="row mb-4">
+                                    <div class="col-6">
+                                        <div class="input-group input-group-static">
+                                            <label>Variant Name</label>
+                                            <input class="multisteps-form__input form-control" type="text" name="variants[]" id="variant"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="input-group input-group-static">
+                                        <label>Price</label>
+                                        <input type="number" class="form-control w-100" name="price[]" id="price">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -175,33 +161,5 @@
 
         }
 
-        function checkboxChange(checkboxId){
-            checkBox = document.getElementById(checkboxId);
-            alert(checkBox.value);
-            // if (checkBox) {
-            // } else {
-            //     alert('unchecked');
-            // }
-        }
-
-        function visible() {
-            var elem = document.getElementById('hasVariant');
-            var variantRow = document.getElementById('rowVariant');
-            var singlePriceRow = document.getElementById('singlePrice');
-            var singlePriceField = document.getElementById('singlePriceField');
-            if (elem) {
-                if (elem.innerHTML === "Has Variant") {
-                    elem.innerHTML = "No Variant"
-                    variantRow.style.display = "block"
-                    singlePriceRow.style.display = "none"
-                    singlePriceField.value = ""
-                } 
-                else {
-                    elem.innerHTML = "Has Variant"
-                    variantRow.style.display = "none"
-                    singlePriceRow.style.display = "block"
-                }
-            }
-        }
       </script>
 @endsection

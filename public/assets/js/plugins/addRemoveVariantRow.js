@@ -12,7 +12,7 @@ function addField(edit, variant, price){
     let row = document.getElementById('rowVariant');
     // creating the div row.
     let divRow = document.createElement("div");
-    divRow.setAttribute("class", "row mt-4");
+    divRow.setAttribute("class", "row mb-4");
 
     let divCol1 = document.createElement("div");
     divCol1.setAttribute("class", "col-6");
@@ -42,6 +42,7 @@ function addField(edit, variant, price){
     // Creating the input element.
     let field2 = document.createElement("input");
     field2.setAttribute("type", "number");
+    field2.setAttribute("step", "0.01");
     field2.setAttribute("class", "form-control w-100");
     field2.setAttribute("name", "price[]");
     field2.setAttribute("id", "price");

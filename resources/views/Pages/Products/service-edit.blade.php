@@ -112,7 +112,7 @@
                       <div class="col-2">
                         <div class="input-group input-group-dynamic">
                           <label class="form-label">Price</label>
-                          <input type="number" step="0.10"  class="form-control w-100" name="price[]" id="price" value="{{ $variant->price }}">
+                          <input type="number" step="0.01" class="form-control w-100" name="price[]" id="price" value="{{ $variant->price }}">
                         </div>
                       </div>
                       <div class="col-3">

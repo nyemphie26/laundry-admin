@@ -100,7 +100,7 @@
                                     <div class="col-3">
                                         <div class="input-group input-group-static">
                                         <label>Price</label>
-                                        <input type="number" class="form-control w-100" name="price[]" id="price">
+                                        <input type="number" step="0.10" class="form-control w-100" name="price[]" id="price">
                                         </div>
                                     </div>
                                     <div class="col-3">

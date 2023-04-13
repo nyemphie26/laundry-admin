@@ -25,11 +25,17 @@ class LandingPageController extends Controller
         $home = LandingPage::where('page','contact')->get()->keyBy('key')->pluck('value', 'key');
         return response()->json($home);
     }
-
+    
     public function service(Request $request)
     {
         $page = $request->slug;
         $home = LandingPage::where('page',$page)->get()->keyBy('key')->pluck('value', 'key');
         return response()->json($home);
     }
+    
+        public function footer()
+        {
+            $home = LandingPage::where('page','main-page')->where('key','LIKE','Social_%')->get()->keyBy('key')->pluck('value', 'key');
+            return response()->json($home);
+        }
 }

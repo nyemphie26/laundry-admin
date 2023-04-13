@@ -63,4 +63,5 @@ Route::prefix('v2')->group(function(){
     Route::get('about-page', [LandingPageController::class, 'about']);
     Route::get('contact-page', [LandingPageController::class, 'contact']);
     Route::get('service-page/{slug}', [LandingPageController::class, 'service']);
+    Route::get('footer', [LandingPageController::class, 'footer']);
 });

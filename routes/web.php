@@ -31,8 +31,9 @@ Route::get('/login', function () {
 
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard.main');
-Route::get('/smsTest', [OrderController::class, 'testSms']);
-Route::get('/accountTest', [OrderController::class, 'testAccount']);
+// Route::get('/smsTest', [OrderController::class, 'testSms']);
+// Route::get('/accountTest', [OrderController::class, 'testAccount']);
+// Route::get('/smsStatus/{id}', [OrderController::class, 'statusSms']);
 
 //Account
 Route::get('/account', [UserController::class, 'profile'])->name('account.settings');

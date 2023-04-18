@@ -93,6 +93,7 @@ class OrderController extends Controller
 
     public function delivery(Order $order, Request $request)
     {
+        $err = null;
         DB::transaction(function() use($request,$order){
             
             Schedule::create([
@@ -109,14 +110,18 @@ class OrderController extends Controller
                 "user_id"   => $request['choiced-driver'],
                 "status"    => '0'
             ]);
-        });
 
-        // $sendSms = $this->sendSms($order,$request['delivery_date']);
+        });
+        
+        $sendSms = $this->sendSms($order,$request['delivery_date']);
+        if ($sendSms['status']!=1004) {
+            $err = 'SMS '.$sendSms['status_text'];
+        } 
         
         $redirect = redirect()->route("orders.list");
 
         return $redirect->with([
-            'message'    => "Order with no $order->order_no has been scheduled",
+            'message'    => "Order with no $order->order_no has been scheduled -- ".$err??'',
             'success' => true,
         ]);
     }
@@ -138,60 +143,17 @@ class OrderController extends Controller
     }
 
     public function sendSms(Order $order, $deliveryDate)
-    {
-        $response = Http::withHeaders([
-            'User' => config('services.5csms.user'),
-            'Api-Key' => config('services.5csms.api-key'),
-        ])
-        ->post('https://www.5centsms.com.au/api/v4/sms', [
-            'sender' => config('services.5csms.sender'),
-            'to' => $order->delivery->phone,
-            'message' => 'Hi There! Your Order #'.$order->order_no.' will ship on'.date('l, d F y',strtotime($deliveryDate)),
-        ]);
-        
-        // Output the response
-        echo $response->body();
-    }
-
-    public function testAccount()
-    {
-        $url = 'https://www.5centsms.com.au/api/v4/account'; 
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'User: letsmove150@gmail.com',
-            'Api-Key: urc3Bu2Voo936ciqsi7LmCWiBhgqn4',
-        ));
-
-        $result = curl_exec($ch);
-        curl_close($ch);
-
-        $response = json_decode($result, true);
-        // print_r($response);
-        return $response;
-    }
-
-    public function testSms()
-    {
-        // $response = Http::withHeaders([
-        //     'User' => config('services.5csms.user'),
-        //     'Api-Key' => config('services.5csms.api-key'),
-        // ])
-        // ->post('https://www.5centsms.com.au/api/v4/account');
-        
-        // return $response;
-
+    {   
         $url = 'https://www.5centsms.com.au/api/v4/sms';
+        $message = 'Hi There! Your Order #'.$order->order_no.' will ship on'.date('l, d F y',strtotime($deliveryDate));
 
 	    $fields = array(
-            'sender' => urlencode('0403123123'),
-            'to' => urlencode('0403111111'),
-            'message' => urlencode('Test Message'),
+            'sender' => urlencode(config('services.5csms.sender')),
+            'to' => urlencode($order->delivery->phone),
+            'message' => urlencode($message),
             'test' => urlencode('true'),
         );  
+        
         $fields_string = "";
         foreach($fields as $key => $value) {
             $fields_string .= $key . '=' . $value . '&';
@@ -205,15 +167,126 @@ class OrderController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'User: ['.config('services.5csms.user').']',
-            'Api-Key: ['.config('services.5csms.api-key').']',
+            'User: '.config('services.5csms.user'),
+            'Api-Key: '.config('services.5csms.api-key'),
         ));
 
         $result = curl_exec($ch);
         curl_close($ch);
 
         $response = json_decode($result, true);
-        print_r($response);
+        return $response['messages'][0];
+    }
+
+    public function testAccount()
+    {
+        $url = 'https://www.5centsms.com.au/api/v4/account'; 
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'User: '.config('services.5csms.user'),
+            'Api-Key: '.config('services.5csms.api-key'),
+        ));
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $response = json_decode($result, true);
+        return $response;
+    }
+
+    public function testSms()
+    {
+        $url = 'https://www.5centsms.com.au/api/v4/sms';
+        $message = 'Hi There! Your Order xxx will ship on --date--';
+        $phone = '6281373875234';
+
+	    $fields = array(
+            'sender' => urlencode(config('services.5csms.sender')),
+            'to' => urlencode($phone),
+            'message' => urlencode($message),
+            'test' => urlencode('true'),
+        );  
+        
+        $fields_string = "";
+        foreach($fields as $key => $value) {
+            $fields_string .= $key . '=' . $value . '&';
+        }
+        rtrim($fields_string, '&');
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'User: '.config('services.5csms.user'),
+            'Api-Key: '.config('services.5csms.api-key'),
+        ));
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $response = json_decode($result, true);
+        return $response['messages'][0]['id'];
+        //1602 -> failed destination
+        //1004 -> success
+
+        // $url = 'https://www.5centsms.com.au/api/v4/sms';
+
+	    // $fields = array(
+        //     'sender' => urlencode('0450888000'),
+        //     'to' => urlencode('0404888802'),
+        //     'message' => urlencode('This Message is sent from application and 0450. Cheers'),
+        //     'test' => urlencode('false'),
+        // );  
+        // $fields_string = "";
+        // foreach($fields as $key => $value) {
+        //     $fields_string .= $key . '=' . $value . '&';
+        // }
+        // rtrim($fields_string, '&');
+
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, $url);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        //     'User: '.config('services.5csms.user'),
+        //     'Api-Key: '.config('services.5csms.api-key'),
+        // ));
+
+        // $result = curl_exec($ch);
+        // curl_close($ch);
+
+        // $response = json_decode($result, true);
+        // return $response;
+    }
+
+    public function statusSms(Request $request)
+    {
+        $id = $request->id;
+        $url = 'https://www.5centsms.com.au/api/v4/sms/'.$id;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'User: '.config('services.5csms.user'),
+        'Api-Key: '.config('services.5csms.api-key'),
+        ));
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $response = json_decode($result, true);
+        return $response;
     }
 
 }

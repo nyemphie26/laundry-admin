@@ -151,7 +151,7 @@ class OrderController extends Controller
             'sender' => urlencode(config('services.5csms.sender')),
             'to' => urlencode($order->delivery->phone),
             'message' => urlencode($message),
-            'test' => urlencode('true'),
+            'test' => urlencode('false'),
         );  
         
         $fields_string = "";

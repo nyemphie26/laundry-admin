@@ -186,7 +186,7 @@
                                 </button>
                               </div>
                               <div class="modal-body">
-                                <img src="{{ asset($tracker->image_path) }}" class="preview-img img-fluid shadow border-radius-lg">
+                                <img src="{{ Storage::url($tracker->image_path) }}" class="preview-img img-fluid shadow border-radius-lg">
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn bg-gradient-warning" data-bs-dismiss="modal">Close</button>

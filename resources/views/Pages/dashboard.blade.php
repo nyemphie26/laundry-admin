@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="row mb-4">
-            <div class="col-lg-8 col-md-6 mt-4 mb-4">
+            <div class="col-lg-12 col-md-6 mt-4 mb-4">
                 <div class="card z-index-2 ">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 d-flex align-items-end flex-column">
+            {{-- <div class="col-lg-4 d-flex align-items-end flex-column">
                 <div class="card mb-auto mt-4">
                     <div class="card-header p-3 pt-2 bg-transparent">
                         <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
@@ -103,7 +103,7 @@
                         <p class="mb-0">Monthly Revenue</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="row mb-4">
             <div class="col-lg-12 col-md-6 mt-4 mb-4">

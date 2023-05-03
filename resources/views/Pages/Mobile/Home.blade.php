@@ -29,8 +29,9 @@
                   <a href="{{ route('mobile.today') }}">
                     <span class="text-xs">See All</span>
                   </a>
-                  <hr class="horizontal dark my-3">
-                  <h5 class="mb-0">xx Work(s)</h5>
+                  {{-- <hr class="horizontal dark my-3"> --}}
+                  {{-- <h5 class="mb-0">xx Work(s)</h5> --}}
+                  <h5 class="mb-0">&nbsp;</h5> 
                 </div>
               </div>
             </div>
@@ -88,7 +89,7 @@
           </div>
         </div>
     </div>
-    <div class="row mt-4">
+    {{-- <div class="row mt-4">
       <div class="col-lg-4 col-md-7">
         <div class="card">
           <div class="card-header p-3 pb-0">
@@ -237,7 +238,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 </div>
 {{-- <h1>home</h1> --}}
 @endsection

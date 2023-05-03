@@ -12,6 +12,12 @@ class OrderDetails extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'qty' => 'integer',
+        'price' => 'float',
+        'subtotal' => 'float'
+    ];
+
     public function order()
     {
         return $this->belongsTo(Order::class);

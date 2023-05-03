@@ -15,6 +15,12 @@ class Order extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'total' => 'float',
+        'tax' => 'float',
+        'grand_total' => 'float'
+    ];
+
     public function skuOptions() : SkuOptions
     {
         return SkuOptions::make()

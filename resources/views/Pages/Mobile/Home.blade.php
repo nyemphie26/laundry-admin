@@ -26,12 +26,11 @@
                 </div>
                 <div class="card-body pt-0 p-3 text-center">
                   <h6 class="text-center mb-0">Today's Work</h6>
-                  <a href="{{ route('mobile.today') }}">
+                  {{-- <a href="{{ route('mobile.today') }}">
                     <span class="text-xs">See All</span>
-                  </a>
-                  {{-- <hr class="horizontal dark my-3"> --}}
-                  {{-- <h5 class="mb-0">xx Work(s)</h5> --}}
-                  <h5 class="mb-0">&nbsp;</h5> 
+                  </a> --}}
+                  <hr class="horizontal dark my-3">
+                  <h5 class="mb-0">{{ $todayWorks }} Work(s)</h5>
                 </div>
               </div>
             </div>
@@ -44,7 +43,7 @@
                 </div>
                 <div class="card-body pt-0 p-3 text-center">
                   <h6 class="text-center mb-0">Upcoming Work</h6>
-                  <span class="text-xs">See All</span>
+                  {{-- <span class="text-xs">See All</span> --}}
                   <hr class="horizontal dark my-3">
                   <h5 class="mb-0">{{ $upcomingWorks }} Work(s)</h5>
                 </div>

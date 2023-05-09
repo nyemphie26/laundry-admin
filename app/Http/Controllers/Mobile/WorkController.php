@@ -35,20 +35,13 @@ class WorkController extends Controller
     
     public function pickup()
     {
-        $works = PickupAssign::where('user_id',Auth::user()->id)->with(['order'])->whereHas('order.schedules',function($q){
-            $q->whereDate('schedule_date',date('Y-m-d'))->where('status','pickup');
-        })->get();
-        // return $works;
+        $works = $this->GetPickupList(Auth::user()->id, '=');
         return view('Pages.Mobile.Driver.Pickup', compact('works'));
     }
 
     public function delivery()
     {
-        $works = DeliveryAssign::where('user_id',Auth::user()->id)->with(['order'])->whereHas('order.schedules',function($q){
-            $q->whereDate('schedule_date',date('Y-m-d'))->where('status','deliver');
-        })->get();
-            
-        // return $works;
+        $works = $this->GetDeliveryList(Auth::user()->id, '=');
         return view('Pages.Mobile.Driver.Delivery', compact('works'));
     }
     
@@ -63,11 +56,7 @@ class WorkController extends Controller
     
     public function laundry()
     {
-        $works = LaundressAssign::where('user_id',Auth()->user()->id)->with('order.pickupAssign')->whereHas('order.pickupAssign', function($q){
-            $q->where('status','2');
-        })
-        ->where('status','!=','2')
-        ->get();
+        $works = $this->GetLaundryList(Auth::user()->id, '=');
         // return $works;
         return view('Pages.Mobile.Laundryman.Laundry', compact('works'));
     }
@@ -193,5 +182,28 @@ class WorkController extends Controller
         }
 
         // return response()->json(['status' => $status, 'order' => $id], 200);
+    }
+
+    public function GetPickupList($id, $comp)
+    {
+        return PickupAssign::where('user_id',$id)->with(['order'])->whereHas('order.schedules',function($q) use ($comp) {
+            $q->whereDate('schedule_date', $comp,date('Y-m-d'))->where('status','pickup');
+        })->get();
+    }
+
+    public function GetDeliveryList($id, $comp)
+    {
+        return DeliveryAssign::where('user_id',$id)->with(['order'])->whereHas('order.schedules',function($q) use ($comp){
+            $q->whereDate('schedule_date',$comp,date('Y-m-d'))->where('status','deliver');
+        })->get();
+    }
+
+    public function GetLaundryList($id, $comp)
+    {
+        return LaundressAssign::where('user_id',$id)->with('order.pickupAssign')->whereHas('order.pickupAssign', function($q) use ($comp){
+            $q->where('status', $comp ,'2');
+        })
+        ->where('status','!=','2')
+        ->get();
     }
 }

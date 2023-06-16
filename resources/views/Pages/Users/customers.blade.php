@@ -23,6 +23,7 @@
                   <th class="text-uppercase text-xxs font-weight-bolder opacity-7 ps-2">Phone Number</th>
                   <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Total Orders</th>
                   <th class="text-center text-uppercase text-xxs font-weight-bolder opacity-7">Total Payment</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -42,13 +43,18 @@
                       <p class="mb-0 font-weight-normal text-sm">{{ $customer->email }}</p>
                     </td>
                     <td>
-                      <p class="text-sm font-weight-normal mb-0">{{ $cutomer->phone ?? '-' }}</p>
+                      <p class="text-sm font-weight-normal mb-0">{{ $customer->phone ?? '-' }}</p>
                     </td>
                     <td class="align-middle text-center text-sm">
                       <p class="mb-0 font-weight-normal text-sm">{{ $customer->total_order }} Orders</p>
                     </td>
                     <td class="align-middle text-center">
                       <p class="text-sm font-weight-normal mb-0">{{ $customer->revenue<1000 ? $customer->revenue : round($customer->revenue/1000, 1).'k' }}</p>
+                    </td>
+                    <td class="text-sm">
+                      <a href="{{ route('users.customers.edit', $customer) }}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Reset Password">
+                        <i class="material-icons text-secondary position-relative text-lg">drive_file_rename_outline</i>
+                      </a>
                     </td>
                   </tr>
                 @endforeach

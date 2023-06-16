@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('sanctum:prune-expired --hours=24')->everyTwoMinutes();
+        $schedule->command('auth:clear-resets')->everyTwoMinutes();
         // $schedule->call(function () {
         //     DB::table('order_trackers')->insert([]);
         // })->daily();

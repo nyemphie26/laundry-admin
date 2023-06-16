@@ -102,6 +102,12 @@ class UserController extends Controller
         return view('Pages.Users.customers', compact('customers'));
     }
 
+    public function editCustomer(User $user)
+    {
+        $edit = true;
+        return view('Pages.Users.customer-details', compact('user', 'edit'));
+    }
+
     // Employee CRUD------------------------------------------------------------------------------
     public function employee(){
         $employees = User::role(['admin','driver','employee'])->get();

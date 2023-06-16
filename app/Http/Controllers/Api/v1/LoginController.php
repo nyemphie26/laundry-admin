@@ -8,6 +8,8 @@ use App\Models\SocialAccount;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -52,6 +54,24 @@ class LoginController extends Controller
         
     }
     
+    public function regularLogin(Request $request) {
+        $credentials = $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            if (Auth::user()->hasRole('user')) {
+                $token = Auth::user()->createToken('regular_login')->plainTextToken;
+                return response()->json(['profile'=> new UserResource(Auth::user()), 'token' => $token],200);
+            }            
+        }
+
+        return response()->json([
+            'message'=>'The provided credentials are incorrect.',
+        ],422);
+    }
+    
     public function register(Request $request)
     {
         //create user and social account w/ provider
@@ -80,13 +100,17 @@ class LoginController extends Controller
                 $user->last_name    = $request->last_name;
                 $user->email        = $request->email;
                 $user->avatar_path  = $request->picture;
+                $user->phone        = $request->phone;
+                $user->password     = bcrypt($request->password);
                 $user->save();
 
-                $linkedAccount = new SocialAccount();
-                $linkedAccount->provider_id     = $request->provider_id;
-                $linkedAccount->provider_name   = $request->provider_name;
-                $linkedAccount->user_id         = $user->id;
-                $linkedAccount->save();
+                if(isset($request->provider_id)){
+                    $linkedAccount = new SocialAccount();
+                    $linkedAccount->provider_id     = $request->provider_id;
+                    $linkedAccount->provider_name   = $request->provider_name;
+                    $linkedAccount->user_id         = $user->id;
+                    $linkedAccount->save();
+                };
 
                 $user->assignRole('user');
 
@@ -104,6 +128,28 @@ class LoginController extends Controller
         //then produce token
     }
 
+    public function resetPassword(Request $request){
+
+
+        // $valid = $request->validate(['email' => 'required|email|exists:users']);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|exists:users',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()
+            ], 406);
+        }
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+     
+        return $status === Password::RESET_LINK_SENT
+                    ? response()->json(['status' => __($status), 200])
+                    : response()->json(['email' => __($status), 404]);
+                    // : back()->withErrors(['email' => __($status)]);
+    }
     /**
      * Store a newly created resource in storage.
      *

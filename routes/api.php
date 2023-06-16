@@ -31,7 +31,9 @@ Route::prefix('v1')->group(function(){
 
     // Route::post('/token/login', [LoginController::class, 'index']);
     Route::post('/login', [LoginController::class, 'index']);
+    Route::post('/regularLogin', [LoginController::class, 'regularLogin']);
     Route::post('/register', [LoginController::class, 'register']);
+    Route::post('/resetPassword', [LoginController::class, 'resetPassword']);
 
     Route::get('/categories', function(){
         return CategoryResource::collection(Category::all());

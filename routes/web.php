@@ -1,17 +1,23 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\OrderController;
+use Illuminate\Auth\Events\PasswordReset;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +33,41 @@ Auth::routes();
 
 Route::get('/login', function () {
     return view('Pages.Auth.login');
-})->name('login');
+})->middleware('guest')->name('login');
 
+Route::get('/reset-password/{token}', function(string $token){
+    return view('Pages.Auth.reset-password', ['token'=>$token]);
+})->name('password.reset');
+
+Route::post('/reset-password', function (Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|min:8|confirmed',
+    ]);
+
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function (User $user, string $password) {
+            $user->forceFill([
+                'password' => Hash::make($password)
+            ])->setRememberToken(Str::random(60));
+ 
+            $user->save();
+ 
+            event(new PasswordReset($user));
+        }
+    );
+ 
+    return $status === Password::PASSWORD_RESET
+                ? view('Pages.Auth.reset-success', ['status'=> __($status)])
+                : view('Pages.Auth.reset-failed', ['status'=> __($status)]);
+                // : back()->withErrors(['email' => [__($status)]]);
+})->name('password.update');
+
+Route::get('/success-reset-pass', function(){
+    return view('Pages.Auth.reset-success');
+})->name('password.reset.success');
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard.main');
 // Route::get('/smsTest', [OrderController::class, 'testSms']);
@@ -79,6 +118,8 @@ Route::group(['middleware' => ['can:access admin page']], function(){
 
     //Users
     Route::get('/customers', [UserController::class, 'customers'])->name('users.customers');
+    Route::get('/customers/{user}/edit',[UserController::class, 'editCustomer'] )->name('users.customers.edit');
+    Route::put('/customers/{user}',[UserController::class, 'updateCustomer'] )->name('users.customers.update');
     
     //Report
     Route::get('/summary', [ReportController::class, 'index'])->name('summary.index');

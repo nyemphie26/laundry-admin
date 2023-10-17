@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6bb3f90f4e26a1ecdbe2a3e8a08396ed",
+    "content-hash": "d0fad22b64ba5653b970fda7a6da37e8",
     "packages": [
         {
             "name": "binary-cats/laravel-sku",
@@ -4166,16 +4166,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v10.11.0",
+            "version": "v10.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "899f50664d47ddac4f9c1ce871a4aca402f963a0"
+                "reference": "ea863a92102a8e8dbdeddf79b4535c355ec62d91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/899f50664d47ddac4f9c1ce871a4aca402f963a0",
-                "reference": "899f50664d47ddac4f9c1ce871a4aca402f963a0",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/ea863a92102a8e8dbdeddf79b4535c355ec62d91",
+                "reference": "ea863a92102a8e8dbdeddf79b4535c355ec62d91",
                 "shasum": ""
             },
             "require": {
@@ -4221,9 +4221,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v10.11.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v10.16.0"
             },
-            "time": "2023-03-23T21:41:24+00:00"
+            "time": "2023-06-29T23:40:49+00:00"
         },
         {
             "name": "symfony/console",

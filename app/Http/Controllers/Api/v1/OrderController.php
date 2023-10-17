@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Models\OrderTracker;
+use App\Notifications\IncomingOrder;
+use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
 {
@@ -91,6 +93,7 @@ class OrderController extends Controller
             
             DB::commit();
             
+            Notification::route('mail',env('MAIL_RECEIVER_FOR_INCOMING_ORDER'))->notify(new IncomingOrder($newOrder));
             return response()->json(['message'=> 'Stored'],200);
         } catch (\Throwable $th) {
             DB::rollBack();

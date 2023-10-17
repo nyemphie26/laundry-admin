@@ -1,7 +1,10 @@
 <?php
 
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Schedule;
 use Illuminate\Support\Str;
+use App\Notifications\IncomingOrder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +19,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
 
@@ -98,7 +102,6 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::get('/services', [LandingPageController::class, 'services'])->name('landingpage.services');
     Route::post('/services', [LandingPageController::class, 'storeValue'])->name('services.store');
     
-    
     //Orders
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.list');
     Route::get('/orders/details/{order}', [OrderController::class, 'details'])->name('orders.list.details');
@@ -146,6 +149,12 @@ Route::group(['middleware' => ['can:access admin page']], function(){
     Route::get('/lastRevenue',[DashboardController::class, 'lastRevenue']);
     Route::get('/lastCust',[DashboardController::class, 'lastCust']);
 
+    //sendEmail
+    // Route::get('/sendEmail/{order}',function(string $orderid){
+    //     $order = Order::findOrFail($orderid);
+    //     // return Notification::route('mail',env('MAIL_RECEIVER_FOR_INCOMING_ORDER'))->notify(new IncomingOrder($order));
+    //     return (new IncomingOrder($order))->toMail($order->user);
+    // });
 });
 
 
